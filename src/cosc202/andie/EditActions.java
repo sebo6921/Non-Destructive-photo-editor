@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
  /**
+ * I made a change to this file.
  * <p>
  * Actions provided by the Edit menu.
  * </p>
