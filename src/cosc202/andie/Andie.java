@@ -6,12 +6,9 @@ import javax.imageio.*;
 
 /**
  * Testing changes
- * hello
  * :D
- * jwiwoefjds
- * 
+ * heyyyyyyyy
  * <p>
- * what ever
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
  * fuck u
