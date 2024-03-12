@@ -7,11 +7,7 @@ import javax.imageio.*;
 /**
  * Testing changes
  * :D
-<<<<<<< HEAD
  * 
-=======
- * heyyyyyyyy
->>>>>>> ec80d897aa43222eeff1988113183e5eba59d556
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
