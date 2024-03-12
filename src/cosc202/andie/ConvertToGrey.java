@@ -7,6 +7,8 @@ import java.awt.image.*;
  * ImageOperation to convert an image from colour to greyscale.
  * </p>
  * 
+ * this y your granny dead
+ * 
  * <p>
  * The images produced by this operation are still technically colour images,
  * in that they have red, green, and blue values, but each pixel has equal
