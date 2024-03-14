@@ -35,6 +35,7 @@ public class ColourActions {
     public ColourActions() {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new ImageInversionAction("Invert Image", null, "Invert image colours", Integer.valueOf(KeyEvent.VK_G)));
     }
 
     /**
@@ -95,6 +96,48 @@ public class ColourActions {
             target.getParent().revalidate();
         }
 
+    }
+
+    /**
+     * <p>
+     * Action to invert image RGB values
+     * </p>
+     * 
+     * @see ImageInversion
+     */
+    public class ImageInversionAction extends ImageAction {
+
+        /** 
+         * <p>
+         * Create a new ImageInversion action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        ImageInversionAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the ImageInversionAction is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ImageInversionAction is triggered.
+         * It inverts the RGB values of the image.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ImageInversion());
+            target.repaint();
+            target.getParent().revalidate();
+        }
     }
 
 }
