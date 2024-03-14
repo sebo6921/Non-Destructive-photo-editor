@@ -5,13 +5,10 @@ import javax.swing.*;
 import javax.imageio.*;
 
 /**
- * Testing changes
- * :D
- * heyyyyyyyy
  * <p>
  * Main class for A Non-Destructive Image Editor (ANDIE).
  * </p>
- * fuck u
+ * 
  * <p>
  * This class is the entry point for the program.
  * It creates a Graphical User Interface (GUI) that provides access to various image editing and processing operations.
