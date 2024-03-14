@@ -7,7 +7,7 @@ import java.util.*;
  * <p>
  * ImageOperation to apply a Mean (simple blur) filter.
  * </p>
- *  im making a change to this - seb
+ * 
  * <p>
  * A Mean filter blurs an image by replacing each pixel by the average of the
  * pixels in a surrounding neighbourhood, and can be implemented by a convoloution.
