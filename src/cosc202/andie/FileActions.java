@@ -38,6 +38,8 @@ public class FileActions {
         actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
         actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
+        actions.add(new FileSaveAsAction("Export", null, "Export the current copy", Integer.valueOf(KeyEvent.VK_Z)));
+
     }
 
     /**
@@ -247,5 +249,43 @@ public class FileActions {
         }
 
     }
+/**
+ * Action to export the current image to a new file location.
+ */
+public class FileExportAction extends ImageAction {
 
+    /**
+     * Create a new file-export action.
+     * 
+     * @param name The name of the action (ignored if null).
+     * @param icon An icon to use to represent the action (ignored if null).
+     * @param desc A brief description of the action  (ignored if null).
+     * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+     */
+    FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+        super(name, icon, desc, mnemonic);
+    }
+
+    /**
+     * Callback for when the file-export action is triggered.
+     * 
+     * This method is called whenever the FileExportAction is triggered.
+     * It prompts the user to select a file and exports the current image to it.
+     * 
+     * @param e The event triggering this callback.
+     */
+    public void actionPerformed(ActionEvent e) {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showSaveDialog(target);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            try {
+                String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
+                    target.getImage().saveAs(imageFilepath);
+            } catch (Exception ex) {
+                System.exit(1);
+            }
+        }
+    }
+}
 }

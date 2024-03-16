@@ -273,5 +273,21 @@ class EditableImage {
             current = op.apply(current);
         }
     }
-
+/**
+ * <p>
+ * Export the current image to a new file location.
+ * </p>
+ * 
+ * <p>
+ * This method saves the current image to the specified file path.
+ * </p>
+ * 
+ * @param filepath The file path where the image should be exported.
+ * @throws Exception If something goes wrong during the export process.
+ */
+public void exportAs(String filepath) throws Exception {
+    // Write image file based on file extension
+    String extension = filepath.substring(filepath.lastIndexOf(".") + 1).toLowerCase();
+    ImageIO.write(getCurrentImage(), extension, new File(filepath));
+}
 }

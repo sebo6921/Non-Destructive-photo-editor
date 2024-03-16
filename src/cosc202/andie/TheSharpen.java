@@ -9,9 +9,9 @@ public class TheSharpen implements ImageOperation,java.io.Serializable {
     }
 
     public BufferedImage apply (BufferedImage input){
-        float [] array = { 0, -1/2, 0,
-                           -1/2, 3, -1/2,
-                           0, -1/2, 0};
+        float[] array = { 0, -1/2.0f, 0,
+                     -1/2.0f, 3, -1/2.0f,
+                          0, -1/2.0f, 0 };
         Kernel kernel = new Kernel(3, 3, array);
 
         ConvolveOp convOp = new ConvolveOp(kernel);
