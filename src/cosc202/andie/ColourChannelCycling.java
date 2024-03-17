@@ -13,7 +13,7 @@ import java.awt.image.*;
  * </p>
  * 
  * @author James Maher
- * @version 1.0
+ * @version 1.1
  */
 public class ColourChannelCycling implements ImageOperation, java.io.Serializable{
 
@@ -49,16 +49,11 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                int temp = 0;
+                int temp = r;
+                r = b;
+                b = g;
+                g = temp;
                 
-                if(temp == 0){
-                    temp = r;
-                    r = b;
-                    b = g;
-                    g = temp;
-                }else{
-                    break;
-                }
 
                 argb = (a << 24) | (r << 16) | (g << 8) | b;
                 input.setRGB(x, y, argb);
