@@ -36,6 +36,7 @@ public class ColourActions {
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction("Greyscale", null, "Convert to greyscale", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new ImageInversionAction("Invert Image", null, "Invert image colours", Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new ColourChannelCyclingAction("Colour Channel Cycling", null, "Cycle image colour channels", Integer.valueOf(KeyEvent.VK_G)));
     }
 
     /**
@@ -135,6 +136,48 @@ public class ColourActions {
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new ImageInversion());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to cycle RGB values
+     * </p>
+     * 
+     * @see ColourChannelCycling
+     */
+    public class ColourChannelCyclingAction extends ImageAction {
+
+        /** 
+         * <p>
+         * Create a new ColourChannelCycling action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
+        ColourChannelCyclingAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+        }
+
+        /**
+         * <p>
+         * Callback for when the ImageInversionAction is triggered.
+         * </p>
+         * 
+         * <p>
+         * This method is called whenever the ImageInversionAction is triggered.
+         * It inverts the RGB values of the image.
+         * </p>
+         * 
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new ColourChannelCycling());
             target.repaint();
             target.getParent().revalidate();
         }

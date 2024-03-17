@@ -4,42 +4,41 @@ import java.awt.image.*;
 
 /**
  * <p>
- * ImageOperation to invert the colours of the image.
+ * ImageOperation to cycle the colour channels of the image.
  * </p>
  * 
  * <p>
- * This takes the current values of the rgb parameters and
- * changes them to be (255 - current rgb value) for each
- * parameter individually.
+ * This takes the current values of the rgb colour channels and
+ * rotates them between each other.
  * </p>
  * 
  * @author James Maher
  * @version 1.0
  */
-public class ImageInversion implements ImageOperation, java.io.Serializable{
+public class ColourChannelCycling implements ImageOperation, java.io.Serializable{
 
     /**
      * <p>
-     * Create a new ImageInversion operation
+     * Create a new ColourChannelCycling operation
      * </p
      */
-    ImageInversion() {
+    ColourChannelCycling() {
     
     }
     
     /**
      * <p>
-     * Apply the inversion to the image.
+     * Apply the colour channel cycling to the image.
      * </p>
      * 
      * <p>
-     * The inversion process iterates over the image and
+     * The colour channel cycling process iterates over the image and
      * converts the current rgb values for each pixel to
-     * (255 - current rgb value).
+     * the corresponding rgb value for the current cycle.
      * </p>
      * 
-     * @param input the image being inverted
-     * @param return the inverted image
+     * @param input the image having colour channel cycling applied to it
+     * @param return the colour channel cycled image
      */
     public BufferedImage apply(BufferedImage input) {
         for (int y = 0; y < input.getHeight(); y++) {
@@ -50,10 +49,16 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
                 int g = (argb & 0x0000FF00) >> 8;
                 int b = (argb & 0x000000FF);
 
-                r = 255 - r;
-                g = 255 - g;
-                b = 255 - b;
-
+                int temp = 0;
+                
+                if(temp == 0){
+                    temp = r;
+                    r = b;
+                    b = g;
+                    g = temp;
+                }else{
+                    break;
+                }
 
                 argb = (a << 24) | (r << 16) | (g << 8) | b;
                 input.setRGB(x, y, argb);
