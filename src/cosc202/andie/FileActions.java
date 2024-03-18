@@ -38,8 +38,7 @@ public class FileActions {
         actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
         actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
-        actions.add(new FileSaveAsAction("Export", null, "Export the current copy", Integer.valueOf(KeyEvent.VK_Z)));
-
+        actions.add(new FileExportAction("Export", null, "Export the current copy", Integer.valueOf(KeyEvent.VK_Z)));
     }
 
     /**
@@ -289,3 +288,4 @@ public class FileExportAction extends ImageAction {
     }
 }
 }
+
