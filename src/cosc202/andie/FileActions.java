@@ -42,9 +42,8 @@ public class FileActions {
         actions.add(new FileOpenAction("Open", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
         actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
         actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
         actions.add(new FileExportAction("Export", null, "Export the image", Integer.valueOf(KeyEvent.VK_Z)));
-
+        actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
     }
 
     /**
@@ -220,7 +219,7 @@ public class FileActions {
     public class FileExportAction extends ImageAction {
 /**
          * <p>
-         * Create a new file-save-as action.
+         * Create a new file-export action.
          * </p>
          * 
          * @param name The name of the action (ignored if null).
@@ -239,19 +238,19 @@ public class FileActions {
          * 
          * <p>
          * This method is called whenever the FileExportAction is triggered.
-         * It prompts the user to select a file and saves the image to it.
+         * It prompts the user to select a file and saves the current image to it.
          * </p>
          * 
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
-            int result = fileChooser.showSaveDialog(target.getCurrentImage());
+            int result = fileChooser.showSaveDialog(target);
 
             if (result == JFileChooser.APPROVE_OPTION) {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
-                    target.getImage().saveAs(imageFilepath);
+                    target.getImage().export(imageFilepath);
                     JOptionPane.showMessageDialog(null, "Image saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     ex.printStackTrace();

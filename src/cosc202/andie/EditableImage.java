@@ -242,7 +242,7 @@ class EditableImage {
 
     /**
      * <p>
-     * Save an image to a speficied file.
+     * Save an image to a specified file.
      * </p>
      * 
      * <p>
@@ -257,6 +257,12 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void saveAs(String imageFilename) throws Exception {
+        this.imageFilename = imageFilename;
+        this.opsFilename = imageFilename + ".ops";
+        save();
+    }
+
+    public void export(String imageFilename) throws Exception {
         this.imageFilename = imageFilename;
         this.opsFilename = imageFilename + ".ops";
         save();
