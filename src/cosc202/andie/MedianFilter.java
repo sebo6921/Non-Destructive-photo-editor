@@ -36,7 +36,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable  {
 
 
 
-
+        return output;
 
 }
 

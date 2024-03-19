@@ -35,8 +35,8 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
         for (int x = -radius; x <= radius; x++){
             for (int y = -radius; y <= radius; y++){
                 int index = (x + radius) * size + (y + radius);
-                double exponent = -(x * x + y * y)/(2 * sigma * sigma);
-                array[index] = (float) frontHalf * (float) Math.exp(exponent);
+                double exp = -(x * x + y * y)/(2 * sigma * sigma);
+                array[index] = (float) frontHalf * (float) Math.exp(exp);
                 total += array[index];
             }
         }
