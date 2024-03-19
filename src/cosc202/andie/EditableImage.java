@@ -12,21 +12,27 @@ import javax.swing.JOptionPane;
  * </p>
  * 
  * <p>
- * The EditableImage represents an image with a series of operations applied to it.
+ * The EditableImage represents an image with a series of operations applied to
+ * it.
  * It is fairly core to the ANDIE program, being the central data structure.
- * The operations are applied to a copy of the original image so that they can be undone.
- * THis is what is meant by "A Non-Destructive Image Editor" - you can always undo back to the original image.
+ * The operations are applied to a copy of the original image so that they can
+ * be undone.
+ * THis is what is meant by "A Non-Destructive Image Editor" - you can always
+ * undo back to the original image.
  * </p>
  * 
  * <p>
- * Internally the EditableImage has two {@link BufferedImage}s - the original image 
- * and the result of applying the current set of operations to it. 
- * The operations themselves are stored on a {@link Stack}, with a second {@link Stack} 
+ * Internally the EditableImage has two {@link BufferedImage}s - the original
+ * image
+ * and the result of applying the current set of operations to it.
+ * The operations themselves are stored on a {@link Stack}, with a second
+ * {@link Stack}
  * being used to allow undone operations to be redone.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
@@ -36,7 +42,9 @@ class EditableImage {
 
     /** The original image. This should never be altered by ANDIE. */
     private BufferedImage original;
-    /** The current image, the result of applying {@link ops} to {@link original}. */
+    /**
+     * The current image, the result of applying {@link ops} to {@link original}.
+     */
     private BufferedImage current;
     /** The sequence of operations currently applied to the image. */
     private Stack<ImageOperation> ops;
@@ -46,6 +54,7 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
+    protected static boolean imageModified;
 
     /**
      * <p>
@@ -53,7 +62,8 @@ class EditableImage {
      * </p>
      * 
      * <p>
-     * A new EditableImage has no image (it is a null reference), and an empty stack of operations.
+     * A new EditableImage has no image (it is a null reference), and an empty stack
+     * of operations.
      * </p>
      */
     public EditableImage() {
@@ -78,34 +88,41 @@ class EditableImage {
 
     /**
      * <p>
-     * Make a 'deep' copy of a BufferedImage. 
+     * Make a 'deep' copy of a BufferedImage.
      * </p>
      * 
      * <p>
-     * Object instances in Java are accessed via references, which means that assignment does
+     * Object instances in Java are accessed via references, which means that
+     * assignment does
      * not copy an object, it merely makes another reference to the original.
-     * In order to make an independent copy, the {@code clone()} method is generally used.
-     * {@link BufferedImage} does not implement {@link Cloneable} interface, and so the 
+     * In order to make an independent copy, the {@code clone()} method is generally
+     * used.
+     * {@link BufferedImage} does not implement {@link Cloneable} interface, and so
+     * the
      * {@code clone()} method is not accessible.
      * </p>
      * 
      * <p>
      * This method makes a cloned copy of a BufferedImage.
-     * This requires knoweldge of some details about the internals of the BufferedImage,
+     * This requires knoweldge of some details about the internals of the
+     * BufferedImage,
      * but essentially comes down to making a new BufferedImage made up of copies of
      * the internal parts of the input.
      * </p>
      * 
      * <p>
      * This code is taken from StackOverflow:
-     * <a href="https://stackoverflow.com/a/3514297">https://stackoverflow.com/a/3514297</a>
-     * in response to 
-     * <a href="https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage">https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage</a>.
+     * <a href=
+     * "https://stackoverflow.com/a/3514297">https://stackoverflow.com/a/3514297</a>
+     * in response to
+     * <a href=
+     * "https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage">https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage</a>.
      * Code by Klark used under the CC BY-SA 2.5 license.
      * </p>
      * 
      * <p>
-     * This method (only) is released under <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>
+     * This method (only) is released under
+     * <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a>
      * </p>
      * 
      * @param bi The BufferedImage to copy.
@@ -117,7 +134,7 @@ class EditableImage {
         WritableRaster raster = bi.copyData(null);
         return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
-    
+
     /**
      * <p>
      * Open an image from a file.
@@ -125,8 +142,10 @@ class EditableImage {
      * 
      * <p>
      * Opens an image from the specified file.
-     * Also tries to open a set of operations from the file with <code>.ops</code> added.
-     * So if you open <code>some/path/to/image.png</code>, this method will also try to
+     * Also tries to open a set of operations from the file with <code>.ops</code>
+     * added.
+     * So if you open <code>some/path/to/image.png</code>, this method will also try
+     * to
      * read the operations from <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
@@ -134,49 +153,57 @@ class EditableImage {
      * @throws Exception If something goes wrong.
      */
     public void open(String filePath) throws Exception {
+        if (imageModified) {
+            int choice = JOptionPane.showConfirmDialog(null,
+                    "You have unsaved changes. Do you want to discard them and open a new image?", "Confirm",
+                    JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                return; // User chose not to discard changes, so return without opening a new image
+            }
+        }
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
-        try{
+        try {
             original = ImageIO.read(imageFile);
-            if(original==null){
+            if (original == null) {
                 JOptionPane.showMessageDialog(null, "The file you are trying to open is not a valid image.",
-                "Invalid Image", JOptionPane.ERROR_MESSAGE);
-                    return ;
+                        "Invalid Image", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             current = deepCopy(original);
 
-        
-        
-        try {
-            FileInputStream fileIn = new FileInputStream(this.opsFilename);
-            ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            try {
+                FileInputStream fileIn = new FileInputStream(this.opsFilename);
+                ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
-            // Silence the Java compiler warning about type casting.
-            // Understanding the cause of the warning is way beyond
-            // the scope of COSC202, but if you're interested, it has
-            // to do with "type erasure" in Java: the compiler cannot
-            // produce code that fails at this point in all cases in
-            // which there is actually a type mismatch for one of the
-            // elements within the Stack, i.e., a non-ImageOperation.
-            @SuppressWarnings("unchecked")
-            Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
-            ops = opsFromFile;
-            redoOps.clear();
-            objIn.close();
-            fileIn.close();
-        } catch (Exception ex) {
-            // Could be no file or something else. Carry on for now.
-                
+                // Silence the Java compiler warning about type casting.
+                // Understanding the cause of the warning is way beyond
+                // the scope of COSC202, but if you're interested, it has
+                // to do with "type erasure" in Java: the compiler cannot
+                // produce code that fails at this point in all cases in
+                // which there is actually a type mismatch for one of the
+                // elements within the Stack, i.e., a non-ImageOperation.
+                @SuppressWarnings("unchecked")
+                Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
+                ops = opsFromFile;
+                redoOps.clear();
+                objIn.close();
+                fileIn.close();
+            } catch (Exception ex) {
+                // Could be no file or something else. Carry on for now.
+
+            }
+            this.refresh();
+            imageModified = false; // Reset imageModified flag after opening a new image
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                    "The file you are trying to open is not accessible or not a valid image.",
+                    "Error Opening Image", JOptionPane.ERROR_MESSAGE);
 
         }
-        this.refresh();
-    }catch (IOException e){
-        JOptionPane.showMessageDialog(null, "The file you are trying to open is not accessible or not a valid image.",
-        "Error Opening Image", JOptionPane.ERROR_MESSAGE);
-
     }
-}
 
     /**
      * <p>
@@ -184,9 +211,11 @@ class EditableImage {
      * </p>
      * 
      * <p>
-     * Saves an image to the file it was opened from, or the most recent file saved as.
+     * Saves an image to the file it was opened from, or the most recent file saved
+     * as.
      * Also saves a set of operations from the file with <code>.ops</code> added.
-     * So if you save to <code>some/path/to/image.png</code>, this method will also save
+     * So if you save to <code>some/path/to/image.png</code>, this method will also
+     * save
      * the current operations to <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
@@ -197,7 +226,7 @@ class EditableImage {
             this.opsFilename = this.imageFilename + ".ops";
         }
         // Write image file based on file extension
-        String extension = imageFilename.substring(1+imageFilename.lastIndexOf(".")).toLowerCase();
+        String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
         ImageIO.write(original, extension, new File(imageFilename));
         // Write operations file
         FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
@@ -207,7 +236,6 @@ class EditableImage {
         fileOut.close();
     }
 
-
     /**
      * <p>
      * Save an image to a speficied file.
@@ -216,7 +244,8 @@ class EditableImage {
      * <p>
      * Saves an image to the file provided as a parameter.
      * Also saves a set of operations from the file with <code>.ops</code> added.
-     * So if you save to <code>some/path/to/image.png</code>, this method will also save
+     * So if you save to <code>some/path/to/image.png</code>, this method will also
+     * save
      * the current operations to <code>some/path/to/image.png.ops</code>.
      * </p>
      * 
@@ -237,6 +266,12 @@ class EditableImage {
      * @param op The operation to apply.
      */
     public void apply(ImageOperation op) {
+        if (current == null) {
+            JOptionPane.showMessageDialog(null, "There is no valid image to apply actions to.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        imageModified = true;
         current = op.apply(current);
         ops.add(op);
     }
@@ -256,7 +291,7 @@ class EditableImage {
      * Reapply the most recently {@link undo}ne {@link ImageOperation} to the image.
      * </p>
      */
-    public void redo()  {
+    public void redo() {
         apply(redoOps.pop());
     }
 
@@ -265,7 +300,8 @@ class EditableImage {
      * Get the current image after the operations have been applied.
      * </p>
      * 
-     * @return The result of applying all of the current operations to the {@link original} image.
+     * @return The result of applying all of the current operations to the
+     *         {@link original} image.
      */
     public BufferedImage getCurrentImage() {
         return current;
@@ -278,14 +314,16 @@ class EditableImage {
      * 
      * <p>
      * While the latest version of the image is stored in {@link current}, this
-     * method makes a fresh copy of the original and applies the operations to it in sequence.
-     * This is useful when undoing changes to the image, or in any other case where {@link current}
-     * cannot be easily incrementally updated. 
+     * method makes a fresh copy of the original and applies the operations to it in
+     * sequence.
+     * This is useful when undoing changes to the image, or in any other case where
+     * {@link current}
+     * cannot be easily incrementally updated.
      * </p>
      */
-    private void refresh()  {
+    private void refresh() {
         current = deepCopy(original);
-        for (ImageOperation op: ops) {
+        for (ImageOperation op : ops) {
             current = op.apply(current);
         }
     }
