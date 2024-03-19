@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.*;
+import javax.swing.JOptionPane;
 
 /**
  * <p>
@@ -136,8 +137,16 @@ class EditableImage {
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
-        original = ImageIO.read(imageFile);
-        current = deepCopy(original);
+        try{
+            original = ImageIO.read(imageFile);
+            if(original==null){
+                JOptionPane.showMessageDialog(null, "The file you are trying to open is not a valid image.",
+                "Invalid Image", JOptionPane.ERROR_MESSAGE);
+                    return ;
+            }
+            current = deepCopy(original);
+
+        
         
         try {
             FileInputStream fileIn = new FileInputStream(this.opsFilename);
@@ -158,9 +167,16 @@ class EditableImage {
             fileIn.close();
         } catch (Exception ex) {
             // Could be no file or something else. Carry on for now.
+                
+
         }
         this.refresh();
+    }catch (IOException e){
+        JOptionPane.showMessageDialog(null, "The file you are trying to open is not accessible or not a valid image.",
+        "Error Opening Image", JOptionPane.ERROR_MESSAGE);
+
     }
+}
 
     /**
      * <p>
