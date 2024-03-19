@@ -18,6 +18,7 @@ public class SoftBlur implements ImageOperation, java.io.Serializable {
 
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         convOp.filter(input, output);
+        
 
         return output;
     }
