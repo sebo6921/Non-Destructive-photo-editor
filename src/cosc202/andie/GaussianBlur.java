@@ -28,7 +28,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
     private float[] creatingGaussianKernel(int radius){
         int size = 2 * radius + 1;
         float[] array = new float[size * size];
-        double sigma = radius / 3;
+        double sigma = radius / 3.0;
         double frontHalf = 1 / (2 * Math.PI * sigma * sigma);
         double total = 0;
 
