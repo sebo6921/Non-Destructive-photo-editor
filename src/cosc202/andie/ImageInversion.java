@@ -59,7 +59,6 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
                 input.setRGB(x, y, argb);
             }
         }
-
         return input;
     }
 }
