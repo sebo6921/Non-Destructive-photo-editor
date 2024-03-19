@@ -37,7 +37,7 @@ public class FilterActions {
         actions.add(new MeanFilterAction("Mean Filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a gaussian blur", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new SoftBlurAction("Soft Blur", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new SoftBlurAction("Sharpen Image", null, "Sharpen the Image", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new SharpenImageAction("Sharpen Image", null, "Sharpen the Image", Integer.valueOf(KeyEvent.VK_A)));
 
     }
 
