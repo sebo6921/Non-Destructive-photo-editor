@@ -29,7 +29,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable  {
     public BufferedImage apply(BufferedImage input) {
         int width = input.getWidth(); // retrieves the width of the BufferedImage parameter
         int height = input.getHeight(); // retrieves the height of the BufferedImage parameter
-        
+
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
 
 

@@ -31,7 +31,6 @@ public class FileActions {
     
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
-    protected boolean imageModified;
 
     /**
      * <p>
@@ -99,13 +98,6 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            if(imageModified){
-                int choice =JOptionPane.showConfirmDialog(null, "You have unsaved changes. Do you want to discard them and open a new image?", "Confirm", JOptionPane.YES_NO_OPTION);
-                if (choice != JOptionPane.YES_OPTION) {
-                    return; // User chose not to discard changes, so return without opening a new image
-                }
-
-            }
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
 
@@ -113,7 +105,6 @@ public class FileActions {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
-                    imageModified = false;
                 } catch (Exception ex) {
                     System.exit(1);
                 }
