@@ -39,10 +39,10 @@ public class FileActions {
      */
     public FileActions() {
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction("Open", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction("Save", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction("Save As", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAction("Export", null, "Export the image", Integer.valueOf(KeyEvent.VK_Z)));
+        actions.add(new FileOpenAction("Open (O)", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileSaveAction("Save (S)", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileSaveAsAction("Save As (A)", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAction("Export (E)", null, "Export the image", Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
     }
 
