@@ -24,7 +24,7 @@ public class HelpActions {
      * Note that this action only affects the way the image is displayed, not its actual contents.
      * </p>
      */
-    public class HelpGuideAction extends ImageAction {
+    public class HelpGuideAction {
 
         /**
          * <p>
