@@ -2,6 +2,16 @@ package cosc202.andie;
 
 import java.awt.image.*;
 
+/**
+ * <p>
+ * ImageOperation to apply a soft blur filter.
+ * </p>
+ * 
+ * <p>
+ * A soft blur filter blurs an image by replacing each pixel by the average of the
+ * pixels in a surrounding neighbourhood, and can be implemented by a convoloution.
+ * </p>
+ */
 public class SoftBlur implements ImageOperation, java.io.Serializable {
     
     SoftBlur(){
