@@ -3,6 +3,7 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * <p>
@@ -37,7 +38,7 @@ public class FilterActions {
         actions.add(new MeanFilterAction("Mean Filter", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
         actions.add(new GaussianBlurAction("Gaussian Blur", null, "Apply a gaussian blur", Integer.valueOf(KeyEvent.VK_G)));
         actions.add(new SoftBlurAction("Soft Blur", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new SharpenImageAction("Sharpen Image", null, "Sharpen the Image", Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new SharpenImageAction("Sharpen Image", null, "Sharpen the Image", Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new MedianFilterAction("Median Filter", null, "Apply a median filter", Integer.valueOf(KeyEvent.VK_D)));
 
 
@@ -96,20 +97,29 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
             // Determine the radius - ask the user.
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            JLabel message1 = new JLabel("Enter a filter radius");
+            JLabel message2 = new JLabel("between 1 and 10 (inclusive)");
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension (190, 30));
+            panel.add(message1);
+            panel.add(message2);
+            panel.add(radiusSpinner);
+            
+            int option = JOptionPane.showOptionDialog(null, panel, "Enter Filter Radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
                 radius = radiusModel.getNumber().intValue();
+                if (radius < 1 || radius > 10){
+                }
             }
 
             // Create and apply the filter
@@ -143,7 +153,15 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            JLabel message1 = new JLabel("Enter a filter radius");
+            JLabel message2 = new JLabel("between 1 and 10 (inclusive)");
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension (190, 30));
+            panel.add(message1);
+            panel.add(message2);
+            panel.add(radiusSpinner);
+            
+            int option = JOptionPane.showOptionDialog(null, panel, "Enter Filter Radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -221,7 +239,15 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            int option = JOptionPane.showOptionDialog(null, radiusSpinner, "Enter filter radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            JLabel message1 = new JLabel("Enter a filter radius");
+            JLabel message2 = new JLabel("between 1 and 10 (inclusive)");
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension (190, 30));
+            panel.add(message1);
+            panel.add(message2);
+            panel.add(radiusSpinner);
+            
+            int option = JOptionPane.showOptionDialog(null, panel, "Enter Filter Radius", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {

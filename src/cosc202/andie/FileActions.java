@@ -299,6 +299,14 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+            if (EditableImage.imageModified) {
+                int choice = JOptionPane.showConfirmDialog(null,
+                        "You have unsaved changes. Do you want to discard them and exit?", "Confirm",
+                        JOptionPane.YES_NO_OPTION);
+                if (choice != JOptionPane.YES_OPTION) {
+                    return; // User chose not to discard changes, so do not exit
+                }
+            }
             System.exit(0);
         }
 
