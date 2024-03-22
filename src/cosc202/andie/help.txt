@@ -1,0 +1,33 @@
+
+File:
+Open - to import any image 
+Save - to save changes you have to your selected image
+Save As -  choose a new file name and location to save your image.
+Export - to save to any directory on your computer
+Exit - to quit the ANDIE application
+
+Edit:
+Undo - to reverse the most recent operation
+Redo - to redo the previously undone operation.
+
+View:
+Zoom In - to enlarge the view of the image.
+Zoom Out - to reduce the view of the image.
+Zoom Full - to view the entire image within the application window.
+
+Filter:
+Mean Filter - applies a filter that replaces each pixel value with the average value of its neighboring pixels.
+Gaussian Filter - applies a filter that blurs the image using a Gaussian function.
+Soft Blur - applies a gentle blurring effect to the image.
+Sharpen Image - enhances the edges and details in the image.
+Median Filter - applies a filter that replaces each pixel value with the median value of its neighboring pixels.
+
+Colour:
+GreyScale - converts the image to grayscale, removing color information.
+Invert Image - inverts the colors of the image.
+Colour Channel Cycling - cycles through different color channels of the image.
+
+Transformation:
+Resize - adjust the dimensions of the image.
+Rotate - rotate the image clockwise or counterclockwise.
+Flip - flip the image horizontally or vertically.

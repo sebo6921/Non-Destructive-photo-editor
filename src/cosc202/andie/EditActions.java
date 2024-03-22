@@ -34,8 +34,8 @@ public class EditActions {
      */
     public EditActions() {
         actions = new ArrayList<Action>();
-        actions.add(new UndoAction("Undo", null, "Undo", Integer.valueOf(KeyEvent.VK_Z)));
-        actions.add(new RedoAction("Redo", null, "Redo", Integer.valueOf(KeyEvent.VK_Y)));
+        actions.add(new UndoAction("Undo (Z)", null, "Undo", Integer.valueOf(KeyEvent.VK_Z)));
+        actions.add(new RedoAction("Redo (X)", null, "Redo", Integer.valueOf(KeyEvent.VK_X)));
     }
 
     /**

@@ -264,8 +264,9 @@ class EditableImage {
 
     public void export(String imageFilename) throws Exception {
         this.imageFilename = imageFilename;
-        this.opsFilename = imageFilename + ".ops";
-        save();
+        String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
+        BufferedImage currentImage = current;
+        ImageIO.write(currentImage, extension, new File(imageFilename));
     }
 
     /**
