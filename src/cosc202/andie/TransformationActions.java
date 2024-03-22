@@ -16,6 +16,8 @@ public class TransformationActions {
      */
     public TransformationActions(){
         actions = new ArrayList<Action>();
+        actions.add(new ResizeAction("Resize", null, "Resize image", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new RotateAction("Rotate", null, "Rotate Image", Integer.valueOf(KeyEvent.VK_O)));
 
     }
 
@@ -84,6 +86,36 @@ public class TransformationActions {
         }
     }
 
+
+    public class RotateAction extends ImageAction{
+
+        RotateAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+            super(name, icon, desc, mnemonic);
+        }
+
+
+        public void actionPerformed(ActionEvent e){
+
+            int angle = 0;
+
+            SpinnerNumberModel angleModel = new SpinnerNumberModel(0, -180, 180, 90);
+            JSpinner angleSpinner = new JSpinner(angleModel);
+            int option = JOptionPane.showOptionDialog(null, angleSpinner, "Enter Rotation Angle (degrees)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null );
+
+            if(option == JOptionPane.CANCEL_OPTION){
+                return;
+            }else if(option == JOptionPane.OK_OPTION){
+                angle = (int) angleModel.getNumber().intValue();
+            }
+            
+
+            target.getImage().apply(new Rotate(angle));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
 
 
 }
