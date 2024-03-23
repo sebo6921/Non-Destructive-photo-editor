@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.util.*;
+import java.awt.Dimension;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -97,8 +98,16 @@ public class TransformationActions {
             // Pop-up dialog box to ask for the size value.
             SpinnerNumberModel sizeModel = new SpinnerNumberModel(100, 25, 300, 5);
             JSpinner sizeSpinner = new JSpinner(sizeModel);
-            int option = JOptionPane.showOptionDialog(null, sizeSpinner, "Enter new size", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            JLabel message1 = new JLabel("Please enter a new size. The size should");
+            JLabel message2 = new JLabel("be between 25 and 300 pixels (inclusive).");
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension (300, 70));
+            panel.add(message1);
+            panel.add(message2);
+            panel.add(sizeSpinner);
             
+            int option = JOptionPane.showOptionDialog(null, panel, "Enter New Size", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
             // Check the return value from the dialog box
             if(option == JOptionPane.CANCEL_OPTION){
                 return;

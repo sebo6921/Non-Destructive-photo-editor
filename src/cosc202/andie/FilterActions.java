@@ -103,10 +103,10 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            JLabel message1 = new JLabel("Enter a filter radius");
-            JLabel message2 = new JLabel("between 1 and 10 (inclusive)");
+            JLabel message1 = new JLabel("Please enter a filter radius. The size");
+            JLabel message2 = new JLabel("should be between 1 and 10 (inclusive).");
             JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension (190, 70));
+            panel.setPreferredSize(new Dimension (300, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
@@ -153,10 +153,10 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            JLabel message1 = new JLabel("Enter a filter radius");
-            JLabel message2 = new JLabel("between 1 and 10 (inclusive)");
+            JLabel message1 = new JLabel("Please enter a filter radius. The size");
+            JLabel message2 = new JLabel("should be between 1 and 10 (inclusive).");
             JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension (190, 70));
+            panel.setPreferredSize(new Dimension (300, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
@@ -239,10 +239,10 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            JLabel message1 = new JLabel("Enter a filter radius");
-            JLabel message2 = new JLabel("between 1 and 10 (inclusive)");
+            JLabel message1 = new JLabel("Please enter a filter radius. The size");
+            JLabel message2 = new JLabel("should be between 1 and 10 (inclusive).");
             JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension (190, 70));
+            panel.setPreferredSize(new Dimension (300, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
