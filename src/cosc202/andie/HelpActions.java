@@ -3,7 +3,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.BorderLayout;
+import java.awt.*;
 import javax.swing.*;
 
 
@@ -73,27 +73,31 @@ public class HelpActions {
     //      */
         public void actionPerformed(ActionEvent e) {
             JDialog helpPanel = new JDialog();
-            helpPanel.setTitle("Help Guide");
-            helpPanel.setSize(400, 300);
+            helpPanel.setTitle("ANDIE Guide");
+            helpPanel.setSize(500, 700);
             helpPanel.setLayout(new BorderLayout());
  
  
             JTextArea textArea = new JTextArea();
-            // textArea.setEditable(false);
-            // textArea.setLineWrap(true);
-            // textArea.setWrapStyleWord(true);
- 
- 
+            textArea.setEditable(false);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            
+            textArea.setMargin(new Insets(5, 30, 5, 30));
+
+            Font font = new Font("Times New Roman", Font.PLAIN, 15);
+            textArea.setFont(font);
+
             String helpText = getFileContents("help.txt");
             textArea.setText(helpText);
  
  
-            // // Add the JTextArea to the dialog inside a JScrollPane (for scrolling)
-            // JScrollPane scrollPane = new JScrollPane(textArea);
-            // helpPanel.add(scrollPane, BorderLayout.CENTER);
- 
+            // Add the JTextArea to the dialog inside a JScrollPane (for scrolling)
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            helpPanel.add(scrollPane, BorderLayout.CENTER);
  
             // Display the dialog
+            textArea.setCaretPosition(0);
             helpPanel.setLocationRelativeTo(null); // Center on screen
             helpPanel.setVisible(true);
            
@@ -109,7 +113,6 @@ public class HelpActions {
             }
             return fileContents;
         }
- 
  
     } 
  
