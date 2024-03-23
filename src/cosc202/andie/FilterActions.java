@@ -106,7 +106,7 @@ public class FilterActions {
             JLabel message1 = new JLabel("Enter a filter radius");
             JLabel message2 = new JLabel("between 1 and 10 (inclusive)");
             JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension (190, 30));
+            panel.setPreferredSize(new Dimension (190, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
@@ -156,7 +156,7 @@ public class FilterActions {
             JLabel message1 = new JLabel("Enter a filter radius");
             JLabel message2 = new JLabel("between 1 and 10 (inclusive)");
             JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension (190, 30));
+            panel.setPreferredSize(new Dimension (190, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
@@ -242,7 +242,7 @@ public class FilterActions {
             JLabel message1 = new JLabel("Enter a filter radius");
             JLabel message2 = new JLabel("between 1 and 10 (inclusive)");
             JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension (190, 30));
+            panel.setPreferredSize(new Dimension (190, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);

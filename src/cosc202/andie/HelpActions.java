@@ -1,14 +1,29 @@
 package cosc202.andie;
 
+
 import java.util.*;
 import java.awt.event.*;
+import java.awt.BorderLayout;
 import javax.swing.*;
 
-public class HelpActions {
 
+import java.nio.file.*;
+import java.io.*;
+
+
+public class HelpActions {
+    
+    /**
+     * A list of actions for the View menu.
+     */
     protected ArrayList<Action> actions;
 
-    public HelpActions(){
+    /**
+     * <p>
+     * Create a set of View menu actions.
+     * </p>
+     */
+    public HelpActions() {
         actions = new ArrayList<Action>();
         actions.add(new HelpGuideAction("ANDIE Guide (H)", null, "ANDIE Guide", Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new ChooseLanguageAction("Change Language (L)", null, "Change Language", Integer.valueOf(KeyEvent.VK_L)));
@@ -17,88 +32,125 @@ public class HelpActions {
 
     /**
      * <p>
-     * Action to zoom in on an image.
+     * Create a menu containing the list of View actions.
      * </p>
      * 
-     * <p>
-     * Note that this action only affects the way the image is displayed, not its actual contents.
-     * </p>
+     * @return The view menu UI element.
      */
-    public class HelpGuideAction {
+    public JMenu createMenu() {
+        JMenu helpMenu = new JMenu("Help");
 
+        for (Action action: actions) {
+            helpMenu.add(new JMenuItem(action));
+        }
+
+        return helpMenu;
+    }
+
+    public class HelpGuideAction extends AbstractAction {
+        JButton helpOkButton;
         /**
-         * <p>
-         * Create a new zoom-in action.
-         * </p>
-         * 
+         *
          * @param name The name of the action (ignored if null).
          * @param icon An icon to use to represent the action (ignored if null).
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         HelpGuideAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
+            super(name, icon);
+            if (desc != null) {
+               putValue(SHORT_DESCRIPTION, desc);
+            }
+            if (mnemonic != null) {
+                putValue(MNEMONIC_KEY, mnemonic);
+            }
         }
-
-        /**
-         * <p>
-         * Callback for when the zoom-in action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ZoomInAction is triggered.
-         * It increases the zoom level by 10%, to a maximum of 200%.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
+ 
+ 
+    //     /**
+    //      *
+    //      * @param e The event triggering this callback.
+    //      */
         public void actionPerformed(ActionEvent e) {
-            
+            JDialog helpPanel = new JDialog();
+            helpPanel.setTitle("Help Guide");
+            helpPanel.setSize(400, 300);
+            helpPanel.setLayout(new BorderLayout());
+ 
+ 
+            JTextArea textArea = new JTextArea();
+            // textArea.setEditable(false);
+            // textArea.setLineWrap(true);
+            // textArea.setWrapStyleWord(true);
+ 
+ 
+            String helpText = getFileContents("help.txt");
+            textArea.setText(helpText);
+ 
+ 
+            // // Add the JTextArea to the dialog inside a JScrollPane (for scrolling)
+            // JScrollPane scrollPane = new JScrollPane(textArea);
+            // helpPanel.add(scrollPane, BorderLayout.CENTER);
+ 
+ 
+            // Display the dialog
+            helpPanel.setLocationRelativeTo(null); // Center on screen
+            helpPanel.setVisible(true);
+           
         }
-
-    }
-
+ 
+ 
+        public static String getFileContents(String fileName){
+            String fileContents = "";
+            try {
+                fileContents = Files.readString(Path.of(fileName));
+            } catch (IOException e) {
+               System.out.println("File not found.");
+            }
+            return fileContents;
+        }
+ 
+ 
+    } 
+ 
+ 
     /**
-     * <p>
-     * Action to zoom out of an image.
-     * </p>
-     * 
-     * <p>
-     * Note that this action only affects the way the image is displayed, not its actual contents.
-     * </p>
+     *
      */
-    public class ChooseLanguageAction {
-
+    public class ChooseLanguageAction extends AbstractAction {
+ 
+ 
         /**
-         * <p>
-         * Create a new zoom-out action.
-         * </p>
-         * 
+         *
          * @param name The name of the action (ignored if null).
          * @param icon An icon to use to represent the action (ignored if null).
          * @param desc A brief description of the action  (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         ChooseLanguageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
+            super(name, icon);
+            if (desc != null) {
+                putValue(SHORT_DESCRIPTION, desc);
+            }
+            if (mnemonic != null) {
+                putValue(MNEMONIC_KEY, mnemonic);
+            }
         }
-
+ 
+ 
         /**
-         * <p>
-         * Callback for when the zoom-iout action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ZoomOutAction is triggered.
-         * It decreases the zoom level by 10%, to a minimum of 50%.
-         * </p>
-         * 
+         *
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            
+           
         }
-
+ 
+ 
     }
-    
+
 }
+
+ 
+
+    
