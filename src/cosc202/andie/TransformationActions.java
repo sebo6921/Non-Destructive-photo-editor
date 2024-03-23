@@ -17,8 +17,6 @@ public class TransformationActions {
     public TransformationActions(){
         actions = new ArrayList<Action>();
         actions.add(new ResizeAction("Resize", null, "Resize image", Integer.valueOf(KeyEvent.VK_R)));
-        actions.add(new RotateAction("Rotate", null, "Rotate Image", Integer.valueOf(KeyEvent.VK_O)));
-
     }
 
     /**
@@ -31,9 +29,39 @@ public class TransformationActions {
     public JMenu createMenu(){
         JMenu transMenu = new JMenu("Transformation");
 
+        JMenu rotateSubMenu = new JMenu("Rotate");
+
+        JMenuItem rotate90Clockwise = new JMenuItem("90 Degrees Clockwise");
+        rotate90Clockwise.addActionListener(new Rotate90ClockwiseAction());
+
+        JMenuItem rotate90AntiClockwise = new JMenuItem("90 Degrees Anti-Clockwise");
+        rotate90AntiClockwise.addActionListener(new Rotate90AntiClockwiseAction());
+
+        JMenuItem rotate180 = new JMenuItem("Rotate 180 Degrees");
+        rotate180.addActionListener(new Rotate180Action());
+
+        rotateSubMenu.add(rotate90Clockwise);
+        rotateSubMenu.add(rotate90AntiClockwise);
+        rotateSubMenu.add(rotate180);
+
+        JMenu flipSubMenu = new JMenu("Flip");
+
+        JMenuItem flipHorizontally = new JMenuItem("Flip Horizontally");
+        flipHorizontally.addActionListener(new FlipHorizontallyAction());
+
+        JMenuItem flipVertically = new JMenuItem("Flip Vertically");
+        flipVertically.addActionListener(new FlipVerticallyAction());
+
+        flipSubMenu.add(flipHorizontally);
+        flipSubMenu.add(flipVertically);
+
         for(Action action: actions){
             transMenu.add(new JMenuItem(action));
         }
+
+        transMenu.add(rotateSubMenu);
+
+        transMenu.add(flipSubMenu);
 
         return transMenu;
     }
@@ -116,6 +144,89 @@ public class TransformationActions {
         }
 
     }
+
+
+
+    public class Rotate90ClockwiseAction extends ImageAction{
+
+        Rotate90ClockwiseAction(){
+            super("Rotate 90 degrees clockwise", null, "Rotate 90 degrees clockwise", null);
+        }
+
+
+        public void actionPerformed(ActionEvent e){
+
+            target.getImage().apply(new Rotate(90));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
+    public class Rotate90AntiClockwiseAction extends ImageAction{
+
+        Rotate90AntiClockwiseAction(){
+            super("Rotate 90 degrees anticlockwise", null, "Rotate 90 degrees anticlockwise", null);
+        }
+
+
+        public void actionPerformed(ActionEvent e){
+
+            target.getImage().apply(new Rotate(-90));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
+
+    public class Rotate180Action extends ImageAction{
+
+        Rotate180Action(){
+            super("Rotate 180 degrees", null, "Rotate 180 degrees", null);
+        }
+
+
+        public void actionPerformed(ActionEvent e){
+
+            target.getImage().apply(new Rotate(180));
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+
+    }
+
+    public class FlipHorizontallyAction extends ImageAction{
+
+        FlipHorizontallyAction(){
+            super("Flip Horizontally", null, "Flip Horizontally", null);
+        }
+
+        public void actionPerformed(ActionEvent e){
+
+            target.getImage().apply(new Flip(90));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class FlipVerticallyAction extends ImageAction{
+
+        FlipVerticallyAction(){
+            super("Flip Vertically", null, "Flip Vertically", null);
+        }
+
+        public void actionPerformed(ActionEvent e){
+
+            target.getImage().apply(new Flip(180));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
 
 
 }
