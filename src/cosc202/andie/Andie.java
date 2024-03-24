@@ -87,6 +87,7 @@ public class Andie {
         TransformationActions transformationActions = new TransformationActions();
         menuBar.add(transformationActions.createMenu());
 
+        // Actions that help with usability 
         HelpActions helpActions = new HelpActions();
         menuBar.add(helpActions.createMenu());
 

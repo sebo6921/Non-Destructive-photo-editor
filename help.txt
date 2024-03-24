@@ -4,7 +4,7 @@ File:
 Open - Import a selected image file.
 Save - Save changes made to the selected image.
 Save As - Save the image with a new filename and location.
-Export - Export the image to any directory on your computer.
+Export - Export the current image to any directory on your computer.
 Exit - Quit the ANDIE application.
 
 Edit:

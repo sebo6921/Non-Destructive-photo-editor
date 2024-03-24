@@ -1,26 +1,35 @@
 package cosc202.andie;
 
-
 import java.util.*;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
-
-
 import java.nio.file.*;
 import java.io.*;
 
-
+/**
+ * <p>
+ * Actions provided by the Help menu.
+ * </p>
+ * 
+ * <p>
+ * The user will expect to find an ANDIE help guide and the ability to change the language
+ * of the ANDIE program.
+ * </p>
+ * 
+ * @author Jessica Fan
+ * @version 1.0
+ */
 public class HelpActions {
     
     /**
-     * A list of actions for the View menu.
+     * A list of actions for the Help menu.
      */
     protected ArrayList<Action> actions;
 
     /**
      * <p>
-     * Create a set of View menu actions.
+     * Create a set of Help menu actions.
      * </p>
      */
     public HelpActions() {
@@ -32,10 +41,10 @@ public class HelpActions {
 
     /**
      * <p>
-     * Create a menu containing the list of View actions.
+     * Create a menu containing the list of Help actions.
      * </p>
      * 
-     * @return The view menu UI element.
+     * @return The help menu UI element.
      */
     public JMenu createMenu() {
         JMenu helpMenu = new JMenu("Help");
@@ -47,8 +56,13 @@ public class HelpActions {
         return helpMenu;
     }
 
+    /**
+     * <p>
+     * Action to open a guide on how specific buttons on ANDIE work.
+     * </p>
+     */
     public class HelpGuideAction extends AbstractAction {
-        JButton helpOkButton;
+        
         /**
          *
          * @param name The name of the action (ignored if null).
@@ -67,16 +81,15 @@ public class HelpActions {
         }
  
  
-    //     /**
-    //      *
-    //      * @param e The event triggering this callback.
-    //      */
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             JDialog helpPanel = new JDialog();
             helpPanel.setTitle("ANDIE Guide");
             helpPanel.setSize(500, 700);
             helpPanel.setLayout(new BorderLayout());
- 
  
             JTextArea textArea = new JTextArea();
             textArea.setEditable(false);
@@ -91,19 +104,19 @@ public class HelpActions {
             String helpText = getFileContents("help.txt");
             textArea.setText(helpText);
  
- 
-            // Add the JTextArea to the dialog inside a JScrollPane (for scrolling)
             JScrollPane scrollPane = new JScrollPane(textArea);
             helpPanel.add(scrollPane, BorderLayout.CENTER);
  
-            // Display the dialog
             textArea.setCaretPosition(0);
-            helpPanel.setLocationRelativeTo(null); // Center on screen
-            helpPanel.setVisible(true);
-           
+            helpPanel.setLocationRelativeTo(null);
+            helpPanel.setVisible(true);  
         }
  
- 
+        /** Attempts to open a specified file, read what is in it,  and return the contents a single string 
+        * Returns an empty string if the file is not found.
+        * @param fileName The name of the file to be read.
+        * @return The contents of the file as a single string.
+        */
         public static String getFileContents(String fileName){
             String fileContents = "";
             try {
@@ -113,15 +126,15 @@ public class HelpActions {
             }
             return fileContents;
         }
- 
     } 
  
  
     /**
-     *
+     * <p>
+     * Action to change the language of the ANDIE application.
+     * </p>
      */
     public class ChooseLanguageAction extends AbstractAction {
- 
  
         /**
          *
