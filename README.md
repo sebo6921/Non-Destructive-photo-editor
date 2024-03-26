@@ -32,4 +32,4 @@ Shortcut Keys
 To use the shortcuts, you must click on the section of the menu where the action falls under before clicking the shortcut key.
 
 ## Issues and Bugs
-Median Filter takes a while to run and be applied (approximately 30 seconds).
+Median Filter takes a while to run and be applied (approximately 10 seconds).

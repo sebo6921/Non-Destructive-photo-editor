@@ -94,6 +94,7 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
             else
                 break;
         }
+
         return filterSize[medianIndex];
     }
 
