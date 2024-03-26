@@ -86,7 +86,11 @@ public class Andie {
         // Transformations take care of things such as flipping, rtating and resizing the image
         TransformationActions transformationActions = new TransformationActions();
         menuBar.add(transformationActions.createMenu());
-        
+
+        // Actions that help with usability 
+        HelpActions helpActions = new HelpActions();
+        menuBar.add(helpActions.createMenu());
+
         frame.setJMenuBar(menuBar);
         frame.pack();
         frame.setVisible(true);
@@ -113,6 +117,7 @@ public class Andie {
                     createAndShowGUI();
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                    System.out.println("Error opening ANDIE");
                     System.exit(1);
                 }
             }

@@ -262,6 +262,18 @@ class EditableImage {
         save();
     }
 
+    /**
+     * <p>
+     * Exports the current image to a specified file.
+     * </p>
+     * 
+     * <p>
+     * Exports the current image to the file provided as a parameter.
+     * </p>
+     * 
+     * @param imageFilename The file location to save the image to.
+     * @throws Exception If something goes wrong.
+     */
     public void export(String imageFilename) throws Exception {
         this.imageFilename = imageFilename;
         String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
@@ -338,5 +350,6 @@ class EditableImage {
             current = op.apply(current);
         }
     }
+
 
 }
