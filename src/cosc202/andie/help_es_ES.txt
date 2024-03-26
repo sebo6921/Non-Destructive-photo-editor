@@ -1,0 +1,35 @@
+Guía de ANDIE
+
+Archivo:
+Abrir - Importar un archivo de imagen seleccionado.
+Guardar - Guardar los cambios realizados en la imagen seleccionada.
+Guardar como - Guardar la imagen con un nuevo nombre y ubicación.
+Exportar - Exportar la imagen actual a cualquier directorio en su computadora.
+Salir - Salir de la aplicación ANDIE.
+
+Editar:
+Deshacer - Revertir la operación más reciente.
+Rehacer - Rehacer la operación previamente deshecha.
+
+Ver:
+Acerca de - Información sobre ANDIE.
+Zoom In - Ampliar la vista de la imagen.
+Zoom Out - Reducir la vista de la imagen.
+Zoom Full - Ver la imagen completa dentro de la ventana de la aplicación.
+
+Filtro:
+Filtro de media - Aplicar un filtro que reemplace el valor de cada píxel con el valor promedio de sus píxeles vecinos.
+Filtro gaussiano - Aplicar un filtro que difumina la imagen usando una función gaussiana.
+Desenfoque suave - Aplicar un efecto de desenfoque suave a la imagen.
+Mejorar imagen - Mejorar los bordes y detalles de la imagen.
+Filtro mediano - Aplicar un filtro que reemplace el valor de cada píxel con el valor mediano de sus píxeles vecinos.
+
+Color:
+Escala de grises - Convertir la imagen a escala de grises, eliminando la información de color.
+Invertir imagen - Invertir los colores de la imagen.
+Ciclo de canal de color - Ciclar a través de diferentes canales de color de la imagen.
+
+Transformación:
+Cambiar tamaño - Ajustar las dimensiones de la imagen.
+Rotar - Rotar la imagen en sentido horario o antihorario.
+Voltear - Voltear la imagen horizontal o verticalmente.

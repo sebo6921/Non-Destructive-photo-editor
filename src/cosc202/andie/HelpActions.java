@@ -101,7 +101,7 @@ public class HelpActions {
             Font font = new Font("Times New Roman", Font.PLAIN, 15);
             textArea.setFont(font);
 
-            String helpText = getFileContents("help.txt");
+            String helpText = getFileContents("help_en_NZ.txt");
             textArea.setText(helpText);
  
             JScrollPane scrollPane = new JScrollPane(textArea);
@@ -120,7 +120,7 @@ public class HelpActions {
         public static String getFileContents(String fileName){
             String fileContents = "";
             try {
-                fileContents = Files.readString(Path.of(fileName));
+                fileContents = Files.readString(Path.of("src/cosc202/andie/" + fileName));
             } catch (IOException e) {
                System.out.println("File not found.");
             }
