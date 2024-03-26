@@ -50,9 +50,9 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 int b = (argb & 0x000000FF);
 
                 int temp = r;
-                r = b;
-                b = g;
-                g = temp;
+                r = g;
+                g = b;
+                b = temp;
                 
 
                 argb = (a << 24) | (r << 16) | (g << 8) | b;
