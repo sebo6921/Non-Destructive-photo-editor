@@ -62,16 +62,16 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
         return output;
     }
      /**
-     * finds the median value for a given pixel location and colour channel shift.
-     * 
+     * Finds the median value for a given pixel location and color channel shift.
+     *
      * @param input The input image.
-     * @param x     The x-coordinate of the pixel.
-     * @param y     The y-coordinate of the pixel.
+     * @param x The x-coordinate of the pixel.
+     * @param y The y-coordinate of the pixel.
      * @param shift The bit shift value for the color channel.
      * @return The median value for the specified color channel.
      */
     private int getMedian(BufferedImage input, int x, int y, int shift) {
-        int[] filterSize = new int[(2 * radius + 1) * (2 * radius + 1)]; //to get the total number of pixels in the neighbourhood
+        int[] filterSize = new int[(2 * radius + 1) * (2 * radius + 1)]; // To store pixel values in the neighborhood
         int index = 0;
         for (int j = y - radius; j <= y + radius; j++) {
             for (int i = x - radius; i <= x + radius; i++) {
@@ -80,7 +80,45 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 }
             }
         }
-        Arrays.sort(filterSize);
-        return filterSize[filterSize.length / 2]; // Return the median value
+
+        // Use Quickselect algorithm to find the median
+        int medianIndex = filterSize.length / 2;
+        int low = 0;
+        int high = filterSize.length - 1;
+        while (low < high) {
+            int pivotIndex = partition(filterSize, low, high);
+            if (pivotIndex < medianIndex)
+                low = pivotIndex + 1;
+            else if (pivotIndex > medianIndex)
+                high = pivotIndex - 1;
+            else
+                break;
+        }
+        return filterSize[medianIndex];
+    }
+
+    /**
+     * Partitions the array around a pivot element for Quickselect algorithm.
+     *
+     * @param arr The array to partition.
+     * @param low The lower index of the array.
+     * @param high The higher index of the array.
+     * @return The index of the pivot element after partitioning.
+     */
+    private int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+        return i + 1;
     }
 }
