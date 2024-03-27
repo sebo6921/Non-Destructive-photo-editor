@@ -165,17 +165,7 @@ public class HelpActions {
             Locale.setDefault(new Locale(prefs.get("language", "en"), 
                                         prefs.get("country", "NZ")));
 
-            //ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle");
-        
-            ResourceBundle bundle;
-            try {
-                bundle = loadResourceBundle(Path.of("src/cosc202/andie/"), "MessageBundle");
-            } catch (IOException e1) {
-                System.err.println("Failed to load resource bundle: " + e1.getMessage());
-                // Perform additional error handling or provide a default bundle
-                bundle = ResourceBundle.getBundle("DefaultMessageBundle");
-            }
-
+            ResourceBundle bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
 
             System.out.println(bundle.getString("ChooseLanguageEnglish"));
             String[] options = {bundle.getString("ChooseLanguageEnglish"), bundle.getString("ChooseLanguageSpanish")};
@@ -207,18 +197,6 @@ public class HelpActions {
             }  
          }
 
-         private static ResourceBundle loadResourceBundle(Path basePath, String baseName) throws IOException {
-            String bundlePath = basePath + "/" + baseName + "_" + Locale.getDefault().toString() + ".properties";
-            FileInputStream fis = null;
-            try {
-                fis = new FileInputStream(bundlePath);
-                return new PropertyResourceBundle(fis);
-            } finally {
-                if (fis != null) {
-                    fis.close();
-                }
-            }
-        }
     }
 }
 

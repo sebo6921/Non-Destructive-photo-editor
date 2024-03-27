@@ -5,7 +5,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import java.nio.file.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -38,6 +38,7 @@ public class FileActions {
      * </p>
      */
     public FileActions() {
+        
         actions = new ArrayList<Action>();
         actions.add(new FileOpenAction("Open (O)", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
         actions.add(new FileSaveAction("Save (S)", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
