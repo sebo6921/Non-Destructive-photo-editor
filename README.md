@@ -6,16 +6,27 @@ ANDIE was tested through by running the program through different devices and op
 
 ## Contributions
 Sharpen Filter - Sebastian Chkourko
+
 Gaussian Blur Filter - Jessica Fan
+
 Median Filter - Kruti Mistry
+
 Image Inversion - James Maher
+
 Colour Channel Cycling - James Maher, Jessica Fan
+
 Multilingual Support - Sebastian Chkourko, Diego Olivera, Jessica Fan, Kruti Mistry
+
 Image Resize - Diego Olivera
+
 Image Rotations: 90 Degree Left; 90 Degree Right; 180 Degrees; - Diego Olivera
+
 Image Flip: Horizontal; Vertical; - Diego Olivera
+
 Image Export - Jessica Fan
+
 Exception Handling - Sebastian Chkourko
+
 Other Error Avoidance/Prevention - Jessica Fan, Kruti Mistry
 
 ## ANDIE User Guide 

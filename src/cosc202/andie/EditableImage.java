@@ -168,7 +168,7 @@ class EditableImage {
             }
         }
         
-        //ops.clear();
+        ops.clear();
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
