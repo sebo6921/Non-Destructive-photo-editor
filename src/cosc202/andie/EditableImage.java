@@ -62,15 +62,6 @@ class EditableImage {
        return this.current;
    }
 
-   public EditableImage() {
-       original = null;
-       current = null;
-       ops = new Stack<ImageOperation>();
-       redoOps = new Stack<ImageOperation>();
-       imageFilename = null;
-       opsFilename = null;
-   }
-
    /**
     * <p>
     * Create a new EditableImage.
@@ -81,14 +72,14 @@ class EditableImage {
     * of operations.
     * </p>
     */
-   public EditableImage(ResourceBundle bundle) {
-       this.bundle = bundle;
-       original = null;
-       current = null;
-       ops = new Stack<ImageOperation>();
-       redoOps = new Stack<ImageOperation>();
-       imageFilename = null;
-       opsFilename = null;
+   public EditableImage() {
+        this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+        original = null;
+        current = null;
+        ops = new Stack<ImageOperation>();
+        redoOps = new Stack<ImageOperation>();
+        imageFilename = null;
+        opsFilename = null;
    }
 
    /**
@@ -169,54 +160,56 @@ class EditableImage {
     * @throws Exception If something goes wrong.
     */
    public void open(String filePath) throws Exception {
-       if (imageModified) {
-           int choice = JOptionPane.showConfirmDialog(null, bundle.getString("UnsavedChanges"), bundle.getString("UnsavedConfirmed"),
-                   JOptionPane.YES_NO_OPTION);
-           if (choice != JOptionPane.YES_OPTION) {
-               return; // User chose not to discard changes, so return without opening a new image
-           }
-       }
-       imageFilename = filePath;
-       opsFilename = imageFilename + ".ops";
-       File imageFile = new File(imageFilename);
-       try {
-           original = ImageIO.read(imageFile);
-           if (original == null) {
-               JOptionPane.showMessageDialog(null, bundle.getString("NotValidIMG"),
-                       bundle.getString("Invalid"), JOptionPane.ERROR_MESSAGE);
-               return;
-           }
-           current = deepCopy(original);
+        if (imageModified) {
+            int choice = JOptionPane.showConfirmDialog(null, bundle.getString("UnsavedChanges"), bundle.getString("UnsavedConfirmed"),
+                    JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                return; // User chose not to discard changes, so return without opening a new image
+            }
+        }
+        
+        //ops.clear();
+        imageFilename = filePath;
+        opsFilename = imageFilename + ".ops";
+        File imageFile = new File(imageFilename);
+        try {
+            original = ImageIO.read(imageFile);
+            if (original == null) {
+                JOptionPane.showMessageDialog(null, bundle.getString("NotValidIMG"),
+                        bundle.getString("Invalid"), JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            current = deepCopy(original);
 
-           try {
-               FileInputStream fileIn = new FileInputStream(this.opsFilename);
-               ObjectInputStream objIn = new ObjectInputStream(fileIn);
+            try {
+                FileInputStream fileIn = new FileInputStream(this.opsFilename);
+                ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
-               // Silence the Java compiler warning about type casting.
-               // Understanding the cause of the warning is way beyond
-               // the scope of COSC202, but if you're interested, it has
-               // to do with "type erasure" in Java: the compiler cannot
-               // produce code that fails at this point in all cases in
-               // which there is actually a type mismatch for one of the
-               // elements within the Stack, i.e., a non-ImageOperation.
-               @SuppressWarnings("unchecked")
-               Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
-               ops = opsFromFile;
-               redoOps.clear();
-               objIn.close();
-               fileIn.close();
-           } catch (Exception ex) {
-               // Could be no file or something else. Carry on for now.
+                // Silence the Java compiler warning about type casting.
+                // Understanding the cause of the warning is way beyond
+                // the scope of COSC202, but if you're interested, it has
+                // to do with "type erasure" in Java: the compiler cannot
+                // produce code that fails at this point in all cases in
+                // which there is actually a type mismatch for one of the
+                // elements within the Stack, i.e., a non-ImageOperation.
+                @SuppressWarnings("unchecked")
+                Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
+                ops = opsFromFile;
+                redoOps.clear();
+                objIn.close();
+                fileIn.close();
+            } catch (Exception ex) {
+                // Could be no file or something else. Carry on for now.
 
-           }
-           this.refresh();
-           imageModified = false; // Reset imageModified flag after opening a new image
+            }
+            this.refresh();
+            imageModified = false; // Reset imageModified flag after opening a new image
 
-       } catch (IOException e) {
-           JOptionPane.showMessageDialog(null, bundle.getString("FileNotAccessible"),
-                   bundle.getString("ErrorOpening"), JOptionPane.ERROR_MESSAGE);
-       }
-   }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, bundle.getString("FileNotAccessible"),
+                    bundle.getString("ErrorOpening"), JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
    /**
     * <p>
