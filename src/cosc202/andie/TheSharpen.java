@@ -19,7 +19,6 @@ public class TheSharpen implements ImageOperation, java.io.Serializable {
      * Constructs a new TheSharpen instance.
      */
     TheSharpen() {
-
     }
 
     /**

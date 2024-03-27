@@ -65,7 +65,5 @@ public class Resize implements ImageOperation, java.io.Serializable {
         g.dispose();
 
         return output;
-
     }
-
 }

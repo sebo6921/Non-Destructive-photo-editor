@@ -31,6 +31,7 @@ public class ViewActions {
      */
     protected ArrayList<Action> actions;
 
+    /** A resource bundle to change the language */
     ResourceBundle bundle;
 
     /**
@@ -41,9 +42,12 @@ public class ViewActions {
     public ViewActions(ResourceBundle bundle) {
         this.bundle = bundle;
         actions = new ArrayList<Action>();
-        actions.add(new ZoomInAction(bundle.getString("ZoomIn"), null, bundle.getString("ZoomInDesc"), Integer.valueOf(KeyEvent.VK_PLUS)));
-        actions.add(new ZoomOutAction(bundle.getString("ZoomInDesc"), null, bundle.getString("ZoomOutDesc"), Integer.valueOf(KeyEvent.VK_MINUS)));
-        actions.add(new ZoomFullAction(bundle.getString("ZoomFull"), null, bundle.getString("ZoomFullDesc"), Integer.valueOf(KeyEvent.VK_0)));
+        actions.add(new ZoomInAction(bundle.getString("ZoomIn"), null, bundle.getString("ZoomInDesc"),
+                Integer.valueOf(KeyEvent.VK_PLUS)));
+        actions.add(new ZoomOutAction(bundle.getString("ZoomInDesc"), null, bundle.getString("ZoomOutDesc"),
+                Integer.valueOf(KeyEvent.VK_MINUS)));
+        actions.add(new ZoomFullAction(bundle.getString("ZoomFull"), null, bundle.getString("ZoomFullDesc"),
+                Integer.valueOf(KeyEvent.VK_0)));
     }
 
     /**
@@ -152,7 +156,6 @@ public class ViewActions {
             target.repaint();
             target.getParent().revalidate();
         }
-
     }
 
     /**
@@ -198,7 +201,5 @@ public class ViewActions {
             target.revalidate();
             target.getParent().revalidate();
         }
-
     }
-
 }
