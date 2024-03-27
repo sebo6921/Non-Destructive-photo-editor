@@ -2,11 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
