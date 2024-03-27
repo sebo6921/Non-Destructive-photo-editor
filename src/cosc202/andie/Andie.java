@@ -73,7 +73,7 @@ public class Andie {
         menuBar.add(fileActions.createMenu());
 
         // Likewise Edit menus are very common, so should be clear what might go here.
-        EditActions editActions = new EditActions();
+        EditActions editActions = new EditActions(bundle);
         menuBar.add(editActions.createMenu());
 
         // View actions control how the image is displayed, but do not alter its actual content
@@ -81,11 +81,11 @@ public class Andie {
         menuBar.add(viewActions.createMenu());
 
         // Filters apply a per-pixel operation to the image, generally based on a local window
-        FilterActions filterActions = new FilterActions();
+        FilterActions filterActions = new FilterActions(bundle);
         menuBar.add(filterActions.createMenu());
 
         // Actions that affect the representation of colour in the image
-        ColourActions colourActions = new ColourActions();
+        ColourActions colourActions = new ColourActions(bundle);
         menuBar.add(colourActions.createMenu());
 
         // Transformations take care of things such as flipping, rtating and resizing the image
