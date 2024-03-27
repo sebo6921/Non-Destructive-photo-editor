@@ -77,7 +77,7 @@ public class Andie {
         menuBar.add(editActions.createMenu());
 
         // View actions control how the image is displayed, but do not alter its actual content
-        ViewActions viewActions = new ViewActions();
+        ViewActions viewActions = new ViewActions(bundle);
         menuBar.add(viewActions.createMenu());
 
         // Filters apply a per-pixel operation to the image, generally based on a local window
@@ -89,11 +89,11 @@ public class Andie {
         menuBar.add(colourActions.createMenu());
 
         // Transformations take care of things such as flipping, rtating and resizing the image
-        TransformationActions transformationActions = new TransformationActions();
+        TransformationActions transformationActions = new TransformationActions(bundle);
         menuBar.add(transformationActions.createMenu());
 
         // Actions that help with usability 
-        HelpActions helpActions = new HelpActions();
+        HelpActions helpActions = new HelpActions(bundle);
         menuBar.add(helpActions.createMenu());
 
         frame.setJMenuBar(menuBar);
