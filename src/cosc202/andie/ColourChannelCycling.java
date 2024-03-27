@@ -68,44 +68,27 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
     private static int currentVariationIndex = 0;
 
     public BufferedImage apply(BufferedImage input) {
-        int r, g, b; // the pixel colour
-        
-        // Define variations of swapping RGB channels
-        int[][] variations = {
-            {0, 2, 1},  // RBG
-            {1, 0, 2},  // GRB
-            {1, 2, 0},  // GBR
-            {2, 0, 1},  // BRG
-            {2, 1, 0},   // BGR
-            {0, 1, 2},  // RGB
-        };
-        
-        // Determine the current variation based on the stored index
-        int[] currentVariation = variations[currentVariationIndex];
-
         for (int y = 0; y < input.getHeight(); y++) {
             for (int x = 0; x < input.getWidth(); x++) {
                 int argb = input.getRGB(x, y);
                 
                 int a = (argb >> 24) & 0xFF;
-                r = (argb >> 16) & 0xFF;
-                g = (argb >> 8) & 0xFF;
-                b = argb & 0xFF;
+                int r = (argb >> 16) & 0xFF;
+                int g = (argb >> 8) & 0xFF;
+                int b = argb & 0xFF;
                     
-                // Swap the RGB channels based on the current variation
                 int tempR = r;
                 int tempG = g;
                 int tempB = b;
-                r = tempR;
-                g = tempG;
-                b = tempB;
-
+  
                 if (currentVariationIndex == 0){
-                    b = tempG;
+                    r = tempR;
                     g = tempB;
+                    b = tempG;
                 } else if (currentVariationIndex == 1){
                     r = tempG;
                     g = tempR;
+                    b = tempB;
                 } else if (currentVariationIndex == 2){
                     r = tempG;
                     g = tempB;
@@ -116,22 +99,14 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                     b = tempG;
                 } else if (currentVariationIndex == 4){
                     r = tempB;
-                    g = tempR;
-                    b = tempG;
+                    g = tempG;
+                    b = tempR;
                 } else if (currentVariationIndex == 5){
                     r = tempR;
                     g = tempG;
                     b = tempB;
                 }
 
-                // if (currentVariationIndex == 1 || currentVariationIndex == 3 || currentVariationIndex == 5) {
-                //     r = tempB;
-                //     b = tempR;
-                // } else if (currentVariationIndex == 2 || currentVariationIndex == 4) {
-                //     r = tempG;
-                //     g = tempR;
-                // }
-                
                 argb = (a << 24) | (r << 16) | (g << 8) | b;
                 input.setRGB(x, y, argb);
             }
