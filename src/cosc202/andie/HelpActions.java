@@ -165,7 +165,18 @@ public class HelpActions {
             Locale.setDefault(new Locale(prefs.get("language", "en"), 
                                         prefs.get("country", "NZ")));
 
-            ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle");
+            //ResourceBundle bundle = ResourceBundle.getBundle("MessageBundle");
+        
+            ResourceBundle bundle;
+            try {
+                bundle = loadResourceBundle(Path.of("src/cosc202/andie/"), "MessageBundle");
+            } catch (IOException e1) {
+                System.err.println("Failed to load resource bundle: " + e1.getMessage());
+                // Perform additional error handling or provide a default bundle
+                bundle = ResourceBundle.getBundle("DefaultMessageBundle");
+            }
+
+
             System.out.println(bundle.getString("ChooseLanguageEnglish"));
             String[] options = {bundle.getString("ChooseLanguageEnglish"), bundle.getString("ChooseLanguageSpanish")};
             //String[] options = {"English", "Spanish"};
@@ -173,25 +184,41 @@ public class HelpActions {
             Object choice = JOptionPane.showInputDialog(null, bundle.getString("ChooseLanguageChoice"), 
                             bundle.getString("ChooseLanguageText"), JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
-        //     if (choice != null) {
-        //         String selectedLanguage = choice.toString();
+            if (choice != null) {
+                String selectedLanguage = choice.toString();
       
-        //         if (selectedLanguage.equals(bundle.getString("ChooseLanguageEnglish"))) {
-        //             System.out.println("eng");
-        //             prefs.put("language", "en");
-        //             prefs.put("country", "NZ");
-        //         } else if (selectedLanguage.equals(bundle.getString("ChooseLanguageSpanish"))) {
-        //             System.out.println("spanish");
-        //             prefs.put("language", "es");
-        //             prefs.put("country", "ES");
-        //         } else {
-        //             System.out.println("default");
-        //             System.out.println("Invalid Choice. Defaulting to English");
-        //             prefs.put("language", "en");
-        //             prefs.put("country", "NZ");
-        //         }
-        //     }  
+                if (selectedLanguage.equals(bundle.getString("ChooseLanguageEnglish"))) {
+                    System.out.println("eng");
+                    prefs.put("language", "en");
+                    prefs.put("country", "NZ");
+                } else if (selectedLanguage.equals(bundle.getString("ChooseLanguageSpanish"))) {
+                    System.out.println("spanish");
+                    prefs.put("language", "es");
+                    prefs.put("country", "ES");
+                } else {
+                    System.out.println("default");
+                    System.out.println("Invalid Choice. Defaulting to English");
+                    prefs.put("language", "en");
+                    prefs.put("country", "NZ");
+                }
+
+                JOptionPane.showMessageDialog(null, bundle.getString("RestartMessage"),
+                                            bundle.getString("RestartTitle"), JOptionPane.INFORMATION_MESSAGE);
+            }  
          }
+
+         private static ResourceBundle loadResourceBundle(Path basePath, String baseName) throws IOException {
+            String bundlePath = basePath + "/" + baseName + "_" + Locale.getDefault().toString() + ".properties";
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(bundlePath);
+                return new PropertyResourceBundle(fis);
+            } finally {
+                if (fis != null) {
+                    fis.close();
+                }
+            }
+        }
     }
 }
 
