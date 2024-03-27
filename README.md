@@ -10,7 +10,7 @@ Gaussian Blur Filter - Jessica Fan
 Median Filter - Kruti Mistry
 Image Inversion - James Maher
 Colour Channel Cycling - James Maher
-Multilingual Support - Sebastian Chkourko, Diego Olivera
+Multilingual Support - Sebastian Chkourko, Diego Olivera, Jessica Fan, Kruti Mistry
 Image Resize - Diego Olivera
 Image Rotations: 90 Degree Left; 90 Degree Right; 180 Degrees; - Diego Olivera
 Image Flip: Horizontal; Vertical; - Diego Olivera
