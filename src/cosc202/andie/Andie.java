@@ -3,6 +3,8 @@ package cosc202.andie;
 import java.awt.*;
 import javax.swing.*;
 import javax.imageio.*;
+import java.util.*;
+import java.util.prefs.Preferences;
 
 /**
  * <p>
@@ -22,6 +24,8 @@ import javax.imageio.*;
  * @version 1.0
  */
 public class Andie {
+
+    private static ResourceBundle bundle;
 
     /**
      * <p>
@@ -47,6 +51,7 @@ public class Andie {
      * @throws Exception if something goes wrong.
      */
     private static void createAndShowGUI() throws Exception {
+        bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");        
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
@@ -64,7 +69,7 @@ public class Andie {
         JMenuBar menuBar = new JMenuBar();
 
         // File menus are pretty standard, so things that usually go in File menus go here.
-        FileActions fileActions = new FileActions();
+        FileActions fileActions = new FileActions(bundle);
         menuBar.add(fileActions.createMenu());
 
         // Likewise Edit menus are very common, so should be clear what might go here.
@@ -111,6 +116,11 @@ public class Andie {
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
+        Preferences prefs = Preferences.userNodeForPackage(Andie.class);
+
+        Locale.setDefault(new Locale(prefs.get("language", "en"), 
+                                     prefs.get("country", "NZ")));
+        
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
