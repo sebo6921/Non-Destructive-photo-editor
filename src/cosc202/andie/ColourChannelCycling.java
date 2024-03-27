@@ -17,6 +17,8 @@ import java.awt.image.*;
  */
 public class ColourChannelCycling implements ImageOperation, java.io.Serializable{
 
+    private static int currentVariationIndex = 0;
+
     /**
      * <p>
      * Create a new ColourChannelCycling operation
@@ -40,33 +42,6 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
      * @param input the image having colour channel cycling applied to it
      * @param return the colour channel cycled image
      */
-    // public BufferedImage apply(BufferedImage input) {
-    //     int r, g, b; // the pixel colour
-    //     for (int y = 0; y < input.getHeight(); y++) {
-    //         for (int x = 0; x < input.getWidth(); x++) {
-    //             int argb = input.getRGB(x, y);
-                
-    //             int a = (argb >> 24) & 0xFF;
-    //             r = (argb >> 16) & 0xFF;
-    //             g = (argb >> 8) & 0xFF;
-    //             b = argb & 0xFF;
-                    
-    //             int temp = r;
-    //             r = g;
-    //             g = b;
-    //             b = temp;    
-    
-    //             argb = (a << 24) | (r << 16) | (g << 8) | b;
-    //             input.setRGB(x, y, argb);
-                
-    //         }
-    //     }
-
-    //     return input;
-    // }
-
-    private static int currentVariationIndex = 0;
-
     public BufferedImage apply(BufferedImage input) {
         for (int y = 0; y < input.getHeight(); y++) {
             for (int x = 0; x < input.getWidth(); x++) {
