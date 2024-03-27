@@ -9,6 +9,13 @@
             "name": "LanguageTest",
             "request": "launch",
             "mainClass": "cosc202.andie.LanguageTest",
+            "projectName": "Andie"
+        },
+        {
+            "type": "java",
+            "name": "LanguageTest",
+            "request": "launch",
+            "mainClass": "cosc202.andie.LanguageTest",
             "projectName": "andie"
         },
         {

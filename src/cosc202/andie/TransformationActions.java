@@ -22,7 +22,7 @@ public class TransformationActions {
 
     /**
      * <p>
-     * Create a menu contianing the list of Transformation actions.
+     * Create a menu containing the list of Transformation actions.
      * </p>
      * 
      * @return The transformation menu UI element.
@@ -124,47 +124,33 @@ public class TransformationActions {
     }
 
 
-    // public class RotateAction extends ImageAction{
 
-    //     RotateAction(String name, ImageIcon icon, String desc, Integer mnemonic){
-    //         super(name, icon, desc, mnemonic);
-    //     }
-
-
-    //     public void actionPerformed(ActionEvent e){
-
-    //         int angle = 0;
-
-    //         SpinnerNumberModel angleModel = new SpinnerNumberModel(0, -180, 180, 90);
-    //         JSpinner angleSpinner = new JSpinner(angleModel);
-    //         int option = JOptionPane.showOptionDialog(null, angleSpinner, "Enter Rotation Angle (degrees)", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null );
-
-    //         if(option == JOptionPane.CANCEL_OPTION){
-    //             return;
-    //         }else if(option == JOptionPane.OK_OPTION){
-    //             angle = (int) angleModel.getNumber().intValue();
-    //         }
-            
-
-    //         target.getImage().apply(new Rotate(angle));
-    //         target.repaint();
-    //         target.getParent().revalidate();
-
-    //     }
-
-    // }
-
-
-
+    /**
+     * <p>
+     * Action to rotate an image 90 degreees clockwise.
+     * </p>
+     * 
+     * @see Rotate
+     */
     public class Rotate90ClockwiseAction extends ImageAction{
-
+        /**
+         * <p>
+         * Create a new rotate clockwise action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         Rotate90ClockwiseAction(){
             super("Rotate 90 degrees clockwise", null, "Rotate 90 degrees clockwise", null);
         }
 
 
         public void actionPerformed(ActionEvent e){
-
+            
+            //Create and apply the change in rotation
             target.getImage().apply(new Rotate(90));
             target.repaint();
             target.getParent().revalidate();
@@ -173,8 +159,26 @@ public class TransformationActions {
 
     }
 
-    public class Rotate90AntiClockwiseAction extends ImageAction{
 
+
+    /**
+     * <p>
+     * Action to rotate an image 90 degreees anti-clockwise.
+     * </p>
+     * 
+     * @see Rotate
+     */
+    public class Rotate90AntiClockwiseAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new rotate anti-clockwise action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         Rotate90AntiClockwiseAction(){
             super("Rotate 90 degrees anticlockwise", null, "Rotate 90 degrees anticlockwise", null);
         }
@@ -182,6 +186,7 @@ public class TransformationActions {
 
         public void actionPerformed(ActionEvent e){
 
+            //Create and apply the change in rotation
             target.getImage().apply(new Rotate(-90));
             target.repaint();
             target.getParent().revalidate();
@@ -190,9 +195,24 @@ public class TransformationActions {
 
     }
 
-
+    /**
+     * <p>
+     * Action to rotate an image 180 degreees.
+     * </p>
+     * 
+     * @see Rotate
+     */
     public class Rotate180Action extends ImageAction{
-
+        /**
+         * <p>
+         * Create a new rotate 180 degrees action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         Rotate180Action(){
             super("Rotate 180 degrees", null, "Rotate 180 degrees", null);
         }
@@ -200,6 +220,7 @@ public class TransformationActions {
 
         public void actionPerformed(ActionEvent e){
 
+            //Create and apply the change in rotation
             target.getImage().apply(new Rotate(180));
             target.repaint();
             target.getParent().revalidate();
@@ -208,28 +229,64 @@ public class TransformationActions {
 
     }
 
-    public class FlipHorizontallyAction extends ImageAction{
 
+    /**
+     * <p>
+     * Action to flip image horizontally.
+     * </p>
+     * 
+     * @see Flip
+     */
+    public class FlipHorizontallyAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new flip horizontally action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         FlipHorizontallyAction(){
             super("Flip Horizontally", null, "Flip Horizontally", null);
         }
 
         public void actionPerformed(ActionEvent e){
 
+            //Create and apply the change in direction
             target.getImage().apply(new Flip(90));
             target.repaint();
             target.getParent().revalidate();
         }
     }
 
-    public class FlipVerticallyAction extends ImageAction{
 
+    /**
+     * <p>
+     * Action to flip image vertically.
+     * </p>
+     * 
+     * @see Flip
+     */
+    public class FlipVerticallyAction extends ImageAction{
+        /**
+         * <p>
+         * Create a new flip vertically action.
+         * </p>
+         * 
+         * @param name The name of the action (ignored if null).
+         * @param icon An icon to use to represent the action (ignored if null).
+         * @param desc A brief description of the action  (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         */
         FlipVerticallyAction(){
             super("Flip Vertically", null, "Flip Vertically", null);
         }
 
         public void actionPerformed(ActionEvent e){
 
+            //Create and apply the change in direction
             target.getImage().apply(new Flip(180));
             target.repaint();
             target.getParent().revalidate();

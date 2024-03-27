@@ -4,6 +4,18 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 
+
+/**
+ * <p>
+ * ImageOperation to resize images.
+ * </p>
+ * 
+ * <p>
+ * This takes the user chosen percentage and applies 
+ * it to the current image to resize it
+ * </p>
+ * 
+ */
 public class Flip implements ImageOperation, java.io.Serializable{
     
     private int f;

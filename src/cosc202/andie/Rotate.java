@@ -4,6 +4,18 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.*;
 
+
+/**
+ * <p>
+ * ImageOperation to rotate images.
+ * </p>
+ * 
+ * <p>
+ * This takes the user chosen direction and degrees and 
+ * rotates the current image
+ * </p>
+ * 
+ */
 public class Rotate implements ImageOperation, java.io.Serializable{
 
     private int angle;
@@ -17,6 +29,18 @@ public class Rotate implements ImageOperation, java.io.Serializable{
     }
     
 
+    /**
+    * <p>
+    * Rotate image.
+    * </p>
+    *   
+    * <p>
+    * Applies the rotation to image in the chosen direction, either 90 or 180 degrees
+    * </p>
+    * 
+    * @param input The image to rotate.
+    * @return The resulting (rotated) image.
+    */
     public BufferedImage apply(BufferedImage input){
         int newWidth = input.getWidth();
         int newHeight = input.getHeight();
@@ -42,6 +66,20 @@ public class Rotate implements ImageOperation, java.io.Serializable{
         return output;
     }
 
+
+    
+    /**
+    * <p>
+    * Operation for clockwise image rotation.
+    * </p>
+    *   
+    * <p>
+    * Transposes then flips the image pixels to rotate the image 90 degrees clockwise 
+    * </p>
+    * 
+    * @param input The image to rotate.
+    * @return The resulting (rotated) image.
+    */
     public BufferedImage clockwise(BufferedImage input){
         int newWidth = input.getWidth();
         int newHeight = input.getHeight();
@@ -64,11 +102,23 @@ public class Rotate implements ImageOperation, java.io.Serializable{
         }
 
 
-
         return flipped;
     }
 
 
+
+    /**
+    * <p>
+    * Operation for anti-clockwise image rotation.
+    * </p>
+    *   
+    * <p>
+    * Flips then transposes the image pixels to rotate the image 90 degrees anti-clockwise 
+    * </p>
+    * 
+    * @param input The image to rotate.
+    * @return The resulting (rotated) image.
+    */
     public BufferedImage antiClockwise(BufferedImage input){
         int newWidth = input.getWidth();
         int newHeight = input.getHeight();
@@ -87,8 +137,6 @@ public class Rotate implements ImageOperation, java.io.Serializable{
                 transposed.setRGB(x, y, flipped.getRGB(y, x));
             }
         }    
-    
-
 
 
         return transposed;
