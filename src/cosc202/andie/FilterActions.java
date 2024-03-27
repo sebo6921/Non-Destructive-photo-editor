@@ -31,6 +31,7 @@ public class FilterActions {
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
 
+    /** A resource bundle to change the language */
     ResourceBundle bundle;
 
     /**
@@ -41,11 +42,16 @@ public class FilterActions {
     public FilterActions(ResourceBundle bundle) {
         this.bundle = bundle;
         actions = new ArrayList<Action>();
-        actions.add(new MeanFilterAction(bundle.getString("MeanFilter"), null, bundle.getString("MeanFilterDesc"), Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new GaussianBlurAction(bundle.getString("GaussianBlur"), null, bundle.getString("GaussianBlurDesc"), Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new SoftBlurAction(bundle.getString("SoftBlur"), null, bundle.getString("SoftBlurDesc"), Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(new SharpenImageAction(bundle.getString("SharpenImage"), null, bundle.getString("SharpenImageDesc"), Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"), Integer.valueOf(KeyEvent.VK_D)));
+        actions.add(new MeanFilterAction(bundle.getString("MeanFilter"), null, bundle.getString("MeanFilterDesc"),
+                Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new GaussianBlurAction(bundle.getString("GaussianBlur"), null, bundle.getString("GaussianBlurDesc"),
+                Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new SoftBlurAction(bundle.getString("SoftBlur"), null, bundle.getString("SoftBlurDesc"),
+                Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new SharpenImageAction(bundle.getString("SharpenImage"), null, bundle.getString("SharpenImageDesc"),
+                Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"),
+                Integer.valueOf(KeyEvent.VK_D)));
     }
 
     /**
@@ -115,8 +121,9 @@ public class FilterActions {
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
-            
-            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("MeanFilterRadius"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("MeanFilterRadius"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -132,18 +139,18 @@ public class FilterActions {
             target.repaint();
             target.getParent().revalidate();
         }
-
     }
 
     public class GaussianBlurAction extends ImageAction {
 
-        /*
-         * @param name The name of the action (ignored if null).
+        /**  
+         *  <p>
+         * Action to create a Gaussian Blur filter
+         *  </p>
          * 
-         * @param icon An icon to use to represent the action (ignored if null).
-         * 
-         * @param desc A brief description of the action (ignored if null).
-         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         GaussianBlurAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
@@ -154,7 +161,6 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
             // Determine the radius - ask the user.
             int radius = 1;
 
@@ -168,8 +174,9 @@ public class FilterActions {
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
-            
-            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("GaussianBlurRadius"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("GaussianBlurRadius"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -183,7 +190,6 @@ public class FilterActions {
             target.repaint();
             target.getParent().revalidate();
         }
-
     }
 
     public class SoftBlurAction extends ImageAction {
@@ -192,7 +198,9 @@ public class FilterActions {
         }
 
         /**
+         *  <p>
          * Callback for when the soft blur action is triggered.
+         *  </p>
          * 
          * <p>
          * This method is called whenever the SoftBlurAction is triggered.
@@ -222,7 +230,9 @@ public class FilterActions {
         }
 
         /**
+         *  <p>
          * Callback for when the sharpen image action is triggered.
+         *  </p>
          * 
          * <p>
          * This method is called whenever the SharpenImageAction is triggered.
@@ -271,7 +281,6 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
             // Determine the radius - ask the user.
             int radius = 1;
 
@@ -285,8 +294,9 @@ public class FilterActions {
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
-            
-            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("MedianFilterRadius"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("MedianFilterRadius"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -300,7 +310,5 @@ public class FilterActions {
             target.repaint();
             target.getParent().revalidate();
         }
-
     }
-
 }

@@ -32,6 +32,8 @@ public class FileActions {
 
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
+
+    /** A resource bundle to change the language */
     private ResourceBundle bundle;
 
     /**
@@ -107,7 +109,6 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
 
@@ -117,17 +118,18 @@ public class FileActions {
                     target.getImage().open(imageFilepath);
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, bundle.getString("ErrorOpening") + ex.getMessage(), bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("ErrorOpening") + ex.getMessage(),
+                            bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError")+ ex.getMessage(), bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ex.getMessage(),
+                            bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 }
             }
 
             target.repaint();
             target.getParent().revalidate();
         }
-
     }
 
     /**
@@ -178,7 +180,6 @@ public class FileActions {
                         bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }
 
     /**
@@ -342,7 +343,5 @@ public class FileActions {
             }
             System.exit(0);
         }
-
     }
-
 }

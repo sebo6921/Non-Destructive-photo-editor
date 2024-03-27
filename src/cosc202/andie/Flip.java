@@ -81,6 +81,7 @@ public class Flip implements ImageOperation, java.io.Serializable {
                 flipped.setRGB(x, y, input.getRGB(newWidth - 1 - x, y));
             }
         }
+        
         return flipped;
     }
 
@@ -100,6 +101,7 @@ public class Flip implements ImageOperation, java.io.Serializable {
                 flipped.setRGB(x, y, input.getRGB(x, newHeight - 1 - y));
             }
         }
+
         return flipped;
     }
 }
