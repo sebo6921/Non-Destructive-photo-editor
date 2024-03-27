@@ -173,24 +173,24 @@ public class HelpActions {
             Object choice = JOptionPane.showInputDialog(null, bundle.getString("ChooseLanguageChoice"), 
                             bundle.getString("ChooseLanguageText"), JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
-        //     if (choice != null) {
-        //         String selectedLanguage = choice.toString();
+            if (choice != null) {
+                String selectedLanguage = choice.toString();
       
-        //         if (selectedLanguage.equals(bundle.getString("ChooseLanguageEnglish"))) {
-        //             System.out.println("eng");
-        //             prefs.put("language", "en");
-        //             prefs.put("country", "NZ");
-        //         } else if (selectedLanguage.equals(bundle.getString("ChooseLanguageSpanish"))) {
-        //             System.out.println("spanish");
-        //             prefs.put("language", "es");
-        //             prefs.put("country", "ES");
-        //         } else {
-        //             System.out.println("default");
-        //             System.out.println("Invalid Choice. Defaulting to English");
-        //             prefs.put("language", "en");
-        //             prefs.put("country", "NZ");
-        //         }
-        //     }  
+                if (selectedLanguage.equals(bundle.getString("ChooseLanguageEnglish"))) {
+                    System.out.println("eng");
+                    prefs.put("language", "en");
+                    prefs.put("country", "NZ");
+                } else if (selectedLanguage.equals(bundle.getString("ChooseLanguageSpanish"))) {
+                    System.out.println("spanish");
+                    prefs.put("language", "es");
+                    prefs.put("country", "ES");
+                } else {
+                    System.out.println("default");
+                    System.out.println("Invalid Choice. Defaulting to English");
+                    prefs.put("language", "en");
+                    prefs.put("country", "NZ");
+                }
+            }  
          }
     }
 }

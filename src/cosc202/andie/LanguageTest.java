@@ -16,7 +16,7 @@ public class LanguageTest {
         System.out.println(bundle.getString("greeting"));
         
         Scanner sc = new Scanner(System.in);
-        System.out.println(bundle.getString("choice"));
+        System.out.println(bundle.getString("GaussianBlurDesc"));
         int language = sc.nextInt();
         
         switch (language){
