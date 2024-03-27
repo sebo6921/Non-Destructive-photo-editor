@@ -10,14 +10,17 @@ public class TransformationActions {
     /** A list of actions for the Transformations menu. */
     protected ArrayList<Action> actions;
 
+    ResourceBundle bundle;
+
     /**
      * <p>
      * Create a set of Transformation menu actions.
      * </p>
      */
-    public TransformationActions(){
+    public TransformationActions(ResourceBundle bundle){
+        this.bundle = bundle;
         actions = new ArrayList<Action>();
-        actions.add(new ResizeAction("Resize", null, "Resize image", Integer.valueOf(KeyEvent.VK_R)));
+        actions.add(new ResizeAction(bundle.getString("Resize"), null, bundle.getString("ResizeDesc"), Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**
@@ -28,29 +31,29 @@ public class TransformationActions {
      * @return The transformation menu UI element.
      */
     public JMenu createMenu(){
-        JMenu transMenu = new JMenu("Transformation");
+        JMenu transMenu = new JMenu(bundle.getString("TransformationMenu"));
 
-        JMenu rotateSubMenu = new JMenu("Rotate");
+        JMenu rotateSubMenu = new JMenu(bundle.getString("RotateMenu"));
 
-        JMenuItem rotate90Clockwise = new JMenuItem("90 Degrees Clockwise");
+        JMenuItem rotate90Clockwise = new JMenuItem(bundle.getString("90DegClockwiseMenu"));
         rotate90Clockwise.addActionListener(new Rotate90ClockwiseAction());
 
-        JMenuItem rotate90AntiClockwise = new JMenuItem("90 Degrees Anti-Clockwise");
+        JMenuItem rotate90AntiClockwise = new JMenuItem(bundle.getString("90DegAntiClockwiseMenu"));
         rotate90AntiClockwise.addActionListener(new Rotate90AntiClockwiseAction());
 
-        JMenuItem rotate180 = new JMenuItem("Rotate 180 Degrees");
+        JMenuItem rotate180 = new JMenuItem(bundle.getString("Rotate180DegMenu"));
         rotate180.addActionListener(new Rotate180Action());
 
         rotateSubMenu.add(rotate90Clockwise);
         rotateSubMenu.add(rotate90AntiClockwise);
         rotateSubMenu.add(rotate180);
 
-        JMenu flipSubMenu = new JMenu("Flip");
+        JMenu flipSubMenu = new JMenu(bundle.getString("FlipMenu"));
 
-        JMenuItem flipHorizontally = new JMenuItem("Flip Horizontally");
+        JMenuItem flipHorizontally = new JMenuItem(bundle.getString("FlipHorMenu"));
         flipHorizontally.addActionListener(new FlipHorizontallyAction());
 
-        JMenuItem flipVertically = new JMenuItem("Flip Vertically");
+        JMenuItem flipVertically = new JMenuItem(bundle.getString("FlipVerMenu"));
         flipVertically.addActionListener(new FlipVerticallyAction());
 
         flipSubMenu.add(flipHorizontally);
@@ -98,15 +101,15 @@ public class TransformationActions {
             // Pop-up dialog box to ask for the size value.
             SpinnerNumberModel sizeModel = new SpinnerNumberModel(100, 25, 300, 5);
             JSpinner sizeSpinner = new JSpinner(sizeModel);
-            JLabel message1 = new JLabel("Please enter a new size. The size should");
-            JLabel message2 = new JLabel("be between 25 and 300 pixels (inclusive).");
+            JLabel message1 = new JLabel(bundle.getString("TransformationActionsMsg"));
+            JLabel message2 = new JLabel(bundle.getString("TransformationActionsMsg2"));
             JPanel panel = new JPanel();
             panel.setPreferredSize(new Dimension (300, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(sizeSpinner);
             
-            int option = JOptionPane.showOptionDialog(null, panel, "Enter New Size", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("Size"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box
             if(option == JOptionPane.CANCEL_OPTION){
@@ -144,7 +147,7 @@ public class TransformationActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         Rotate90ClockwiseAction(){
-            super("Rotate 90 degrees clockwise", null, "Rotate 90 degrees clockwise", null);
+            super(bundle.getString("RotateNintyDegreesName"), null, bundle.getString("RotateNintyDegreesDesc"), null);
         }
 
 
@@ -180,7 +183,7 @@ public class TransformationActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         Rotate90AntiClockwiseAction(){
-            super("Rotate 90 degrees anticlockwise", null, "Rotate 90 degrees anticlockwise", null);
+            super(bundle.getString("RotateNintyDegreesAntiName"), null, bundle.getString("RotateNintyDegreesAntiDesc"), null);
         }
 
 
@@ -214,7 +217,7 @@ public class TransformationActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         Rotate180Action(){
-            super("Rotate 180 degrees", null, "Rotate 180 degrees", null);
+            super(bundle.getString("Rotate180"), null, bundle.getString("RotateDesc180"), null);
         }
 
 
@@ -249,7 +252,7 @@ public class TransformationActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         FlipHorizontallyAction(){
-            super("Flip Horizontally", null, "Flip Horizontally", null);
+            super(bundle.getString("FlipHorizontally"), null, bundle.getString("FlipHorizontallyDesc"), null);
         }
 
         public void actionPerformed(ActionEvent e){
@@ -281,7 +284,7 @@ public class TransformationActions {
          * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
          */
         FlipVerticallyAction(){
-            super("Flip Vertically", null, "Flip Vertically", null);
+            super(bundle.getString("FlipVertically"), null, bundle.getString("FlipVerticallyDesc"), null);
         }
 
         public void actionPerformed(ActionEvent e){

@@ -27,16 +27,17 @@ public class HelpActions {
      * A list of actions for the Help menu.
      */
     protected ArrayList<Action> actions;
-
+    ResourceBundle bundle;
     /**
      * <p>
      * Create a set of Help menu actions.
      * </p>
      */
-    public HelpActions() {
+    public HelpActions(ResourceBundle bundle) {
+        this.bundle = bundle;
         actions = new ArrayList<Action>();
-        actions.add(new HelpGuideAction("ANDIE Guide (H)", null, "ANDIE Guide", Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new ChooseLanguageAction("Change Language (L)", null, "Change Language", Integer.valueOf(KeyEvent.VK_L)));
+        actions.add(new HelpGuideAction(bundle.getString("AndieGuide"), null, bundle.getString("AndieGuideDesc"), Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new ChooseLanguageAction(bundle.getString("ChangeLanguage"), null, bundle.getString("ChangeLanguageDesc"), Integer.valueOf(KeyEvent.VK_L)));
 
     }
 
@@ -48,7 +49,7 @@ public class HelpActions {
      * @return The help menu UI element.
      */
     public JMenu createMenu() {
-        JMenu helpMenu = new JMenu("Help");
+        JMenu helpMenu = new JMenu(bundle.getString("HelpMenu"));
 
         for (Action action: actions) {
             helpMenu.add(new JMenuItem(action));
@@ -88,7 +89,7 @@ public class HelpActions {
          */
         public void actionPerformed(ActionEvent e) {
             JDialog helpPanel = new JDialog();
-            helpPanel.setTitle("ANDIE Guide");
+            helpPanel.setTitle(bundle.getString("HelpPanelAndieGuide"));
             helpPanel.setSize(500, 700);
             helpPanel.setLayout(new BorderLayout());
  
@@ -102,7 +103,7 @@ public class HelpActions {
             Font font = new Font("Times New Roman", Font.PLAIN, 15);
             textArea.setFont(font);
 
-            String helpText = getFileContents("help_en_NZ.txt");
+            String helpText = getFileContents(bundle.getString("helpText"));
             textArea.setText(helpText);
  
             JScrollPane scrollPane = new JScrollPane(textArea);
@@ -118,12 +119,12 @@ public class HelpActions {
         * @param fileName The name of the file to be read.
         * @return The contents of the file as a single string.
         */
-        public static String getFileContents(String fileName){
+        public String getFileContents(String fileName){
             String fileContents = "";
             try {
                 fileContents = Files.readString(Path.of("src/cosc202/andie/" + fileName));
             } catch (IOException e) {
-               System.out.println("File not found.");
+               System.out.println(bundle.getString("HelpActionsErrorMsg"));
             }
             return fileContents;
         }
@@ -180,16 +181,20 @@ public class HelpActions {
                 if (selectedLanguage.equals(bundle.getString("ChooseLanguageEnglish"))) {
                     prefs.put("language", "en");
                     prefs.put("country", "NZ");
+                    JOptionPane.showMessageDialog(null, "Language changed successfully. Please restart the application for the changes to take effect.",
+                    "Restart Required", JOptionPane.INFORMATION_MESSAGE);
                 } else if (selectedLanguage.equals(bundle.getString("ChooseLanguageSpanish"))) {
                     prefs.put("language", "es");
                     prefs.put("country", "ES");
+                    JOptionPane.showMessageDialog(null, "Idioma cambiado con éxito. Por favor, reinicie la aplicación para que los cambios surtan efecto.",
+                    "Reinicio Requerido", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     prefs.put("language", "en");
                     prefs.put("country", "NZ");
                 }
 
-                JOptionPane.showMessageDialog(null, bundle.getString("RestartMessage"),
-                                            bundle.getString("RestartTitle"), JOptionPane.INFORMATION_MESSAGE);
+                // JOptionPane.showMessageDialog(null, bundle.getString("RestartMessage"),
+                //                             bundle.getString("RestartTitle"), JOptionPane.INFORMATION_MESSAGE);
             }  
          }
 

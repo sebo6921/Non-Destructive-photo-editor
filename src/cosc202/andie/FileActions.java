@@ -107,6 +107,7 @@ public class FileActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
+
             JFileChooser fileChooser = new JFileChooser();
             int result = fileChooser.showOpenDialog(target);
 
@@ -114,8 +115,12 @@ public class FileActions {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, bundle.getString("ErrorOpening") + ex.getMessage(), bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
-                    System.exit(1);
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError")+ ex.getMessage(), bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 }
             }
 

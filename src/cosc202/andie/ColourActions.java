@@ -1,3 +1,4 @@
+
 package cosc202.andie;
 
 import java.util.*;
@@ -48,31 +49,31 @@ public class ColourActions {
 
     }
 
-    /**
-     * <p>
-     * Create a menu contianing the list of Colour actions.
-     * </p>
-     * 
-     * @return The colour menu UI element.
-     */
-    public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Colour");
+   /**
+    * <p>
+    * Create a menu contianing the list of Colour actions.
+    * </p>
+    * 
+    * @return The colour menu UI element.
+    */
+   public JMenu createMenu() {
+       JMenu fileMenu = new JMenu(bundle.getString("ColourMenu"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
 
-        return fileMenu;
-    }
+       return fileMenu;
+   }
 
-    /**
-     * <p>
-     * Action to convert an image to greyscale.
-     * </p>
-     * 
-     * @see ConvertToGrey
-     */
-    public class ConvertToGreyAction extends ImageAction {
+   /**
+    * <p>
+    * Action to convert an image to greyscale.
+    * </p>
+    * 
+    * @see ConvertToGrey
+    */
+   public class ConvertToGreyAction extends ImageAction {
 
         /**
          * <p>
@@ -88,34 +89,34 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
 
-        /**
-         * <p>
-         * Callback for when the convert-to-grey action is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ConvertToGreyAction is triggered.
-         * It changes the image to greyscale.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ConvertToGrey());
-            target.repaint();
-            target.getParent().revalidate();
-        }
+       /**
+        * <p>
+        * Callback for when the convert-to-grey action is triggered.
+        * </p>
+        * 
+        * <p>
+        * This method is called whenever the ConvertToGreyAction is triggered.
+        * It changes the image to greyscale.
+        * </p>
+        * 
+        * @param e The event triggering this callback.
+        */
+       public void actionPerformed(ActionEvent e) {
+           target.getImage().apply(new ConvertToGrey());
+           target.repaint();
+           target.getParent().revalidate();
+       }
 
-    }
+   }
 
-    /**
-     * <p>
-     * Action to invert image RGB values
-     * </p>
-     * 
-     * @see ImageInversion
-     */
-    public class ImageInversionAction extends ImageAction {
+   /**
+    * <p>
+    * Action to invert image RGB values
+    * </p>
+    * 
+    * @see ImageInversion
+    */
+   public class ImageInversionAction extends ImageAction {
 
         /**
          * <p>
@@ -131,33 +132,33 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
 
-        /**
-         * <p>
-         * Callback for when the ImageInversionAction is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ImageInversionAction is triggered.
-         * It inverts the RGB values of the image.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ImageInversion());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
+       /**
+        * <p>
+        * Callback for when the ImageInversionAction is triggered.
+        * </p>
+        * 
+        * <p>
+        * This method is called whenever the ImageInversionAction is triggered.
+        * It inverts the RGB values of the image.
+        * </p>
+        * 
+        * @param e The event triggering this callback.
+        */
+       public void actionPerformed(ActionEvent e) {
+           target.getImage().apply(new ImageInversion());
+           target.repaint();
+           target.getParent().revalidate();
+       }
+   }
 
-    /**
-     * <p>
-     * Action to cycle RGB values
-     * </p>
-     * 
-     * @see ColourChannelCycling
-     */
-    public class ColourChannelCyclingAction extends ImageAction {
+   /**
+    * <p>
+    * Action to cycle RGB values
+    * </p>
+    * 
+    * @see ColourChannelCycling
+    */
+   public class ColourChannelCyclingAction extends ImageAction {
 
         /**
          * <p>
@@ -173,23 +174,23 @@ public class ColourActions {
             super(name, icon, desc, mnemonic);
         }
 
-        /**
-         * <p>
-         * Callback for when the ImageInversionAction is triggered.
-         * </p>
-         * 
-         * <p>
-         * This method is called whenever the ImageInversionAction is triggered.
-         * It inverts the RGB values of the image.
-         * </p>
-         * 
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) {
-            target.getImage().apply(new ColourChannelCycling());
-            target.repaint();
-            target.getParent().revalidate();
-        }
-    }
+       /**
+        * <p>
+        * Callback for when the ImageInversionAction is triggered.
+        * </p>
+        * 
+        * <p>
+        * This method is called whenever the ImageInversionAction is triggered.
+        * It inverts the RGB values of the image.
+        * </p>
+        * 
+        * @param e The event triggering this callback.
+        */
+       public void actionPerformed(ActionEvent e) {
+           target.getImage().apply(new ColourChannelCycling());
+           target.repaint();
+           target.getParent().revalidate();
+       }
+   }
 
 }

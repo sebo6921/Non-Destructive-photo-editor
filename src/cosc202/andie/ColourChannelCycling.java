@@ -15,7 +15,9 @@ import java.awt.image.*;
  * @author James Maher
  * @version 1.1
  */
-public class ColourChannelCycling implements ImageOperation, java.io.Serializable {
+public class ColourChannelCycling implements ImageOperation, java.io.Serializable{
+
+    private static int currentVariationIndex = 0;
 
     /**
      * <p>
@@ -44,21 +46,51 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
         for (int y = 0; y < input.getHeight(); y++) {
             for (int x = 0; x < input.getWidth(); x++) {
                 int argb = input.getRGB(x, y);
-                int a = (argb & 0xFF000000) >> 24;
-                int r = (argb & 0x00FF0000) >> 16;
-                int g = (argb & 0x0000FF00) >> 8;
-                int b = (argb & 0x000000FF);
-
-                int temp = r;
-                r = g;
-                g = b;
-                b = temp;
+                
+                int a = (argb >> 24) & 0xFF;
+                int r = (argb >> 16) & 0xFF;
+                int g = (argb >> 8) & 0xFF;
+                int b = argb & 0xFF;
+                    
+                int tempR = r;
+                int tempG = g;
+                int tempB = b;
+  
+                if (currentVariationIndex == 0){
+                    r = tempR;
+                    g = tempB;
+                    b = tempG;
+                } else if (currentVariationIndex == 1){
+                    r = tempG;
+                    g = tempR;
+                    b = tempB;
+                } else if (currentVariationIndex == 2){
+                    r = tempG;
+                    g = tempB;
+                    b = tempR;
+                } else if (currentVariationIndex == 3){
+                    r = tempB;
+                    g = tempR;
+                    b = tempG;
+                } else if (currentVariationIndex == 4){
+                    r = tempB;
+                    g = tempG;
+                    b = tempR;
+                } else if (currentVariationIndex == 5){
+                    r = tempR;
+                    g = tempG;
+                    b = tempB;
+                }
 
                 argb = (a << 24) | (r << 16) | (g << 8) | b;
                 input.setRGB(x, y, argb);
             }
         }
+        
+        currentVariationIndex = (currentVariationIndex + 1) % 6; // Update to the next variation index
 
         return input;
     }
+
+    
 }

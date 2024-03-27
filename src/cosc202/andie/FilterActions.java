@@ -31,23 +31,21 @@ public class FilterActions {
     /** A list of actions for the Filter menu. */
     protected ArrayList<Action> actions;
 
+    ResourceBundle bundle;
+
     /**
      * <p>
      * Create a set of Filter menu actions.
      * </p>
      */
-    public FilterActions() {
+    public FilterActions(ResourceBundle bundle) {
+        this.bundle = bundle;
         actions = new ArrayList<Action>();
-        actions.add(
-                new MeanFilterAction("Mean Filter (M)", null, "Apply a mean filter", Integer.valueOf(KeyEvent.VK_M)));
-        actions.add(new GaussianBlurAction("Gaussian Blur (G)", null, "Apply a gaussian blur",
-                Integer.valueOf(KeyEvent.VK_G)));
-        actions.add(new SoftBlurAction("Soft Blur (B)", null, "Apply a soft blur", Integer.valueOf(KeyEvent.VK_B)));
-        actions.add(
-                new SharpenImageAction("Sharpen Image (H)", null, "Sharpen the Image", Integer.valueOf(KeyEvent.VK_H)));
-        actions.add(new MedianFilterAction("Median Filter (D)", null, "Apply a median filter",
-                Integer.valueOf(KeyEvent.VK_D)));
-
+        actions.add(new MeanFilterAction(bundle.getString("MeanFilter"), null, bundle.getString("MeanFilterDesc"), Integer.valueOf(KeyEvent.VK_M)));
+        actions.add(new GaussianBlurAction(bundle.getString("GaussianBlur"), null, bundle.getString("GaussianBlurDesc"), Integer.valueOf(KeyEvent.VK_G)));
+        actions.add(new SoftBlurAction(bundle.getString("SoftBlur"), null, bundle.getString("SoftBlurDesc"), Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new SharpenImageAction(bundle.getString("SharpenImage"), null, bundle.getString("SharpenImageDesc"), Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"), Integer.valueOf(KeyEvent.VK_D)));
     }
 
     /**
@@ -58,7 +56,7 @@ public class FilterActions {
      * @return The filter menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("Filter");
+        JMenu fileMenu = new JMenu(bundle.getString("FilterMenu"));
 
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
@@ -110,16 +108,15 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            JLabel message1 = new JLabel("Please enter a filter radius. The size");
-            JLabel message2 = new JLabel("should be between 1 and 10 (inclusive).");
+            JLabel message1 = new JLabel(bundle.getString("MeanFilterMSG1"));
+            JLabel message2 = new JLabel(bundle.getString("MeanFilterMSG2"));
             JPanel panel = new JPanel();
             panel.setPreferredSize(new Dimension(300, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
-
-            int option = JOptionPane.showOptionDialog(null, panel, "Enter Filter Radius", JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null, null, null);
+            
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("MeanFilterRadius"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -164,16 +161,15 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            JLabel message1 = new JLabel("Please enter a filter radius. The size");
-            JLabel message2 = new JLabel("should be between 1 and 10 (inclusive).");
+            JLabel message1 = new JLabel(bundle.getString("GaussianBlurMSG1"));
+            JLabel message2 = new JLabel(bundle.getString("GaussianBlurMSG2"));
             JPanel panel = new JPanel();
             panel.setPreferredSize(new Dimension(300, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
-
-            int option = JOptionPane.showOptionDialog(null, panel, "Enter Filter Radius", JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null, null, null);
+            
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("GaussianBlurRadius"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
@@ -282,16 +278,15 @@ public class FilterActions {
             // Pop-up dialog box to ask for the radius value.
             SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 10, 1);
             JSpinner radiusSpinner = new JSpinner(radiusModel);
-            JLabel message1 = new JLabel("Please enter a filter radius. The size");
-            JLabel message2 = new JLabel("should be between 1 and 10 (inclusive).");
+            JLabel message1 = new JLabel(bundle.getString("MedianFilterMSG1"));
+            JLabel message2 = new JLabel(bundle.getString("MedianFilterMSG2"));
             JPanel panel = new JPanel();
             panel.setPreferredSize(new Dimension(300, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(radiusSpinner);
-
-            int option = JOptionPane.showOptionDialog(null, panel, "Enter Filter Radius", JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE, null, null, null);
+            
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("MedianFilterRadius"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {

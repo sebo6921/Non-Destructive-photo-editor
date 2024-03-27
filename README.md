@@ -9,7 +9,7 @@ Sharpen Filter - Sebastian Chkourko
 Gaussian Blur Filter - Jessica Fan
 Median Filter - Kruti Mistry
 Image Inversion - James Maher
-Colour Channel Cycling - James Maher
+Colour Channel Cycling - James Maher, Jessica Fan
 Multilingual Support - Sebastian Chkourko, Diego Olivera, Jessica Fan, Kruti Mistry
 Image Resize - Diego Olivera
 Image Rotations: 90 Degree Left; 90 Degree Right; 180 Degrees; - Diego Olivera
@@ -29,7 +29,7 @@ Resize
 The number inputted for the resize of the current image must be between 25 (a quarter of the current image size) and 300 (3 times the current image size).
 
 Shortcut Keys
-To use the shortcuts, you must click on the section of the menu where the action falls under before clicking the shortcut key.
+To use the shortcuts, you must click on the section of the menu where the action falls under before clicking the shortcut key. e.g. Save (S), Click File, then shortcut S.
 
 ## Issues and Bugs
 Median Filter takes a while to run and be applied (approximately 10 seconds).
