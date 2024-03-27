@@ -15,7 +15,7 @@ import java.awt.image.*;
  * @author James Maher
  * @version 1.1
  */
-public class ColourChannelCycling implements ImageOperation, java.io.Serializable{
+public class ColourChannelCycling implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
@@ -23,9 +23,9 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
      * </p
      */
     ColourChannelCycling() {
-    
+
     }
-    
+
     /**
      * <p>
      * Apply the colour channel cycling to the image.
@@ -37,7 +37,7 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
      * the corresponding rgb value for the current cycle.
      * </p>
      * 
-     * @param input the image having colour channel cycling applied to it
+     * @param input  the image having colour channel cycling applied to it
      * @param return the colour channel cycled image
      */
     public BufferedImage apply(BufferedImage input) {
@@ -53,7 +53,6 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 r = g;
                 g = b;
                 b = temp;
-                
 
                 argb = (a << 24) | (r << 16) | (g << 8) | b;
                 input.setRGB(x, y, argb);

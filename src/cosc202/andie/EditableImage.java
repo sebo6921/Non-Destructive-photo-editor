@@ -45,7 +45,7 @@ class EditableImage {
     /**
      * The current image, the result of applying {@link ops} to {@link original}.
      */
-    private  BufferedImage current;
+    private BufferedImage current;
     /** The sequence of operations currently applied to the image. */
     private Stack<ImageOperation> ops;
     /** A memory of 'undone' operations to support 'redo'. */
@@ -56,7 +56,7 @@ class EditableImage {
     private String opsFilename;
     protected static boolean imageModified;
 
-    public BufferedImage getCurrent(){
+    public BufferedImage getCurrent() {
         return this.current;
     }
 
@@ -350,6 +350,5 @@ class EditableImage {
             current = op.apply(current);
         }
     }
-
 
 }
