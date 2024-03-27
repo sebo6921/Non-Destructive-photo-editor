@@ -13,7 +13,7 @@ Median Filter - Kruti Mistry
 
 Image Inversion - James Maher
 
-Colour Channel Cycling - James Maher, Jessica Fan
+Colour Channel Cycling - James Maher
 
 Multilingual Support - Sebastian Chkourko, Diego Olivera, Jessica Fan, Kruti Mistry
 

@@ -13,11 +13,13 @@ import java.util.prefs.Preferences;
  * 
  * <p>
  * This class is the entry point for the program.
- * It creates a Graphical User Interface (GUI) that provides access to various image editing and processing operations.
+ * It creates a Graphical User Interface (GUI) that provides access to various
+ * image editing and processing operations.
  * </p>
  * 
  * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
@@ -25,6 +27,7 @@ import java.util.prefs.Preferences;
  */
 public class Andie {
 
+    /** A resource bundle to change the language */
     private static ResourceBundle bundle;
 
     /**
@@ -33,9 +36,11 @@ public class Andie {
      * </p>
      * 
      * <p>
-     * This method sets up an interface consisting of an active image (an {@code ImagePanel})
-     * and various menus which can be used to trigger operations to load, save, edit, etc. 
-     * These operations are implemented {@link ImageOperation}s and triggerd via 
+     * This method sets up an interface consisting of an active image (an
+     * {@code ImagePanel})
+     * and various menus which can be used to trigger operations to load, save,
+     * edit, etc.
+     * These operations are implemented {@link ImageOperation}s and triggerd via
      * {@code ImageAction}s grouped by their general purpose into menus.
      * </p>
      * 
@@ -47,11 +52,14 @@ public class Andie {
      * @see ViewActions
      * @see FilterActions
      * @see ColourActions
+     * @see HelpActions
      * 
      * @throws Exception if something goes wrong.
      */
     private static void createAndShowGUI() throws Exception {
-        bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");        
+
+        bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
+
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
@@ -64,11 +72,12 @@ public class Andie {
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
-        
+
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
 
-        // File menus are pretty standard, so things that usually go in File menus go here.
+        // File menus are pretty standard, so things that usually go in File menus go
+        // here.
         FileActions fileActions = new FileActions(bundle);
         menuBar.add(fileActions.createMenu());
 
@@ -76,11 +85,13 @@ public class Andie {
         EditActions editActions = new EditActions(bundle);
         menuBar.add(editActions.createMenu());
 
-        // View actions control how the image is displayed, but do not alter its actual content
+        // View actions control how the image is displayed, but do not alter its actual
+        // content
         ViewActions viewActions = new ViewActions(bundle);
         menuBar.add(viewActions.createMenu());
 
-        // Filters apply a per-pixel operation to the image, generally based on a local window
+        // Filters apply a per-pixel operation to the image, generally based on a local
+        // window
         FilterActions filterActions = new FilterActions(bundle);
         menuBar.add(filterActions.createMenu());
 
@@ -88,11 +99,12 @@ public class Andie {
         ColourActions colourActions = new ColourActions(bundle);
         menuBar.add(colourActions.createMenu());
 
-        // Transformations take care of things such as flipping, rtating and resizing the image
+        // Transformations take care of things such as flipping, rtating and resizing
+        // the image
         TransformationActions transformationActions = new TransformationActions(bundle);
         menuBar.add(transformationActions.createMenu());
 
-        // Actions that help with usability 
+        // Actions that help with usability
         HelpActions helpActions = new HelpActions(bundle);
         menuBar.add(helpActions.createMenu());
 
@@ -116,11 +128,12 @@ public class Andie {
      * @see #createAndShowGUI()
      */
     public static void main(String[] args) throws Exception {
+
         Preferences prefs = Preferences.userNodeForPackage(Andie.class);
 
-        Locale.setDefault(new Locale(prefs.get("language", "en"), 
-                                     prefs.get("country", "NZ")));
-        
+        Locale.setDefault(new Locale(prefs.get("language", "en"),
+                prefs.get("country", "NZ")));
+
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
