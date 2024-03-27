@@ -19,7 +19,7 @@ import java.awt.image.*;
 public class Flip implements ImageOperation, java.io.Serializable{
     
     private int f;
-
+//test
     public Flip(){
         this.f = 1;
     }
