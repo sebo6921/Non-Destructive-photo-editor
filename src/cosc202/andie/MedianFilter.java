@@ -42,9 +42,9 @@ public class MedianFilter implements ImageOperation, java.io.Serializable {
                 // By shifting the bits appropriately, you can isolate each color channel so that 
                 //you can manipulate or extract it independently.
                 int a = (argb >> 24) & 0xFF; // Alpha channel, shifts to the right by 24 bits
-                int r = (argb >> 16) & 0xFF; // Red channel, shifts to the right by 16 bits
-                int g = (argb >> 8) & 0xFF; // Green channel, shifts tot the right by 8 bits
-                int b = argb & 0xFF; // Blue channel, no need to shift this one
+                //int r = (argb >> 16) & 0xFF; // Red channel, shifts to the right by 16 bits
+                //int g = (argb >> 8) & 0xFF; // Green channel, shifts tot the right by 8 bits
+                //int b = argb & 0xFF; // Blue channel, no need to shift this one
 
                 // applying the median filter to each color channel separately
                 int redMedian = getMedian(input, x, y, 16);
