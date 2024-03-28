@@ -2,7 +2,7 @@
 ANDIE is an image processing and editing program, a bit like Photoshop. As ANDIE is a non-destructive image editor, many image processing operations, such as blurring filters, cannot be reversed because information is lost in the process. ANDIE stores the original image and a sequence of the operations, these operations can then be applied to a copy of the original image to get the desired result. Since the original image and the full sequence of operations is kept, no information is lost.
 
 # How ANDIE Was Tested
-ANDIE was tested through by running the program through different devices and operating systems to ensure optimal performance and compatibility. Throughout the development process, each ANDIE feature was tested to identify and address any potential issues. It was also run to test usability to gather feedback and address user concerns that may be face as a result of using the program.
+ANDIE was tested thoroughly by running the program through different devices and operating systems to ensure optimal performance and compatibility. Throughout the development process, each ANDIE feature was tested to identify and address any potential issues. It was also run to test usability to gather feedback and address user concerns that may be face as a result of using the program.
 
 ## Contributions
 **Sharpen Filter** - Sebastian Chkourko
@@ -28,6 +28,9 @@ ANDIE was tested through by running the program through different devices and op
 **Exception Handling** - Sebastian Chkourko
 
 **Other Error Avoidance/Prevention** - Jessica Fan, Kruti Mistry
+
+## ANDIE Build Instructions
+Run ANDIE through Gradle.
 
 ## ANDIE User Guide 
 **Shortcut Keys** - To use the shortcuts, you must click on the section of the menu where the action falls under before clicking the shortcut key. e.g. Save (S), Click File, then shortcut S.
