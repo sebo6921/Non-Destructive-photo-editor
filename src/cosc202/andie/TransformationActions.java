@@ -105,7 +105,7 @@ public class TransformationActions {
             JLabel message1 = new JLabel(bundle.getString("TransformationActionsMsg"));
             JLabel message2 = new JLabel(bundle.getString("TransformationActionsMsg2"));
             JPanel panel = new JPanel();
-            panel.setPreferredSize(new Dimension(300, 70));
+            panel.setPreferredSize(new Dimension(400, 70));
             panel.add(message1);
             panel.add(message2);
             panel.add(sizeSpinner);
