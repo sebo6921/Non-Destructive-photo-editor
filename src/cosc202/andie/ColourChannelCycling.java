@@ -6,7 +6,7 @@ import java.awt.image.*;
  * <p>
  * ImageOperation to cycle the colour channels of the image.
  * </p>
- * 
+ * testing this is working
  * <p>
  * This takes the current values of the rgb colour channels and
  * rotates them between each other.
