@@ -38,7 +38,7 @@ public class ImageInversion implements ImageOperation, java.io.Serializable {
      * </p>
      * 
      * @param input  the image being inverted
-     * @param return the inverted image
+     * @return the inverted image
      */
     public BufferedImage apply(BufferedImage input) {
         for (int y = 0; y < input.getHeight(); y++) {

@@ -40,7 +40,7 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
      * </p>
      * 
      * @param input  the image having colour channel cycling applied to it
-     * @param return the colour channel cycled image
+     * @return the colour channel cycled image
      */
     public BufferedImage apply(BufferedImage input) {
         for (int y = 0; y < input.getHeight(); y++) {
