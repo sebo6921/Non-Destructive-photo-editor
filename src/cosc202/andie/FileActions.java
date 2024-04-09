@@ -2,11 +2,7 @@ package cosc202.andie;
 
 import java.util.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -15,35 +11,45 @@ import javax.swing.*;
  * </p>
  * 
  * <p>
- * The File menu is very common across applications, 
+ * The File menu is very common across applications,
  * and there are several items that the user will expect to find here.
  * Opening and saving files is an obvious one, but also exiting the program.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @author Steven Mills
  * @version 1.0
  */
 public class FileActions {
-    
+
     /** A list of actions for the File menu. */
     protected ArrayList<Action> actions;
+
+    /** A resource bundle to change the language */
+    private ResourceBundle bundle;
 
     /**
      * <p>
      * Create a set of File menu actions.
      * </p>
      */
-    public FileActions() {
+    public FileActions(ResourceBundle bundle) {
+        this.bundle = bundle;
         actions = new ArrayList<Action>();
-        actions.add(new FileOpenAction("Open (O)", null, "Open a file", Integer.valueOf(KeyEvent.VK_O)));
-        actions.add(new FileSaveAction("Save (S)", null, "Save the file", Integer.valueOf(KeyEvent.VK_S)));
-        actions.add(new FileSaveAsAction("Save As (A)", null, "Save a copy", Integer.valueOf(KeyEvent.VK_A)));
-        actions.add(new FileExportAction("Export (E)", null, "Export the image", Integer.valueOf(KeyEvent.VK_E)));
-        actions.add(new FileExitAction("Exit", null, "Exit the program", Integer.valueOf(0)));
+        actions.add(new FileOpenAction(bundle.getString("Open"), null, bundle.getString("OpenDesc"),
+                Integer.valueOf(KeyEvent.VK_O)));
+        actions.add(new FileSaveAction(bundle.getString("Save"), null, bundle.getString("SaveDesc"),
+                Integer.valueOf(KeyEvent.VK_S)));
+        actions.add(new FileSaveAsAction(bundle.getString("SaveAs"), null, bundle.getString("SaveAsDesc"),
+                Integer.valueOf(KeyEvent.VK_A)));
+        actions.add(new FileExportAction(bundle.getString("Export"), null, bundle.getString("ExportDesc"),
+                Integer.valueOf(KeyEvent.VK_E)));
+        actions.add(
+                new FileExitAction(bundle.getString("Exit"), null, bundle.getString("ExitDesc"), Integer.valueOf(0)));
     }
 
     /**
@@ -54,9 +60,9 @@ public class FileActions {
      * @return The File menu UI element.
      */
     public JMenu createMenu() {
-        JMenu fileMenu = new JMenu("File");
+        JMenu fileMenu = new JMenu(bundle.getString("FileMenu"));
 
-        for(Action action: actions) {
+        for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
 
@@ -77,10 +83,10 @@ public class FileActions {
          * Create a new file-open action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileOpenAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -106,15 +112,20 @@ public class FileActions {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().open(imageFilepath);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, bundle.getString("ErrorOpening") + ex.getMessage(),
+                            bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
-                    System.exit(1);
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ex.getMessage(),
+                            bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 }
             }
 
             target.repaint();
             target.getParent().revalidate();
         }
-
     }
 
     /**
@@ -131,10 +142,10 @@ public class FileActions {
          * Create a new file-save action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileSaveAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
@@ -154,12 +165,17 @@ public class FileActions {
          */
         public void actionPerformed(ActionEvent e) {
             try {
-                target.getImage().save();           
+                target.getImage().save();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, bundle.getString("ErrorSaving") + ex.getMessage(),
+                        bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
             } catch (Exception ex) {
-                System.exit(1);
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ex.getMessage(),
+                        bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
             }
         }
-
     }
 
     /**
@@ -176,16 +192,16 @@ public class FileActions {
          * Create a new file-save-as action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileSaveAsAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-         /**
+        /**
          * <p>
          * Callback for when the file-save-as action is triggered.
          * </p>
@@ -205,13 +221,16 @@ public class FileActions {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().saveAs(imageFilepath);
-                    JOptionPane.showMessageDialog(null, "Image saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("SavedIMG"), bundle.getString("SavedIMGMSG"),
+                            JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("ErrorSaving") + ex.getMessage(),
+                            bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Unexpected error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ex.getMessage(),
+                            bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -230,16 +249,16 @@ public class FileActions {
          * Create a new file-export action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileExportAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-         /**
+        /**
          * <p>
          * Callback for when the FileExportAction action is triggered.
          * </p>
@@ -259,13 +278,16 @@ public class FileActions {
                 try {
                     String imageFilepath = fileChooser.getSelectedFile().getCanonicalPath();
                     target.getImage().export(imageFilepath);
-                    JOptionPane.showMessageDialog(null, "Image saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("ExportIMG"), bundle.getString("ExportIMGMSG"),
+                            JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("ExportError") + ex.getMessage(),
+                            bundle.getString("ExportErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Unexpected error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("ExportUnexpectedError") + ex.getMessage(),
+                            bundle.getString("ExportUnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -283,10 +305,10 @@ public class FileActions {
          * Create a new file-exit action.
          * </p>
          * 
-         * @param name The name of the action (ignored if null).
-         * @param icon An icon to use to represent the action (ignored if null).
-         * @param desc A brief description of the action  (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut  (ignored if null).
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FileExitAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon);
@@ -294,7 +316,7 @@ public class FileActions {
             putValue(MNEMONIC_KEY, mnemonic);
         }
 
-         /**
+        /**
          * <p>
          * Callback for when the file-exit action is triggered.
          * </p>
@@ -309,7 +331,7 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             if (EditableImage.imageModified) {
                 int choice = JOptionPane.showConfirmDialog(null,
-                        "You have unsaved changes. Do you want to discard them and exit?", "Confirm",
+                        bundle.getString("ExitMSG"), bundle.getString("ExitConfirmed"),
                         JOptionPane.YES_NO_OPTION);
                 if (choice != JOptionPane.YES_OPTION) {
                     return; // User chose not to discard changes, so do not exit
@@ -317,8 +339,5 @@ public class FileActions {
             }
             System.exit(0);
         }
-
     }
-    
 }
-

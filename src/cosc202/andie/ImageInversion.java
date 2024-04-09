@@ -16,7 +16,7 @@ import java.awt.image.*;
  * @author James Maher
  * @version 1.0
  */
-public class ImageInversion implements ImageOperation, java.io.Serializable{
+public class ImageInversion implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
@@ -24,9 +24,8 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
      * </p
      */
     ImageInversion() {
-    
     }
-    
+
     /**
      * <p>
      * Apply the inversion to the image.
@@ -38,8 +37,8 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
      * (255 - current rgb value).
      * </p>
      * 
-     * @param input the image being inverted
-     * @param return the inverted image
+     * @param input  the image being inverted
+     * @return the inverted image
      */
     public BufferedImage apply(BufferedImage input) {
         for (int y = 0; y < input.getHeight(); y++) {
@@ -54,11 +53,11 @@ public class ImageInversion implements ImageOperation, java.io.Serializable{
                 g = 255 - g;
                 b = 255 - b;
 
-
                 argb = (a << 24) | (r << 16) | (g << 8) | b;
                 input.setRGB(x, y, argb);
             }
         }
+
         return input;
     }
 }

@@ -45,7 +45,7 @@ class EditableImage {
     /**
      * The current image, the result of applying {@link ops} to {@link original}.
      */
-    private  BufferedImage current;
+    private BufferedImage current;
     /** The sequence of operations currently applied to the image. */
     private Stack<ImageOperation> ops;
     /** A memory of 'undone' operations to support 'redo'. */
@@ -54,9 +54,12 @@ class EditableImage {
     private String imageFilename;
     /** The file where the operation sequence is stored. */
     private String opsFilename;
+    /** Boolean which stores if the image is modified */
     protected static boolean imageModified;
+    /** A resource bundle to change the language */
+    ResourceBundle bundle;
 
-    public BufferedImage getCurrent(){
+    public BufferedImage getCurrent() {
         return this.current;
     }
 
@@ -71,6 +74,7 @@ class EditableImage {
      * </p>
      */
     public EditableImage() {
+        this.bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
         original = null;
         current = null;
         ops = new Stack<ImageOperation>();
@@ -158,21 +162,23 @@ class EditableImage {
      */
     public void open(String filePath) throws Exception {
         if (imageModified) {
-            int choice = JOptionPane.showConfirmDialog(null,
-                    "You have unsaved changes. Do you want to discard them and open a new image?", "Confirm",
+            int choice = JOptionPane.showConfirmDialog(null, bundle.getString("UnsavedChanges"),
+                    bundle.getString("UnsavedConfirmed"),
                     JOptionPane.YES_NO_OPTION);
             if (choice != JOptionPane.YES_OPTION) {
                 return; // User chose not to discard changes, so return without opening a new image
             }
         }
+
+        ops.clear();
         imageFilename = filePath;
         opsFilename = imageFilename + ".ops";
         File imageFile = new File(imageFilename);
         try {
             original = ImageIO.read(imageFile);
             if (original == null) {
-                JOptionPane.showMessageDialog(null, "The file you are trying to open is not a valid image.",
-                        "Invalid Image", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, bundle.getString("NotValidIMG"),
+                        bundle.getString("Invalid"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
             current = deepCopy(original);
@@ -200,12 +206,9 @@ class EditableImage {
             }
             this.refresh();
             imageModified = false; // Reset imageModified flag after opening a new image
-
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,
-                    "The file you are trying to open is not accessible or not a valid image.",
-                    "Error Opening Image", JOptionPane.ERROR_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, bundle.getString("FileNotAccessible"),
+                    bundle.getString("ErrorOpening"), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -238,6 +241,7 @@ class EditableImage {
         objOut.writeObject(this.ops);
         objOut.close();
         fileOut.close();
+        imageModified = false; // Reset imageModified flag after saving a new image
     }
 
     /**
@@ -290,7 +294,7 @@ class EditableImage {
      */
     public void apply(ImageOperation op) {
         if (current == null) {
-            JOptionPane.showMessageDialog(null, "There is no valid image to apply actions to.", "Error",
+            JOptionPane.showMessageDialog(null, bundle.getString("NoImage"), bundle.getString("NoImageError"),
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -350,6 +354,5 @@ class EditableImage {
             current = op.apply(current);
         }
     }
-
 
 }
