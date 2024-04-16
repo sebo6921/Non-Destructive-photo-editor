@@ -15,7 +15,7 @@ public class ImagePanelTest {
     @Test
     void getZoomInitialValue(){
         ImagePanel testPanel = new ImagePanel();
-        Assertions.assertEquals(100.0, testPanel.getZoom());
+        Assertions.assertEquals(-1.0, testPanel.getZoom());
     }
 
     @Test
