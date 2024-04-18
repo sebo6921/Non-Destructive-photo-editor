@@ -109,8 +109,10 @@ public class Andie {
         menuBar.add(helpActions.createMenu());
 
         frame.setJMenuBar(menuBar);
+
         frame.pack();
         frame.setVisible(true);
+
     }
 
     /**
