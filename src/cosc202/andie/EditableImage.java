@@ -158,9 +158,7 @@ class EditableImage {
      */
     public void open(String filePath) throws Exception {
         if (imageModified) {
-            int choice = JOptionPane.showConfirmDialog(null,
-                    "You have unsaved changes. Do you want to discard them and open a new image?", "Confirm",
-                    JOptionPane.YES_NO_OPTION);
+            int choice = JOptionPane.showConfirmDialog(null, "You have unsaved changes. Do you want to discard them and open a new image?", "Confirm", JOptionPane.YES_NO_OPTION);
             if (choice != JOptionPane.YES_OPTION) {
                 return; // User chose not to discard changes, so return without opening a new image
             }
@@ -170,7 +168,7 @@ class EditableImage {
         File imageFile = new File(imageFilename);
         try {
             original = ImageIO.read(imageFile);
-            if (original == null) {
+            if (original == null) { // this is where the error is happening
                 JOptionPane.showMessageDialog(null, "The file you are trying to open is not a valid image.",
                         "Invalid Image", JOptionPane.ERROR_MESSAGE);
                 return;
