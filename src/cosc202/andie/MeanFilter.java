@@ -78,18 +78,67 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
-        int size = (2 * radius + 1) * (2 * radius + 1);
-        float[] array = new float[size];
-        Arrays.fill(array, 1.0f / size);
+        int width = input.getWidth();
+        int height = input.getHeight();
 
-        Kernel kernel = new Kernel(2 * radius + 1, 2 * radius + 1, array);
+        // Pad the input image
+        BufferedImage paddedImage = padImage(input, radius);
 
-        ConvolveOp convOp = new ConvolveOp(kernel);
+        // Create an output image with the same dimensions as the input image
+        BufferedImage output = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
-                input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
+        // Apply the Mean filter
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                // Calculate the average pixel value within the filter window
+                int[] pixel = calculateMean(paddedImage, x + radius, y + radius, radius);
+                // Set the pixel value in the output image
+                output.setRGB(x, y, new Color(pixel[0], pixel[1], pixel[2]).getRGB());
+            }
+        }
 
         return output;
+    }
+
+    private BufferedImage padImage(BufferedImage input, int radius) {
+        int padSize = 2 * radius;
+        int width = input.getWidth();
+        int height = input.getHeight();
+        
+        // Create a new image with padded borders
+        BufferedImage paddedImage = new BufferedImage(width + padSize, height + padSize, BufferedImage.TYPE_INT_RGB);
+        
+        // Copy the input image into the padded image, leaving the border pixels with zero values
+        Graphics2D g2d = paddedImage.createGraphics();
+        g2d.drawImage(input, radius, radius, null);
+        g2d.dispose();
+
+        return paddedImage;
+    }
+
+    private int[] calculateMean(BufferedImage image, int x, int y, int radius) {
+        int[] sum = {0, 0, 0};
+        int count = 0;
+
+        // Iterate over the filter window
+        for (int i = y - radius; i <= y + radius; i++) {
+            for (int j = x - radius; j <= x + radius; j++) {
+                // Get pixel value at (j, i)
+                Color color = new Color(image.getRGB(j, i));
+                sum[0] += color.getRed();
+                sum[1] += color.getGreen();
+                sum[2] += color.getBlue();
+                count++;
+            }
+        }
+
+        // Calculate the mean of pixel values
+        int[] mean = {
+            sum[0] / count,
+            sum[1] / count,
+            sum[2] / count
+        };
+
+        return mean;
     }
 }
