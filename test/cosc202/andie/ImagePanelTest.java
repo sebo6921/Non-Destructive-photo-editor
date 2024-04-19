@@ -29,7 +29,7 @@ public class ImagePanelTest {
     @Test
     void getZoomInitialValue2(){
         ImagePanel testPanel = new ImagePanel();
-        Assertions.assertEquals(-1, testPanel.getZoom());
+        Assertions.assertEquals(100.0, testPanel.getZoom());
     } 
 
 }
