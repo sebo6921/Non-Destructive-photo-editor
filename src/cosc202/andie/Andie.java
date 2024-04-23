@@ -112,7 +112,7 @@ public class Andie {
 
         frame.setJMenuBar(menuBar);
 
-        JToolBar toolBar = Toolbar.createToolbar();
+        JToolBar toolBar = Toolbar.createToolbar(bundle);
         frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
 
         frame.pack();
