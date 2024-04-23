@@ -1,6 +1,11 @@
 package cosc202.andie;
 
+<<<<<<< HEAD
 import java.awt.Point;
+=======
+import java.awt.Color;
+import java.awt.Graphics2D;
+>>>>>>> 551b1fc00a2f2f137a13a478b0ff9cdd096042d9
 import java.awt.image.*;
 import java.util.*;
 

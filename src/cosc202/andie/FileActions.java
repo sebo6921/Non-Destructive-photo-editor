@@ -126,6 +126,15 @@ public class FileActions {
             target.repaint();
             target.getParent().revalidate();
         }
+
+        public Action getFileOpenAction() {
+            for (Action action : actions) {
+                if (action.getValue(Action.NAME).equals(bundle.getString("Open"))) {
+                    return action;
+                }
+            }
+            return null; // Or throw an exception if it should always exist
+        }
     }
 
     /**
