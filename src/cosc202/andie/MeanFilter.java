@@ -1,5 +1,8 @@
 package cosc202.andie;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.*;
 import java.util.*;
 
@@ -7,16 +10,13 @@ import java.util.*;
  * <p>
  * ImageOperation to apply a Mean (simple blur) filter.
  * </p>
- * 
  * <p>
  * A Mean filter blurs an image by replacing each pixel by the average of the
- * pixels in a surrounding neighbourhood, and can be implemented by a
- * convoloution.
+ * pixels in a surrounding neighbourhood, and can be implemented by a convoloution.
  * </p>
  * 
- * <p>
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
- * 4.0</a>
+ * <p> 
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
@@ -24,12 +24,18 @@ import java.util.*;
  * @version 1.0
  */
 public class MeanFilter implements ImageOperation, java.io.Serializable {
-
+    
     /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
-     * 5x5 filter, and so forth.
+     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
+
+   /**
+     * <p>
+     * The coordinates of the corners of the selected area. If there is no selected area, these will be equal to -1.
+     * </p>
+     */
+    private int x1, x2, y1, y2 = -1;
 
     /**
      * <p>
@@ -45,7 +51,16 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @param radius The radius of the newly constructed MeanFilter
      */
     MeanFilter(int radius) {
-        this.radius = radius;
+        this.radius = radius;    
+    }
+
+
+    MeanFilter(int radius, Point p1, Point p2) {
+        this.radius = radius;   
+        this.x1 = (int) p1.getX();
+        this.x2 = (int) p2.getX();
+        this.y1 = (int) p1.getY();
+        this.y2 = (int) p2.getY(); 
     }
 
     /**
@@ -62,7 +77,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
     MeanFilter() {
         this(1);
     }
-
+    https://github.com/Josh-J-A-Carter/COSC202-ANDIE/tree/main/src/cosc202/andie
     /**
      * <p>
      * Apply a Mean filter to an image.
@@ -70,7 +85,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * 
      * <p>
      * As with many filters, the Mean filter is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.
+     * The size of the convolution kernel is specified by the {@link radius}.  
      * Larger radii lead to stronger blurring.
      * </p>
      * 
@@ -78,18 +93,27 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @return The resulting (blurred)) image.
      */
     public BufferedImage apply(BufferedImage input) {
-        int size = (2 * radius + 1) * (2 * radius + 1);
-        float[] array = new float[size];
-        Arrays.fill(array, 1.0f / size);
+        BufferedImage output = null;
+        try{
+            int size = (2*radius+1) * (2*radius+1);
+            float [] array = new float[size];
+            Arrays.fill(array, 1.0f/size);
 
-        Kernel kernel = new Kernel(2 * radius + 1, 2 * radius + 1, array);
+            Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
+            AndieConvolveOp convOp = new AndieConvolveOp(kernel);
+            output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+            if (x1 != -1 && x2 != -1 && y1 != -1 && y2 != -1) convOp.filter(input, output, x1, y1, x2, y2);
+            else convOp.filter(input, output);
 
-        ConvolveOp convOp = new ConvolveOp(kernel);
-
-        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null),
-                input.isAlphaPremultiplied(), null);
-        convOp.filter(input, output);
-
+        } catch (NullPointerException ex) {
+            // Handle null pointer exception
+            ex.printStackTrace();
+        } catch (java.awt.image.RasterFormatException ex) {
+            // Handle raster format exception
+            ex.printStackTrace();
+        }
         return output;
     }
+
+
 }

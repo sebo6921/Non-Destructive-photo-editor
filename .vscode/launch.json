@@ -6,6 +6,12 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
+            "name": "Andie",
+            "request": "launch",
+            "mainClass": "cosc202.andie.Andie",
+            "projectName": "andie_c64e2703"
+=======
             "name": "LanguageTest",
             "request": "launch",
             "mainClass": "cosc202.andie.LanguageTest",
@@ -31,6 +37,7 @@
             "request": "launch",
             "mainClass": "cosc202.andie.Andie",
             "projectName": "Andie"
+>>>>>>> 41e977a209bbf1d496b9d182476095d7fd2b2b36
         },
         {
             "type": "java",
