@@ -1,6 +1,8 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.imageio.*;
 import java.util.*;
@@ -109,6 +111,9 @@ public class Andie {
         menuBar.add(helpActions.createMenu());
 
         frame.setJMenuBar(menuBar);
+
+        JToolBar toolBar = Toolbar.createToolbar();
+        frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
 
         frame.pack();
         frame.setVisible(true);
