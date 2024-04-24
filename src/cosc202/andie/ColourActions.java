@@ -3,6 +3,9 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 
 /**
  * <p>
@@ -47,6 +50,8 @@ public class ColourActions {
                 Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new ColourChannelCyclingAction(bundle.getString("ColourChannelCycling"), null,
                 bundle.getString("ColourChannelCyclingDesc"), Integer.valueOf(KeyEvent.VK_C)));
+        actions.add(new BrightnessAndContrastAction(bundle.getString("Brightness&Contrast"), null, 
+                bundle.getString("Brightness&ContrastDesc"), Integer.valueOf(KeyEvent.VK_B)));
     }
 
     /**
@@ -189,13 +194,14 @@ public class ColourActions {
             target.repaint();
             target.getParent().revalidate();
         }
+    }
 
 
 
         public class BrightnessAndContrastAction extends ImageAction{
 
 
-            BrightnessAndContrastAction(String name, String icon, String desc, Integer mnemonic){
+            BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic){
                 super(name, icon, desc, mnemonic);
             }
 
@@ -207,7 +213,7 @@ public class ColourActions {
                 brightnessSlider.setPaintTicks(true);
 
                 
-                Jslider contrastSlider = new JSlider(-100, 100);
+                JSlider contrastSlider = new JSlider(-100, 100);
                 contrastSlider.setMajorTickSpacing(25);
                 contrastSlider.setMinorTickSpacing(5);
                 contrastSlider.setPaintTicks(true);
@@ -215,25 +221,15 @@ public class ColourActions {
                 JPanel panel = new JPanel();
                 JLabel message1 = new JLabel(bundle.getString("BrightnessMSG1"));
                 JLabel message2 = new JLabel(bundle.getString("BrightnessMSG2"));
-                JLabel.add(message1);
-                JLabel.add(message2);
-                JLabel.add(brightnessSlider);
-                JLabel.add(contrastSlider);
-
-                int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("Size"),
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-                // Check the return value from the dialog box
-                if (option == JOptionPane.CANCEL_OPTION) {
-                    return;
-                } else if (option == JOptionPane.OK_OPTION) {
-                    size = sizeModel.getNumber().intValue();
-                }
-
-
+                panel.add(message1);
+                panel.add(message2);
+                panel.add(brightnessSlider);
+                panel.add(contrastSlider);
                 
+                MySliderChangeListener brightnessListener = new MySliderChangeListener();
+                MySliderChangeListener contrastListener = new MySliderChangeListener();
+
 
             }
         }
-    }
 }
