@@ -189,5 +189,51 @@ public class ColourActions {
             target.repaint();
             target.getParent().revalidate();
         }
+
+
+
+        public class BrightnessAndContrastAction extends ImageAction{
+
+
+            BrightnessAndContrastAction(String name, String icon, String desc, Integer mnemonic){
+                super(name, icon, desc, mnemonic);
+            }
+
+            public void actionPerformed(ActionEvent e){
+                
+                JSlider brightnessSlider = new JSlider(-100, 100);
+                brightnessSlider.setMajorTickSpacing(25);
+                brightnessSlider.setMinorTickSpacing(5);
+                brightnessSlider.setPaintTicks(true);
+
+                
+                Jslider contrastSlider = new JSlider(-100, 100);
+                contrastSlider.setMajorTickSpacing(25);
+                contrastSlider.setMinorTickSpacing(5);
+                contrastSlider.setPaintTicks(true);
+
+                JPanel panel = new JPanel();
+                JLabel message1 = new JLabel(bundle.getString("BrightnessMSG1"));
+                JLabel message2 = new JLabel(bundle.getString("BrightnessMSG2"));
+                JLabel.add(message1);
+                JLabel.add(message2);
+                JLabel.add(brightnessSlider);
+                JLabel.add(contrastSlider);
+
+                int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("Size"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+                // Check the return value from the dialog box
+                if (option == JOptionPane.CANCEL_OPTION) {
+                    return;
+                } else if (option == JOptionPane.OK_OPTION) {
+                    size = sizeModel.getNumber().intValue();
+                }
+
+
+                
+
+            }
+        }
     }
 }
