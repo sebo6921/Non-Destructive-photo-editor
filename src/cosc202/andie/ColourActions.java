@@ -50,8 +50,8 @@ public class ColourActions {
                 Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new ColourChannelCyclingAction(bundle.getString("ColourChannelCycling"), null,
                 bundle.getString("ColourChannelCyclingDesc"), Integer.valueOf(KeyEvent.VK_C)));
-        actions.add(new BrightnessAndContrastAction(bundle.getString("Brightness&Contrast"), null, 
-                bundle.getString("Brightness&ContrastDesc"), Integer.valueOf(KeyEvent.VK_B)));
+        //actions.add(new BrightnessAndContrastAction(bundle.getString("Brightness&Contrast"), null, 
+                //bundle.getString("Brightness&ContrastDesc"), Integer.valueOf(KeyEvent.VK_B)));
     }
 
     /**
@@ -198,38 +198,38 @@ public class ColourActions {
 
 
 
-        public class BrightnessAndContrastAction extends ImageAction{
+        // public class BrightnessAndContrastAction extends ImageAction{
 
 
-            BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic){
-                super(name, icon, desc, mnemonic);
-            }
+        //     BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+        //         super(name, icon, desc, mnemonic);
+        //     }
 
-            public void actionPerformed(ActionEvent e){
+        //     public void actionPerformed(ActionEvent e){
                 
-                JSlider brightnessSlider = new JSlider(-100, 100);
-                brightnessSlider.setMajorTickSpacing(25);
-                brightnessSlider.setMinorTickSpacing(5);
-                brightnessSlider.setPaintTicks(true);
+        //         JSlider brightnessSlider = new JSlider(-100, 100);
+        //         brightnessSlider.setMajorTickSpacing(25);
+        //         brightnessSlider.setMinorTickSpacing(5);
+        //         brightnessSlider.setPaintTicks(true);
 
                 
-                JSlider contrastSlider = new JSlider(-100, 100);
-                contrastSlider.setMajorTickSpacing(25);
-                contrastSlider.setMinorTickSpacing(5);
-                contrastSlider.setPaintTicks(true);
+        //         JSlider contrastSlider = new JSlider(-100, 100);
+        //         contrastSlider.setMajorTickSpacing(25);
+        //         contrastSlider.setMinorTickSpacing(5);
+        //         contrastSlider.setPaintTicks(true);
 
-                JPanel panel = new JPanel();
-                JLabel message1 = new JLabel(bundle.getString("BrightnessMSG1"));
-                JLabel message2 = new JLabel(bundle.getString("BrightnessMSG2"));
-                panel.add(message1);
-                panel.add(message2);
-                panel.add(brightnessSlider);
-                panel.add(contrastSlider);
+        //         JPanel panel = new JPanel();
+        //         JLabel message1 = new JLabel(bundle.getString("BrightnessMSG1"));
+        //         JLabel message2 = new JLabel(bundle.getString("BrightnessMSG2"));
+        //         panel.add(message1);
+        //         panel.add(message2);
+        //         panel.add(brightnessSlider);
+        //         panel.add(contrastSlider);
                 
-                MySliderChangeListener brightnessListener = new MySliderChangeListener();
-                MySliderChangeListener contrastListener = new MySliderChangeListener();
+        //         // MySliderChangeListener brightnessListener = new MySliderChangeListener();
+        //         // MySliderChangeListener contrastListener = new MySliderChangeListener();
 
 
-            }
-        }
+        //     }
+        //}
 }
