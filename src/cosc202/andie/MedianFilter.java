@@ -1,123 +1,234 @@
 package cosc202.andie;
 
+import java.awt.Point;
 import java.awt.image.*;
+import java.util.*;
 
-
+/**
+ * <p>
+ * ImageOperation to apply a Median filter.
+ * </p>
+ * 
+ * <p>
+ * A Median filter blurs an image by taking the median of a radius of pixels.
+ * This is implemented by accessing each and every pixel needed to get the 
+ * median value.
+ */
 public class MedianFilter implements ImageOperation, java.io.Serializable {
 
     /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
-     * 5x5 filter, and so forth.
+     * The size of the filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
      */
     private int radius;
 
     /**
-     * constructor, with a default radius of 1
+     * <p>
+     * The coordinates of the corners of the selected area. If there is no selected area, these will be equal to -1.
+     * </p>
      */
-    public MedianFilter() {
-        this.radius = 1;
+    private int x1 = -1, y1 = -1, x2 = -1, y2 = -1;
+
+    /**
+     * <p>
+     * Construct a Median filter with a given radius
+     * </p>
+     * 
+     * <p>
+     * The size of the filter is the 'radius' of the pixels wanted to sort.
+     * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
+     * Larger filters give a stronger median effect.
+     * </p>
+     * 
+     * @param radius The radius of the newly constructed MedianFilter
+     * @param p1 The top left corner of the selection to apply the filter over
+     * @param p2 The bottom right corner of the selection to apply the filter over
+     */
+    MedianFilter(int radius, Point p1, Point p2) {
+        this.radius = radius;
+        this.x1 = (int) p1.getX();
+        this.y1 = (int) p1.getY();
+        this.x2 = (int) p2.getX();
+        this.y2 = (int) p2.getY();
     }
 
     /**
-     * constructor that sets the radius based on user input
+     * <p>
+     * Construct a Median filter with a given radius
+     * </p>
      * 
-     * @param radius - the int value that the user wants to set as the radius
+     * <p>
+     * The size of the filter is the 'radius' of the pixels wanted to sort.
+     * A size of 1 is a 3x3 filter, 2 is 5x5, and so on.
+     * Larger filters give a stronger median effect.
+     * </p>
+     * 
+     * @param radius The radius of the newly constructed MedianFilter
      */
-    public MedianFilter(int radius) {
+    MedianFilter(int radius) {
         this.radius = radius;
     }
 
     /**
-     * Apply the median filter to the input image.
+     * <p>
+     * Construct a Median filter with the default size.
+     * </p>
      * 
-     * @param input The input image to filter.
-     * @return The filtered output image.
+     * <p>
+     * By default, a Median filter has radius 1.
+     * </p>
+     * 
+     * @see MedianFilter(int)
      */
-    public BufferedImage apply(BufferedImage input) {
-        int width = input.getWidth();
-        int height = input.getHeight();
-        BufferedImage output = new BufferedImage(width, height, input.getType());
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                int argb = input.getRGB(x, y);
-
-                int a = (argb >> 24) & 0xFF; // Alpha channel, shifts to the right by 24 bits
-                
-                // applying the median filter to each color channel separately
-                int redMedian = getMedian(input, x, y, 16);
-                int greenMedian = getMedian(input, x, y, 8);
-                int blueMedian = getMedian(input, x, y, 0);
-
-                // adding together the color channels into a single ARGB value
-                int addedArgb = (a << 24) | (redMedian << 16) | (greenMedian << 8) | blueMedian;
-
-                output.setRGB(x, y, addedArgb);
-            }
-        }
-
-        return output;
+    MedianFilter() {
+        this(1);
     }
 
     /**
-     * Finds the median value for a given pixel location and color channel shift.
-     *
-     * @param input The input image.
-     * @param x     The x-coordinate of the pixel.
-     * @param y     The y-coordinate of the pixel.
-     * @param shift The bit shift value for the color channel.
-     * @return The median value for the specified color channel.
+     * <p>
+     * Apply a Median filter to an image.
+     * </p>
+     * 
+     * <p>
+     * The Median filter is implmented by finding the separate 
+     *  channels and sorting these values inside
+     * a given radius. 
+     * </p>
+     * 
+     * @param input The image to apply the Median filter to.
+     * @return The resulting image.
      */
-    private int getMedian(BufferedImage input, int x, int y, int shift) {
-        int[] filterSize = new int[(2 * radius + 1) * (2 * radius + 1)];
-        int index = 0;
-        for (int j = y - radius; j <= y + radius; j++) {
-            for (int i = x - radius; i <= x + radius; i++) {
-                if (i >= 0 && i < input.getWidth() && j >= 0 && j < input.getHeight()) {
-                    filterSize[index++] = (input.getRGB(i, j) >> shift) & 0xFF;
+
+    public BufferedImage apply(BufferedImage input)  {
+
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+
+        try{
+            int sideLength = 2*radius+1;
+            int size = sideLength*sideLength;
+
+            //The dimensions of the selection - default to the entire image
+            Point p1 = new Point(0, 0);
+            Point p2 = new Point(input.getWidth(), input.getHeight()-1);
+            //Otherwise, use the selection provided
+            if(x1 != -1){
+                p1.setLocation(x1, y1);
+                p2.setLocation(x2, y2);
+            }
+            
+            //Create new threads
+            int cores = Runtime.getRuntime().availableProcessors();
+            Thread[] threads = new Thread[cores];
+            int heightSegment = ((int) (p2.getY() - p1.getY())) / threads.length;
+            for(int i = 0; i < threads.length; i++){
+                //Make sure that the filter extends all the way down
+                if(i == threads.length-1) threads[i] = new RunProcess(input, output, size, (int) p1.getX(), (int) p1.getY() + heightSegment * i, (int) p2.getX(), (int) p2.getY());
+                else threads[i] = new RunProcess(input, output, size, (int) p1.getX(), (int) p1.getY() + heightSegment * i, (int) p2.getX(), (int) p1.getY() + heightSegment * (i+1));
+                threads[i].start();
+            }
+
+            //Wait for each thread to finish.
+            for (int i = 0; i < threads.length; i++)
+            threads[i].join();
+    } catch (NullPointerException ex) {
+        // Handle null pointer exception
+        ex.printStackTrace();
+    } catch (InterruptedException e) {
+        // Handle interrupted exception
+        e.printStackTrace();
+        // Restore interrupted state
+        Thread.currentThread().interrupt();
+    }
+        
+    return output;
+}
+
+    /**
+     * <p>
+     * An extension of {@code Thread} which runs a portion of the computation for Median Filter.
+     * </p>
+     */
+    private class RunProcess extends Thread{
+        /** The input image - we take the original pixel values from here. */
+        private BufferedImage input;
+        /** The output image - mutated pixels are put onto here. */
+        private BufferedImage output;
+        /** The points defining the selection over which to apply Median Filter */
+        private int x1, y1, x2, y2;
+        /** The size of the filter (2*radius+1)^2 */
+        private int size;
+
+        /**
+         * Instantiate a thread for a segment of the input image.
+         * 
+         * @param input      The image to mutate
+         * @param filterSize The size of the filter (i.e. (2*radius+1)^2)
+         * @param x1         The x-oordinate of the top left corner of selection
+         * @param y1         The y-oordinate of the top left corner of selection
+         * @param x2         The x-oordinate of the bottom right corner of selection
+         * @param y2         The y-oordinate of the bottom right corner of selection
+         */
+        public RunProcess(BufferedImage input, BufferedImage output, int filterSize, int x1, int y1, int x2, int y2){
+            super();
+            this.input = input;
+            this.output = output;
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2;
+            this.size = filterSize;
+        }
+
+        /**
+         * <p>
+         * Make the thread start processing the image.
+         * </p>
+         */
+        @Override
+        public void run(){
+            int[] a = new int[size];
+            int[] r = new int[size];
+            int[] g = new int[size];
+            int[] b = new int[size];
+            int median = size/2;
+            int height = input.getHeight();
+            int width = input.getWidth();
+            boolean hasAlpha = input.getColorModel().hasAlpha();
+            //Go to every pixel in the selection
+            for (int x = this.x1; x < this.x2; x++) {
+                for (int y = this.y1; y < this.y2; y++) {
+                    //Make sure the current pixel exists...
+                    if(x < 0 || x >= width) continue;
+                    if(y < 0 || y >= height) continue;
+                    //Go to every pixel within the radius of the current pixel
+                    int index = 0;
+                    for (int i = x - radius; i <= x + radius; i++) {
+                        for (int j = y - radius; j <= y + radius; j++) {
+                            //Make sure this is a valid point (i.e. it is within the image bounds)
+                            int validX = i, validY = j;
+                            if(i < 0) validX = 0;
+                            else if(i >= width) validX = width-1;
+                            if(j < 0) validY = 0;
+                            else if(j >= height) validY = height-1;
+                            //Put this pixel into the arrays
+                            int pixel = input.getRGB(validX, validY);
+                            if(hasAlpha)  a[index] = (pixel & 0xFF000000) >> 24;
+                            else a[index] = 255;
+                            r[index] = (pixel & 0x00FF0000) >> 16;
+                            g[index] = (pixel & 0x0000FF00) >> 8;
+                            b[index] = (pixel & 0x000000FF);
+                            index++;
+                        
+                        }
+                    }
+                    //Sort all the pixels that were in the radius around this pixel and choose the median value
+                    Arrays.sort(a); Arrays.sort(r); Arrays.sort(g); Arrays.sort(b);
+                    int newColour = (a[median] << 24) | (r[median] << 16) | (g[median] << 8) | (b[median] << 0);
+                    output.setRGB(x, y, newColour);
                 }
             }
+            // This thread has computed everything it needs to; join main thread.
+            this.interrupt();
         }
-
-        int medianIndex = filterSize.length / 2;
-        int low = 0;
-        int high = filterSize.length - 1;
-        while (low < high) {
-            int pivotIndex = partition(filterSize, low, high);
-            if (pivotIndex < medianIndex)
-                low = pivotIndex + 1;
-            else if (pivotIndex > medianIndex)
-                high = pivotIndex - 1;
-            else
-                break;
-        }
-
-        return filterSize[medianIndex];
     }
 
-    /**
-     * Partitions the array around a pivot element for Quickselect algorithm.
-     *
-     * @param arr  The array to partition.
-     * @param low  The lower index of the array.
-     * @param high The higher index of the array.
-     * @return The index of the pivot element after partitioning.
-     */
-    private int partition(int[] arr, int low, int high) {
-        int pivot = arr[high];
-        int i = low - 1;
-        for (int j = low; j < high; j++) {
-            if (arr[j] <= pivot) {
-                i++;
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
-        int temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
-
-        return i + 1;
-    }
 }
