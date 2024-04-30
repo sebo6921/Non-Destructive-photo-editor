@@ -50,8 +50,8 @@ public class ColourActions {
                 Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new ColourChannelCyclingAction(bundle.getString("ColourChannelCycling"), null,
                 bundle.getString("ColourChannelCyclingDesc"), Integer.valueOf(KeyEvent.VK_C)));
-        //actions.add(new BrightnessAndContrastAction(bundle.getString("Brightness&Contrast"), null, 
-                //bundle.getString("Brightness&ContrastDesc"), Integer.valueOf(KeyEvent.VK_B)));
+        actions.add(new BrightnessAndContrastAction(bundle.getString("Brightness&Contrast"), null, 
+                bundle.getString("Brightness&ContrastDesc"), Integer.valueOf(KeyEvent.VK_B)));
     }
 
     /**
@@ -198,38 +198,79 @@ public class ColourActions {
 
 
 
-        // public class BrightnessAndContrastAction extends ImageAction{
+        /**
+         * <p>
+         * Action to adjust image brightness and contrast
+         * </p>
+         * 
+         * @see BrightnessAndContrast
+         */
+        public class BrightnessAndContrastAction extends ImageAction{
+        
+        
+            /**
+             * <p>
+             * Create a new Brightness and Contrast action.
+             * </p>
+             * 
+             * @param name     The name of the action (ignored if null).
+             * @param icon     An icon to use to represent the action (ignored if null).
+             * @param desc     A brief description of the action (ignored if null).
+             * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+             */
+            BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+                super(name, icon, desc, mnemonic);
+            }
 
 
-        //     BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic){
-        //         super(name, icon, desc, mnemonic);
-        //     }
 
-        //     public void actionPerformed(ActionEvent e){
+            /**
+             * <p>
+             * Callback for when the BrightnessAndContrastAction is triggered.
+             * </p>
+             * 
+             * <p>
+             * This method is called whenever the BrightnessAndContrastAction is triggered.
+             * It adjusts the value of the images brightness and colour
+             * </p>
+             * 
+             * @param e The event triggering this callback.
+             */
+            public void actionPerformed(ActionEvent e){
                 
-        //         JSlider brightnessSlider = new JSlider(-100, 100);
-        //         brightnessSlider.setMajorTickSpacing(25);
-        //         brightnessSlider.setMinorTickSpacing(5);
-        //         brightnessSlider.setPaintTicks(true);
+                //Make new slider and adjust settings
+                JSlider brightnessSlider = new JSlider(-100, 100);
+                brightnessSlider.setMajorTickSpacing(25);
+                brightnessSlider.setMinorTickSpacing(5);
+                brightnessSlider.setPaintTicks(true);
 
                 
-        //         JSlider contrastSlider = new JSlider(-100, 100);
-        //         contrastSlider.setMajorTickSpacing(25);
-        //         contrastSlider.setMinorTickSpacing(5);
-        //         contrastSlider.setPaintTicks(true);
-
-        //         JPanel panel = new JPanel();
-        //         JLabel message1 = new JLabel(bundle.getString("BrightnessMSG1"));
-        //         JLabel message2 = new JLabel(bundle.getString("BrightnessMSG2"));
-        //         panel.add(message1);
-        //         panel.add(message2);
-        //         panel.add(brightnessSlider);
-        //         panel.add(contrastSlider);
-                
-        //         // MySliderChangeListener brightnessListener = new MySliderChangeListener();
-        //         // MySliderChangeListener contrastListener = new MySliderChangeListener();
+                JSlider contrastSlider = new JSlider(-100, 100);
+                contrastSlider.setMajorTickSpacing(25);
+                contrastSlider.setMinorTickSpacing(5);
+                contrastSlider.setPaintTicks(true);
+                System.out.println("Are we here");
 
 
-        //     }
-        //}
+                //Make panel and add messages and sliders
+                JPanel panel = new JPanel();
+                JLabel message1 = new JLabel(bundle.getString("BrightnessMSG"));
+                JLabel message2 = new JLabel(bundle.getString("ContrastMSG"));
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                panel.add(message1);
+                panel.add(brightnessSlider);
+                panel.add(message2);
+                panel.add(contrastSlider);
+
+                JOptionPane.showOptionDialog(null, panel, bundle.getString("B&CMSG"),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+           
+    
+
+                target.getImage().apply(new BrightnessAndContrast(brightnessSlider.getValue(), contrastSlider.getValue()));
+                target.repaint();
+                target.getParent().revalidate();
+
+            }
+        }
 }
