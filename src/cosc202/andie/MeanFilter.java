@@ -77,6 +77,10 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
     MeanFilter() {
         this(1);
     }
+<<<<<<< HEAD
+=======
+    //https://github.com/Josh-J-A-Carter/COSC202-ANDIE/tree/main/src/cosc202/andie
+>>>>>>> 5cb9c08e405c107ad0b88c15a47d7cf63e70669f
     /**
      * <p>
      * Apply a Mean filter to an image.

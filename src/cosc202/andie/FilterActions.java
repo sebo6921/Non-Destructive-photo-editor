@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 
+
 /**
  * <p>
  * Actions provided by the Filter menu.
@@ -52,6 +53,8 @@ public class FilterActions {
                 Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"),
                 Integer.valueOf(KeyEvent.VK_D)));
+        //actions.add(new EmbossFiltersAction(bundle.getString("EmbossFilters"), null, bundle.getString("EmbossFilterDesc"),
+                //Integer.valueOf(KeyEvent.VK_E)));
     }
 
     /**
@@ -311,4 +314,6 @@ public class FilterActions {
             target.getParent().revalidate();
         }
     }
+
+
 }
