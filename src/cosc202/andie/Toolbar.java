@@ -33,7 +33,7 @@ public class Toolbar {
         toolBar.add(exitButton);
 
         // Add Open to toolbar
-        ImageIcon openIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+        ImageIcon openIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/open.png")).toString());
         Image scaledOpenImage = openIcon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         openIcon = new ImageIcon(scaledOpenImage);
 
@@ -42,7 +42,7 @@ public class Toolbar {
         toolBar.add(openButton);
 
         // // Add Save to toolbar
-        ImageIcon saveIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+        ImageIcon saveIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/save.png")).toString());
         Image scaledSaveImage = saveIcon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         saveIcon = new ImageIcon(scaledSaveImage);
 
@@ -60,7 +60,7 @@ public class Toolbar {
         toolBar.add(saveAsButton);
 
         // // Add Undo to toolbar
-        ImageIcon undoIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+        ImageIcon undoIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/undo.png")).toString());
         Image scaledUndoImage = undoIcon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         undoIcon = new ImageIcon(scaledUndoImage);
 
@@ -69,7 +69,7 @@ public class Toolbar {
         toolBar.add(undoButton);
 
         // // Add Redo to toolbar
-        ImageIcon redoIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+        ImageIcon redoIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/redo.png")).toString());
         Image scaledRedoImage = redoIcon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         redoIcon = new ImageIcon(scaledRedoImage);
 
@@ -78,7 +78,7 @@ public class Toolbar {
         toolBar.add(redoButton);
 
         // // Add ZoomIn to toolbar
-        ImageIcon zoomInIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+        ImageIcon zoomInIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/zoomIn.png")).toString());
         Image scaledZoomInImage = redoIcon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         zoomInIcon = new ImageIcon(scaledZoomInImage);
 
@@ -87,7 +87,7 @@ public class Toolbar {
         toolBar.add(zoomInButton);
 
         // // Add ZoomOut to toolbar
-        ImageIcon zoomOutIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+        ImageIcon zoomOutIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/zoonOut.png")).toString());
         Image scaledZoomOutImage = redoIcon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         zoomOutIcon = new ImageIcon(scaledZoomOutImage);
 
