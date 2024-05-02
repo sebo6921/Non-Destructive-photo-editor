@@ -87,7 +87,7 @@ public class Toolbar {
         toolBar.add(zoomInButton);
 
         // // Add ZoomOut to toolbar
-        ImageIcon zoomOutIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/zoonOut.png")).toString());
+        ImageIcon zoomOutIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/zoomOut.png")).toString());
         Image scaledZoomOutImage = redoIcon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         zoomOutIcon = new ImageIcon(scaledZoomOutImage);
 
@@ -96,7 +96,7 @@ public class Toolbar {
         toolBar.add(zoomOutButton);
 
         // // Add HelpGuide to toolbar
-        ImageIcon helpGuideIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+        ImageIcon helpGuideIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/help.png")).toString());
         Image scaledHelpGuideImage = redoIcon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         helpGuideIcon = new ImageIcon(scaledHelpGuideImage);
 
