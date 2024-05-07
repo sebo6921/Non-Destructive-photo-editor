@@ -5,7 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.KeyStroke;
 
 /**
  * <p>
@@ -45,7 +49,7 @@ public class ColourActions {
         this.bundle = bundle;
         actions = new ArrayList<Action>();
         actions.add(new ConvertToGreyAction(bundle.getString("GreyScale"), null, bundle.getString("GreyScaleDesc"),
-                Integer.valueOf(KeyEvent.VK_G)));
+                Integer.valueOf(KeyEvent.VK_Y)));
         actions.add(new ImageInversionAction(bundle.getString("InvertImage"), null, bundle.getString("InvertImageDesc"),
                 Integer.valueOf(KeyEvent.VK_I)));
         actions.add(new ColourChannelCyclingAction(bundle.getString("ColourChannelCycling"), null,
@@ -91,6 +95,8 @@ public class ColourActions {
          */
         ConvertToGreyAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
+
         }
 
         /**
@@ -133,6 +139,8 @@ public class ColourActions {
          */
         ImageInversionAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
+
         }
 
         /**
@@ -175,6 +183,8 @@ public class ColourActions {
          */
         ColourChannelCyclingAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+
         }
 
         /**
@@ -220,6 +230,8 @@ public class ColourActions {
              */
             BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic){
                 super(name, icon, desc, mnemonic);
+                putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
+
             }
 
 

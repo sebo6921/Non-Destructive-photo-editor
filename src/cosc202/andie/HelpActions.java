@@ -7,7 +7,11 @@ import java.awt.*;
 import javax.swing.*;
 import java.nio.file.*;
 import java.io.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.KeyStroke;
 /**
  * <p>
  * Actions provided by the Help menu.
@@ -41,7 +45,7 @@ public class HelpActions {
         this.bundle = bundle;
         actions = new ArrayList<Action>();
         actions.add(new HelpGuideAction(bundle.getString("AndieGuide"), null, bundle.getString("AndieGuideDesc"),
-                Integer.valueOf(KeyEvent.VK_H)));
+                Integer.valueOf(KeyEvent.VK_K)));
         actions.add(new ChooseLanguageAction(bundle.getString("ChangeLanguage"), null,
                 bundle.getString("ChangeLanguageDesc"), Integer.valueOf(KeyEvent.VK_L)));
     }
@@ -79,12 +83,15 @@ public class HelpActions {
          */
         HelpGuideAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_K, KeyEvent.CTRL_DOWN_MASK));
+
             if (desc != null) {
                 putValue(SHORT_DESCRIPTION, desc);
             }
             if (mnemonic != null) {
                 putValue(MNEMONIC_KEY, mnemonic);
             }
+
         }
 
         /**
@@ -154,12 +161,15 @@ public class HelpActions {
          */
         ChooseLanguageAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
+
             if (desc != null) {
                 putValue(SHORT_DESCRIPTION, desc);
             }
             if (mnemonic != null) {
                 putValue(MNEMONIC_KEY, mnemonic);
             }
+            
         }
 
         /**
