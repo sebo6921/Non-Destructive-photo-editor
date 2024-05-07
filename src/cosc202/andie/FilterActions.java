@@ -3,6 +3,10 @@ package cosc202.andie;
 import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+
+//import cosc202.andie.FilterActions.SobelFiltersAction;
+
 import java.awt.*;
 
 
@@ -54,7 +58,9 @@ public class FilterActions {
         actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"),
                 Integer.valueOf(KeyEvent.VK_D)));
         //actions.add(new EmbossFiltersAction(bundle.getString("EmbossFilters"), null, bundle.getString("EmbossFilterDesc"),
-                //Integer.valueOf(KeyEvent.VK_E)));
+             //Integer.valueOf(KeyEvent.VK_E)));
+        // actions.add(new SobelFilterAction(bundle.getString("SobelFilters"), null, bundle.getString("SobelFiltersDesc"),
+        //        Integer.valueOf(KeyEvent.VK_S)));
     }
 
     /**
@@ -315,5 +321,35 @@ public class FilterActions {
         }
     }
 
+    // public class SobelFilterAction extends ImageAction {
+    //     /**
+    //      * Action to apply Sobel filter to an image.
+    //      * 
+    //      * @param name     The name of the action (ignored if null).
+    //      * @param icon     An icon to use to represent the action (ignored if null).
+    //      * @param desc     A brief description of the action (ignored if null).
+    //      * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+    //      */
+    //     SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+    //         super(name, icon, desc, mnemonic);
+    //     }
+    
+    //     /**
+    //      * Callback for when the Sobel filter action is triggered.
+    //      * 
+    //      * This method is called whenever the SobelFilterAction is triggered.
+    //      * It applies the Sobel filter to the image.
+    //      * 
+    //      * @param e The event triggering this callback.
+    //      */
+    //     public void actionPerformed(ActionEvent e) {
+    //         //SobelFilters sobelFilters = new SobelFilters();
+    //         //sobelFilters.applySobel(target.getImage());
+    //         //target.getImage().apply(new SobelFilters());
+    //         target.repaint();
+    //         target.getParent().revalidate();
 
+            
+    //     }
+    // }
 }
