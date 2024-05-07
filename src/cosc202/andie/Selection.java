@@ -1,13 +1,9 @@
 package cosc202.andie;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
-import cosc202.andie.ImageOperation;
-
-public abstract class RectangleAreaSelector implements ImageOperation, java.io.Serializable{
+public abstract class Selection implements ImageOperation, java.io.Serializable{
 
     private int startX, endX, startY, endY;
+
 
     public void setStartPoint(int x, int y) {
         startX = x;
@@ -75,18 +71,6 @@ public abstract class RectangleAreaSelector implements ImageOperation, java.io.S
 
     public int getHeight() {
         return getMaxY() - getMinY();
-    }
-
-    public BufferedImage apply(BufferedImage image) {
-        BufferedImage modifiedImage = new BufferedImage(image.getColorModel(), image.copyData(null), image.isAlphaPremultiplied(), null);
-        Graphics2D g = modifiedImage.createGraphics();
-
-        g.setStroke(new BasicStroke(1));
-        g.setColor(new Color(0, 0, 255, 100));
-        g.fill(new Rectangle(getMinX(), getMinY(), getMaxX(), getMaxY()));
-        g.dispose();
-
-        return modifiedImage;
     }
 
 }

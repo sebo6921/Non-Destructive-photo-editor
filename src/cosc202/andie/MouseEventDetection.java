@@ -3,7 +3,6 @@ package cosc202.andie;
 import java.awt.*;
 import java.awt.event.*;
 
-import cosc202.andie.RectangleAreaSelector;
 
 public class MouseEventDetection implements MouseListener, MouseMotionListener{
 
@@ -11,17 +10,15 @@ public class MouseEventDetection implements MouseListener, MouseMotionListener{
 
     private static ImagePanel image;
 
-    private static RectangleAreaSelector rasTemp;
+    private static Selection rasTemp;
 
-    private static RectangleAreaSelector rasFinal;
+    private static Selection rasFinal;
 
     private static boolean selecting;
 
-    public static void setImage(ImagePanel input) {
-        image = input;
-    }
+    public static void setImage(ImagePanel image) {}
     
-    public static void selecting(RectangleAreaSelector start) {
+    public static void selecting(Selection start) {
         rasTemp = start;
         rasFinal = rasTemp;
         selecting = true;

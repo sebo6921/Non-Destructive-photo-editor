@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-//import cosc202.andie.RectangleAreaSelector;
-
 /**
  * <p>
  * UI display element for {@link EditableImage}s.
@@ -25,7 +23,7 @@ import javax.swing.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class ImagePanel extends JPanel implements MouseListener, MouseMotionListener {
+public class ImagePanel extends JPanel {
 
     /**
      * The image to display in the ImagePanel.
@@ -46,14 +44,6 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
      */
     private double scale;
 
-    private static RectangleAreaSelector tempRas;
-
-    private static RectangleAreaSelector endRas;
-
-    private static ImagePanel select;
-
-    private boolean active;
-
     /**
      * <p>
      * Create a new ImagePanel.
@@ -67,8 +57,8 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         image = new EditableImage();
         scale = 1.0;
 
-        addMouseListener(this);
-        addMouseMotionListener(this);
+       // addMouseListener(this);
+       // addMouseMotionListener(this);
     }
 
     /**
@@ -121,14 +111,17 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         scale = zoomPercent / 100;
     }
     
-    public void mousePressed(MouseEvent e) {
+/**
+ * blocked out
+ * 
+ *     public void mousePressed(MouseEvent e) {
         active = true;
         System.out.println(e.getX() + ", " + e.getY());
         setStartPoint(e.getPoint());
         setEndPoint(e.getPoint());
-        select.getImage().applyTemp(tempRas);
-        select.repaint();
-        select.getParent().revalidate();
+        getImage().applyTemp(tempSelection);
+        repaint();
+        getParent().revalidate();
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -137,9 +130,9 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         }
         System.out.println(e.getX() + ", " + e.getY());
         setEndPoint(e.getPoint());
-        select.getImage().apply(endRas);
-        select.repaint();
-        select.getParent().revalidate();
+        getImage().apply(finalSelection);
+        repaint();
+        getParent().revalidate();
         active = false;
     }
 
@@ -149,9 +142,9 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         }
         System.out.println(e.getX() + ", " + e.getY());
         setEndPoint(e.getPoint());
-        select.getImage().applyTemp(tempRas);
-        select.repaint();
-        select.getParent().revalidate();
+        getImage().applyTemp(tempSelection);
+        repaint();
+        getParent().revalidate();
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -166,14 +159,15 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
     public void mouseMoved(MouseEvent e) {}
 
     public void setStartPoint(Point point) {
-        tempRas.setStartPoint((int)point.getX(), (int)point.getY());
-        endRas.setStartPoint((int)point.getX(), (int)point.getY());
+        tempSelection.setStartPoint((int)point.getX(), (int)point.getY());
+        finalSelection.setStartPoint((int)point.getX(), (int)point.getY());
     }
 
     public void setEndPoint(Point point) {
-        tempRas.setEndPoint((int)point.getX(), (int)point.getY());
-        endRas.setEndPoint((int)point.getX(), (int)point.getY());
+        tempSelection.setEndPoint((int)point.getX(), (int)point.getY());
+        finalSelection.setEndPoint((int)point.getX(), (int)point.getY());
     }
+*/
 
     /**
      * <p>
@@ -214,4 +208,5 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
             g2.dispose();
         }
     }
+
 }
