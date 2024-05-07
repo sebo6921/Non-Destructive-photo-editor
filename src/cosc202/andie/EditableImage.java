@@ -46,6 +46,10 @@ class EditableImage {
      * The current image, the result of applying {@link ops} to {@link original}.
      */
     private BufferedImage current;
+
+    private BufferedImage temp;
+
+    private boolean isTemp;
     /** The sequence of operations currently applied to the image. */
     private Stack<ImageOperation> ops;
     /** A memory of 'undone' operations to support 'redo'. */
@@ -61,6 +65,20 @@ class EditableImage {
 
     public BufferedImage getCurrent() {
         return this.current;
+    }
+
+    /** 
+     * @return Width of current image
+    */
+    public int getWidth() {
+        return current.getWidth();
+    }
+
+    /**
+     * @return Height of current image
+     */
+    public int getHeight() { 
+        return current.getHeight();
     }
 
     /**
@@ -299,6 +317,18 @@ class EditableImage {
         imageModified = true;
         current = op.apply(current);
         ops.add(op);
+    }
+
+    
+    public void applyTemp(ImageOperation op) {
+        if (current == null) {
+            return;
+        }
+        if (!isTemp) {
+            temp = current;
+            isTemp = true;
+        }
+        current = op.apply(temp);
     }
 
     /**
