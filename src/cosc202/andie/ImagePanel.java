@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import cosc202.andie.mousetools.AreaSelection;
+import cosc202.andie.mousetools.Selection;
+
 /**
  * <p>
  * UI display element for {@link EditableImage}s.
@@ -23,7 +26,7 @@ import javax.swing.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class ImagePanel extends JPanel {
+public class ImagePanel extends JPanel implements MouseListener, MouseMotionListener{
 
     /**
      * The image to display in the ImagePanel.
@@ -44,6 +47,10 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
 
+    private Selection tempSelection = new AreaSelection();
+    private Selection finalSelection = new AreaSelection();
+    private boolean active;
+
     /**
      * <p>
      * Create a new ImagePanel.
@@ -57,8 +64,8 @@ public class ImagePanel extends JPanel {
         image = new EditableImage();
         scale = 1.0;
 
-       // addMouseListener(this);
-       // addMouseMotionListener(this);
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     /**
@@ -111,10 +118,8 @@ public class ImagePanel extends JPanel {
         scale = zoomPercent / 100;
     }
     
-/**
- * blocked out
- * 
- *     public void mousePressed(MouseEvent e) {
+
+    public void mousePressed(MouseEvent e) {
         active = true;
         System.out.println(e.getX() + ", " + e.getY());
         setStartPoint(e.getPoint());
@@ -158,16 +163,15 @@ public class ImagePanel extends JPanel {
     public void mouseExited(MouseEvent e) {}
     public void mouseMoved(MouseEvent e) {}
 
-    public void setStartPoint(Point point) {
-        tempSelection.setStartPoint((int)point.getX(), (int)point.getY());
-        finalSelection.setStartPoint((int)point.getX(), (int)point.getY());
+    private void setStartPoint(Point point) {
+        tempSelection.setStartPoint(point.getX(), point.getY());
+        finalSelection.setStartPoint(point.getX(), point.getY());
     }
 
-    public void setEndPoint(Point point) {
-        tempSelection.setEndPoint((int)point.getX(), (int)point.getY());
-        finalSelection.setEndPoint((int)point.getX(), (int)point.getY());
+    private void setEndPoint(Point point) {
+        tempSelection.setEndPoint(point.getX(), point.getY());
+        finalSelection.setEndPoint(point.getX(), point.getY());
     }
-*/
 
     /**
      * <p>
