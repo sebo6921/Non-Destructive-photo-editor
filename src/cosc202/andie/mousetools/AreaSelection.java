@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import cosc202.andie.ImagePanel;
+//import cosc202.andie.ImagePanel;
 
 public class AreaSelection extends Selection {
 
@@ -15,7 +15,7 @@ public class AreaSelection extends Selection {
         BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
         Graphics2D g2d = output.createGraphics();
         g2d.setStroke(new BasicStroke(1));
-        g2d.setColor(new Color(0, 0, 255, 100));
+        g2d.setColor(new Color(69, 69, 69, 69));
         g2d.fill(new Rectangle(getMinX(), getMinY(), getMaxX() - getMinX(), getMaxY() - getMinY()));
         g2d.dispose();
 

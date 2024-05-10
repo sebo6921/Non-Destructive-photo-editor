@@ -121,7 +121,7 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
 
     public void mousePressed(MouseEvent e) {
         active = true;
-        System.out.println(e.getX() + ", " + e.getY());
+        //System.out.println(e.getX() + ", " + e.getY());
         setStartPoint(e.getPoint());
         setEndPoint(e.getPoint());
         getImage().applyTemp(tempSelection);
@@ -133,7 +133,7 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         if (!active) {
             return;
         }
-        System.out.println(e.getX() + ", " + e.getY());
+        //System.out.println(e.getX() + ", " + e.getY());
         setEndPoint(e.getPoint());
         getImage().apply(finalSelection);
         repaint();
@@ -145,7 +145,7 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         if (!active) {
             return;
         }
-        System.out.println(e.getX() + ", " + e.getY());
+        //System.out.println(e.getX() + ", " + e.getY());
         setEndPoint(e.getPoint());
         getImage().applyTemp(tempSelection);
         repaint();
