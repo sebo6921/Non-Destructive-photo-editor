@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+
 import javax.swing.*;
 
 import cosc202.andie.mousetools.AreaSelection;
@@ -27,7 +29,8 @@ import cosc202.andie.mousetools.Selection;
  * @version 1.0
  */
 public class ImagePanel extends JPanel implements MouseListener, MouseMotionListener{
-
+    private Image backgroundImage;
+    
     /**
      * The image to display in the ImagePanel.
      */
@@ -63,7 +66,6 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
-        setBackground(Color.BLUE); // Change Color.BLUE to any color you want
 
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -165,13 +167,13 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
     public void mouseMoved(MouseEvent e) {}
 
     private void setStartPoint(Point point) {
-        tempSelection.setStartPoint(point.getX(), point.getY());
-        finalSelection.setStartPoint(point.getX(), point.getY());
+        // tempSelection.setStartPoint(point.getX(), point.getY());
+        // finalSelection.setStartPoint(point.getX(), point.getY());
     }
 
     private void setEndPoint(Point point) {
-        tempSelection.setEndPoint(point.getX(), point.getY());
-        finalSelection.setEndPoint(point.getX(), point.getY());
+        // tempSelection.setEndPoint(point.getX(), point.getY());
+        // finalSelection.setEndPoint(point.getX(), point.getY());
     }
 
     /**
@@ -195,7 +197,23 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
             return new Dimension(450, 450);
         }
     }
+    public void setBackgroundImage(Image image) {
+        this.backgroundImage = image;
+        revalidate();
 
+        repaint();
+    }
+
+    public void setBackgroundColor(Color color) {
+        int width = getWidth();
+        int height = getHeight();
+        BufferedImage colorImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = colorImage.createGraphics();
+        g2.setColor(color);
+        g2.fillRect(0, 0, width, height);
+        g2.dispose();
+        setBackgroundImage(colorImage);
+    }
     /**
      * <p>
      * (Re)draw the component in the GUI.
@@ -204,8 +222,11 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
      * @param g The Graphics component to draw the image on.
      */
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, this);
+        }
         if (image.hasImage()) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.scale(scale, scale);
@@ -213,5 +234,4 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
             g2.dispose();
         }
     }
-
 }

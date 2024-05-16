@@ -115,11 +115,13 @@ public class Andie {
         frame.setJMenuBar(menuBar);
 
 
-JButton colorButton = new JButton("Choose Background Color");
+JButton colorButton = new JButton("Choose Color");
+colorButton.setPreferredSize(new Dimension(50, 20)); // Set preferred size
+colorButton.setMargin(new Insets(5, 5, 5, 5));
     colorButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Color selectedColor = JColorChooser.showDialog(frame, "Choose Background Color", imagePanel.getBackground());
+            Color selectedColor = JColorChooser.showDialog(frame, "Choose Color", imagePanel.getBackground());
             if (selectedColor != null) {
                 imagePanel.setBackground(selectedColor);
                 imagePanel.repaint();
@@ -130,7 +132,7 @@ JButton colorButton = new JButton("Choose Background Color");
 
 
         frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
-//frame.add(toolBar.add(colorButton),BorderLayout.WEST);
+frame.add((colorButton),BorderLayout.NORTH);
         frame.pack();
         frame.setVisible(true);
 
