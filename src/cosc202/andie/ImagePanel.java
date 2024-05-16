@@ -66,6 +66,7 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
     public ImagePanel() {
         image = new EditableImage();
         scale = 1.0;
+        setBackground(Color.BLUE); // Change Color.BLUE to any color you want
 
         addMouseListener(this);
         addMouseMotionListener(this);

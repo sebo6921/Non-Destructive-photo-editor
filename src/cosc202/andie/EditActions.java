@@ -49,6 +49,8 @@ public class EditActions {
                 Integer.valueOf(KeyEvent.VK_Z)));
         actions.add(new RedoAction(bundle.getString("Redo"), null, bundle.getString("RedoDesc"),
                 Integer.valueOf(KeyEvent.VK_X)));
+                actions.add(new RedoAction(bundle.getString("Redo"), null, bundle.getString("RedoDesc"),
+                Integer.valueOf(KeyEvent.VK_X)));
     }
 
     /**
