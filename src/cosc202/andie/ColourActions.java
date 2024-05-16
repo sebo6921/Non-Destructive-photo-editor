@@ -261,7 +261,7 @@ public class ColourActions {
                 contrastSlider.setMajorTickSpacing(25);
                 contrastSlider.setMinorTickSpacing(5);
                 contrastSlider.setPaintTicks(true);
-                System.out.println("Are we here");
+
 
 
                 //Make panel and add messages and sliders
