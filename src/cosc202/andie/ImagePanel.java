@@ -189,15 +189,15 @@ public class ImagePanel extends JPanel {
     // public void mouseExited(MouseEvent e) {}
     // public void mouseMoved(MouseEvent e) {}
 
-    private void setStartPoint(Point point) {
-        tempSelection.setStartPoint(point.getX(), point.getY());
-        finalSelection.setStartPoint(point.getX(), point.getY());
-    }
+    // private void setStartPoint(Point point) {
+    //     tempSelection.setStartPoint(point.getX(), point.getY());
+    //     finalSelection.setStartPoint(point.getX(), point.getY());
+    // }
 
-    private void setEndPoint(Point point) {
-        tempSelection.setEndPoint(point.getX(), point.getY());
-        finalSelection.setEndPoint(point.getX(), point.getY());
-    }
+    // private void setEndPoint(Point point) {
+    //     tempSelection.setEndPoint(point.getX(), point.getY());
+    //     finalSelection.setEndPoint(point.getX(), point.getY());
+    // }
 
     /**
      * <p>

@@ -65,7 +65,8 @@ public class Andie {
 
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
-        JToolBar toolBar = new JToolBar();
+        JToolBar toolBar = Toolbar.createToolbar(bundle);
+        //toolBar.setBackground(Color.BLUE);
 
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
@@ -120,9 +121,9 @@ public class Andie {
         frame.setJMenuBar(menuBar);
 
 
-JButton colorButton = new JButton("Choose Color");
-colorButton.setPreferredSize(new Dimension(50, 20)); // Set preferred size
-colorButton.setMargin(new Insets(5, 5, 5, 5));
+    JButton colorButton = new JButton("Choose Color");
+    colorButton.setPreferredSize(new Dimension(50, 20)); // Set preferred size
+    colorButton.setMargin(new Insets(5, 5, 5, 5));
     colorButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -133,11 +134,12 @@ colorButton.setMargin(new Insets(5, 5, 5, 5));
             }
         }
     });
+    menuBar.setOpaque(true);
 
-
+    menuBar.setBackground(Color.YELLOW);
 
         frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
-frame.add((colorButton),BorderLayout.NORTH);
+        //frame.add((colorButton),BorderLayout.NORTH);
         frame.pack();
         frame.setSize(700, 700);
         frame.setLocationRelativeTo(null);

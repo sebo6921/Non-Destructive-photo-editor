@@ -68,7 +68,7 @@ public class TransformationActions {
         // // JMenuItem crop = new JMenuItem(new CropAction(bundle.getString("Crop"), null, bundle.getString("CropDesc"),
         // //Integer.valueOf(KeyEvent.VK_C)));
 
-        transMenu.add(crop);
+        //transMenu.add(crop);
         transMenu.add(rotateSubMenu);
         transMenu.add(flipSubMenu);
 
