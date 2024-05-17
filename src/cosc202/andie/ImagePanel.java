@@ -2,6 +2,8 @@ package cosc202.andie;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+
 import javax.swing.*;
 
 /**
@@ -29,7 +31,8 @@ public class ImagePanel extends JPanel {
     //     SELECTION, DRAWING
     // }
     
-
+    private Image backgroundImage;
+    
     /**
      * The image to display in the ImagePanel.
      */
@@ -186,23 +189,15 @@ public class ImagePanel extends JPanel {
     // public void mouseExited(MouseEvent e) {}
     // public void mouseMoved(MouseEvent e) {}
 
-    // private void setStartPoint(Point point) {
-    //     if (currentMode == Mode.SELECTION) {
-    //         tempSelection.setStartPoint(point.getX(), point.getY());
-    //         finalSelection.setStartPoint(point.getX(), point.getY());
-    //     } else if (currentMode == Mode.DRAWING) {
-    //         drawingActions.setStartPoint(point.getX(), point.getY());
-    //     }
-    // }
+    private void setStartPoint(Point point) {
+        tempSelection.setStartPoint(point.getX(), point.getY());
+        finalSelection.setStartPoint(point.getX(), point.getY());
+    }
 
-    // private void setEndPoint(Point point) {
-    //     if (currentMode == Mode.SELECTION) {
-    //         tempSelection.setEndPoint(point.getX(), point.getY());
-    //         finalSelection.setEndPoint(point.getX(), point.getY());
-    //     } else if (currentMode == Mode.DRAWING) {
-    //         drawingActions.setEndPoint(point.getX(), point.getY());
-    //     }
-    // }
+    private void setEndPoint(Point point) {
+        tempSelection.setEndPoint(point.getX(), point.getY());
+        finalSelection.setEndPoint(point.getX(), point.getY());
+    }
 
     /**
      * <p>
@@ -225,7 +220,23 @@ public class ImagePanel extends JPanel {
             return new Dimension(450, 450);
         }
     }
+    public void setBackgroundImage(Image image) {
+        this.backgroundImage = image;
+        revalidate();
 
+        repaint();
+    }
+
+    public void setBackgroundColor(Color color) {
+        int width = getWidth();
+        int height = getHeight();
+        BufferedImage colorImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = colorImage.createGraphics();
+        g2.setColor(color);
+        g2.fillRect(0, 0, width, height);
+        g2.dispose();
+        setBackgroundImage(colorImage);
+    }
     /**
      * <p>
      * (Re)draw the component in the GUI.
@@ -234,8 +245,11 @@ public class ImagePanel extends JPanel {
      * @param g The Graphics component to draw the image on.
      */
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, this);
+        }
         if (image.hasImage()) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.scale(scale, scale);
@@ -243,9 +257,5 @@ public class ImagePanel extends JPanel {
             g2.dispose();
         }
     }
-
-    // public void setCurrentMode(Mode mode){
-    //     this.currentMode = mode;
-    // }
 
 }

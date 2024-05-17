@@ -1,6 +1,7 @@
 package cosc202.andie;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -64,6 +65,7 @@ public class Andie {
 
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
+        JToolBar toolBar = new JToolBar();
 
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
@@ -117,9 +119,25 @@ public class Andie {
 
         frame.setJMenuBar(menuBar);
 
-        JToolBar toolBar = Toolbar.createToolbar(bundle);
-        frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
 
+JButton colorButton = new JButton("Choose Color");
+colorButton.setPreferredSize(new Dimension(50, 20)); // Set preferred size
+colorButton.setMargin(new Insets(5, 5, 5, 5));
+    colorButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Color selectedColor = JColorChooser.showDialog(frame, "Choose Color", imagePanel.getBackground());
+            if (selectedColor != null) {
+                imagePanel.setBackground(selectedColor);
+                imagePanel.repaint();
+            }
+        }
+    });
+
+
+
+        frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
+frame.add((colorButton),BorderLayout.NORTH);
         frame.pack();
         frame.setSize(700, 700);
         frame.setLocationRelativeTo(null);
