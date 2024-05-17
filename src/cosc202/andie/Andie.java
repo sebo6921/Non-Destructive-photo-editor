@@ -65,6 +65,7 @@ public class Andie {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
 
+
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,6 +107,10 @@ public class Andie {
         TransformationActions transformationActions = new TransformationActions(bundle);
         menuBar.add(transformationActions.createMenu());
 
+        // Drawing Actions that can create Rectangles, Ellipses, Lines
+        DrawingActions drawingActions = new DrawingActions(bundle);
+        menuBar.add(drawingActions.createMenu());
+
         // Actions that help with usability
         HelpActions helpActions = new HelpActions(bundle);
         menuBar.add(helpActions.createMenu());
@@ -116,6 +121,8 @@ public class Andie {
         frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
 
         frame.pack();
+        frame.setSize(700, 700);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
     }

@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import cosc202.andie.mousetools.AreaSelection;
-import cosc202.andie.mousetools.Selection;
-
 /**
  * <p>
  * UI display element for {@link EditableImage}s.
@@ -26,7 +23,12 @@ import cosc202.andie.mousetools.Selection;
  * @author Steven Mills
  * @version 1.0
  */
-public class ImagePanel extends JPanel implements MouseListener, MouseMotionListener{
+public class ImagePanel extends JPanel {
+
+    // public enum Mode {
+    //     SELECTION, DRAWING
+    // }
+    
 
     /**
      * The image to display in the ImagePanel.
@@ -47,9 +49,16 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
      */
     private double scale;
 
-    private Selection tempSelection = new AreaSelection();
-    private Selection finalSelection = new AreaSelection();
-    private boolean active;
+    // private Mode currentMode = Mode.SELECTION;
+
+    // private Selection tempSelection = new AreaSelection();
+    // private Selection finalSelection = new AreaSelection();
+    // private boolean active;
+
+    // private DrawingActions drawingActions = new DrawingActions();
+    // private DrawingActions tempDrawingActions = new DrawingActions();
+    // private DrawingActions finalDrawingActions = new DrawingActions();
+
 
     /**
      * <p>
@@ -64,8 +73,8 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         image = new EditableImage();
         scale = 1.0;
 
-        addMouseListener(this);
-        addMouseMotionListener(this);
+        // addMouseListener(this);
+        // addMouseMotionListener(this);
     }
 
     /**
@@ -119,59 +128,81 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
     }
     
 
-    public void mousePressed(MouseEvent e) {
-        active = true;
-        //System.out.println(e.getX() + ", " + e.getY());
-        setStartPoint(e.getPoint());
-        setEndPoint(e.getPoint());
-        getImage().applyTemp(tempSelection);
-        repaint();
-        getParent().revalidate();
-    }
+    // public void mousePressed(MouseEvent e) {
+    //     active = true;
+    //     //System.out.println(e.getX() + ", " + e.getY());
+    //     setStartPoint(e.getPoint());
+    //     setEndPoint(e.getPoint());
+    //     if (currentMode == Mode.SELECTION) {
+    //         getImage().applyTemp(tempSelection);
+    //     } else if (currentMode == Mode.DRAWING) {
+    //         getImage().applyTemp(tempDrawingActions);
+    //         drawingActions.setStartPoint(e.getX(), e.getY());
+    //     }
+    //     repaint();
+    //     getParent().revalidate();
+    // }
 
-    public void mouseReleased(MouseEvent e) {
-        if (!active) {
-            return;
-        }
-        //System.out.println(e.getX() + ", " + e.getY());
-        setEndPoint(e.getPoint());
-        getImage().apply(finalSelection);
-        repaint();
-        getParent().revalidate();
-        active = false;
-    }
+    // public void mouseReleased(MouseEvent e) {
+    //     if (!active) {
+    //         return;
+    //     }
+    //     //System.out.println(e.getX() + ", " + e.getY());
+    //     setEndPoint(e.getPoint());
+    //     if (currentMode == Mode.SELECTION) {
+    //         getImage().apply(finalSelection);
+    //     } else if (currentMode == Mode.DRAWING) {
+    //         getImage().applyTemp(finalDrawingActions);
+    //         drawingActions.setEndPoint(e.getX(), e.getY());
+    //     }
+    //     repaint();
+    //     getParent().revalidate();
+    //     active = false;
+    // }
 
-    public void mouseDragged(MouseEvent e) {
-        if (!active) {
-            return;
-        }
-        //System.out.println(e.getX() + ", " + e.getY());
-        setEndPoint(e.getPoint());
-        getImage().applyTemp(tempSelection);
-        repaint();
-        getParent().revalidate();
-    }
+    // public void mouseDragged(MouseEvent e) {
+    //     if (!active) {
+    //         return;
+    //     }
+    //     //System.out.println(e.getX() + ", " + e.getY());
+    //     setEndPoint(e.getPoint());
+    //     if (currentMode == Mode.SELECTION) {
+    //         getImage().applyTemp(tempSelection);
+    //     } else if (currentMode == Mode.DRAWING) {
+    //         getImage().applyTemp(tempDrawingActions);
+    //     }
+    //     repaint();
+    //     getParent().revalidate();
+    // }
 
-    public void mouseClicked(MouseEvent e) {
-        if (!active) {
-            return;
-        }
-        active = false;
-    }
+    // public void mouseClicked(MouseEvent e) {
+    //     if (!active) {
+    //         return;
+    //     }
+    //     active = false;
+    // }
 
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-    public void mouseMoved(MouseEvent e) {}
+    // public void mouseEntered(MouseEvent e) {}
+    // public void mouseExited(MouseEvent e) {}
+    // public void mouseMoved(MouseEvent e) {}
 
-    private void setStartPoint(Point point) {
-        tempSelection.setStartPoint(point.getX(), point.getY());
-        finalSelection.setStartPoint(point.getX(), point.getY());
-    }
+    // private void setStartPoint(Point point) {
+    //     if (currentMode == Mode.SELECTION) {
+    //         tempSelection.setStartPoint(point.getX(), point.getY());
+    //         finalSelection.setStartPoint(point.getX(), point.getY());
+    //     } else if (currentMode == Mode.DRAWING) {
+    //         drawingActions.setStartPoint(point.getX(), point.getY());
+    //     }
+    // }
 
-    private void setEndPoint(Point point) {
-        tempSelection.setEndPoint(point.getX(), point.getY());
-        finalSelection.setEndPoint(point.getX(), point.getY());
-    }
+    // private void setEndPoint(Point point) {
+    //     if (currentMode == Mode.SELECTION) {
+    //         tempSelection.setEndPoint(point.getX(), point.getY());
+    //         finalSelection.setEndPoint(point.getX(), point.getY());
+    //     } else if (currentMode == Mode.DRAWING) {
+    //         drawingActions.setEndPoint(point.getX(), point.getY());
+    //     }
+    // }
 
     /**
      * <p>
@@ -212,5 +243,9 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
             g2.dispose();
         }
     }
+
+    // public void setCurrentMode(Mode mode){
+    //     this.currentMode = mode;
+    // }
 
 }
