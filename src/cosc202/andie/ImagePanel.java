@@ -27,12 +27,14 @@ import javax.swing.*;
  */
 public class ImagePanel extends JPanel implements MouseListener, MouseMotionListener {
 
-    // public enum Mode {
-    //     SELECTION, DRAWING
-    // }
-    
+    public enum Mode {
+        SELECTION, DRAWING, CROPPING
+    }
+
+    private Mode mode = Mode.SELECTION;
+    private int cropStartX, cropStartY, cropEndX, cropEndY;
     private Image backgroundImage;
-    
+
     /**
      * The image to display in the ImagePanel.
      */
@@ -53,17 +55,6 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
     private double scale;
 
     private DrawingArea drawingArea;
-
-    // private Mode currentMode = Mode.SELECTION;
-
-    // private Selection tempSelection = new AreaSelection();
-    // private Selection finalSelection = new AreaSelection();
-    // private boolean active;
-
-    // private DrawingActions drawingActions = new DrawingActions();
-    // private DrawingActions tempDrawingActions = new DrawingActions();
-    // private DrawingActions finalDrawingActions = new DrawingActions();
-
 
     /**
      * <p>
@@ -132,75 +123,6 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         }
         scale = zoomPercent / 100;
     }
-    
-
-    // public void mousePressed(MouseEvent e) {
-    //     active = true;
-    //     //System.out.println(e.getX() + ", " + e.getY());
-    //     setStartPoint(e.getPoint());
-    //     setEndPoint(e.getPoint());
-    //     if (currentMode == Mode.SELECTION) {
-    //         getImage().applyTemp(tempSelection);
-    //     } else if (currentMode == Mode.DRAWING) {
-    //         getImage().applyTemp(tempDrawingActions);
-    //         drawingActions.setStartPoint(e.getX(), e.getY());
-    //     }
-    //     repaint();
-    //     getParent().revalidate();
-    // }
-
-    // public void mouseReleased(MouseEvent e) {
-    //     if (!active) {
-    //         return;
-    //     }
-    //     //System.out.println(e.getX() + ", " + e.getY());
-    //     setEndPoint(e.getPoint());
-    //     if (currentMode == Mode.SELECTION) {
-    //         getImage().apply(finalSelection);
-    //     } else if (currentMode == Mode.DRAWING) {
-    //         getImage().applyTemp(finalDrawingActions);
-    //         drawingActions.setEndPoint(e.getX(), e.getY());
-    //     }
-    //     repaint();
-    //     getParent().revalidate();
-    //     active = false;
-    // }
-
-    // public void mouseDragged(MouseEvent e) {
-    //     if (!active) {
-    //         return;
-    //     }
-    //     //System.out.println(e.getX() + ", " + e.getY());
-    //     setEndPoint(e.getPoint());
-    //     if (currentMode == Mode.SELECTION) {
-    //         getImage().applyTemp(tempSelection);
-    //     } else if (currentMode == Mode.DRAWING) {
-    //         getImage().applyTemp(tempDrawingActions);
-    //     }
-    //     repaint();
-    //     getParent().revalidate();
-    // }
-
-    // public void mouseClicked(MouseEvent e) {
-    //     if (!active) {
-    //         return;
-    //     }
-    //     active = false;
-    // }
-
-    // public void mouseEntered(MouseEvent e) {}
-    // public void mouseExited(MouseEvent e) {}
-    // public void mouseMoved(MouseEvent e) {}
-
-    // private void setStartPoint(Point point) {
-    //     tempSelection.setStartPoint(point.getX(), point.getY());
-    //     finalSelection.setStartPoint(point.getX(), point.getY());
-    // }
-
-    // private void setEndPoint(Point point) {
-    //     tempSelection.setEndPoint(point.getX(), point.getY());
-    //     finalSelection.setEndPoint(point.getX(), point.getY());
-    // }
 
     /**
      * <p>
@@ -223,6 +145,7 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
             return new Dimension(450, 450);
         }
     }
+
     public void setBackgroundImage(Image image) {
         this.backgroundImage = image;
         revalidate();
@@ -239,6 +162,7 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         g2.dispose();
         setBackgroundImage(colorImage);
     }
+
     /**
      * <p>
      * (Re)draw the component in the GUI.
@@ -259,44 +183,79 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
             g2.dispose();
         }
 
-        if (drawingArea != null){
-            drawingArea.paint(g);
-        }
+        drawingArea.paint(g);
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (drawingArea != null) {
+        if (mode == Mode.SELECTION) {
+            drawingArea.setFillShape(true);
+            drawingArea.setShape("Rectangle");
+            drawingArea.setSelectedColour(new Color(69, 69, 69, 69));
             drawingArea.startDrawing(e.getX(), e.getY());
+        } else if (mode == Mode.DRAWING) {
+            drawingArea.startDrawing(e.getX(), e.getY());
+        } else if (mode == Mode.CROPPING) {
+            cropStartX = e.getX();
+            cropStartY = e.getY();
+            drawingArea.startDrawing(e.getX(), e.getY());
+            drawingArea.setShape("Rectangle");
+            drawingArea.setFillShape(true);
+            drawingArea.setSelectedColour(new Color(255, 255, 255, 150));
         }
+        setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (drawingArea != null) {
-            drawingArea.startDrawing(e.getX(), e.getY());
-            repaint();
+        if (mode == Mode.SELECTION) {
+            drawingArea.setFillShape(false);
+            drawingArea.setShape(null);
+            drawingArea.setSelectedColour(Color.BLACK);
+            drawingArea.completeDrawing(e.getX(), e.getY());
+        } else if (mode == Mode.DRAWING) {
+            drawingArea.completeDrawing(e.getX(), e.getY());
+            getImage().apply(drawingArea);
+        } else if (mode == Mode.CROPPING) {
+            cropEndX = e.getX();
+            cropEndY = e.getY();
+            getImage().apply(new CropImage(cropStartX, cropStartY, cropEndX, cropEndY));
+            drawingArea.completeDrawing(e.getX(), e.getY());
+            drawingArea.setShape(null);
+            drawingArea.setFillShape(false);
+            drawingArea.setSelectedColour(Color.BLACK);
+            mode = Mode.SELECTION;
         }
+        setCursor(Cursor.getDefaultCursor());
+        repaint();
+
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (drawingArea != null) {
-            drawingArea.draw(e.getX(), e.getY());
-            repaint();
-        }
+        drawingArea.draw(e.getX(), e.getY());
+        repaint();
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+    }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
 
     @Override
-    public void mouseMoved(MouseEvent e) {}
+    public void mouseMoved(MouseEvent e) {
+    }
 
+    public void setMode(Mode mode) {
+        this.mode = mode;
+    }
 }

@@ -65,20 +65,19 @@ public class Andie {
 
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
-        JToolBar toolBar = Toolbar.createToolbar(bundle);
-        // toolBar.setBackground(Color.BLUE);
+        DrawingArea drawingArea = new DrawingArea();
+        ImagePanel imagePanel = new ImagePanel(drawingArea);
+        JToolBar toolBar = Toolbar.createToolbar(bundle, drawingArea, imagePanel);
+        
+        
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
-        Paint paint = Color.BLACK;
-        DrawingArea drawingArea = new DrawingArea(paint);
-        ImagePanel imagePanel = new ImagePanel(drawingArea);
         ImageAction.setTarget(imagePanel);
-        JScrollPane scrollPane = new JScrollPane(imagePanel);
-        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(imagePanel, BorderLayout.CENTER);
 
         // Add in menus for various types of action the user may perform.
         JMenuBar menuBar = new JMenuBar();
@@ -94,7 +93,7 @@ public class Andie {
 
         // View actions control how the image is displayed, but do not alter its actual
         // content
-        ViewActions viewActions = new ViewActions(bundle);
+        ViewActions viewActions = new ViewActions(bundle, imagePanel);
         menuBar.add(viewActions.createMenu());
 
         // Filters apply a per-pixel operation to the image, generally based on a local
@@ -112,36 +111,33 @@ public class Andie {
         menuBar.add(transformationActions.createMenu());
 
         // Drawing Menu and Toolbar that can create Rectangles, Ellipses, Lines etc
-        DrawingActions drawingActions = new DrawingActions(bundle);
+        DrawingActions drawingActions = new DrawingActions(bundle, drawingArea, imagePanel);
         DrawingActions.setFrame(frame);
         Toolbar.setFrame(frame); 
         menuBar.add(drawingActions.createMenu());
 
+        menuBar.add(Box.createHorizontalGlue());
+
         // Actions that help with usability
         HelpActions helpActions = new HelpActions(bundle);
-        menuBar.add(helpActions.createMenu());
-
-        frame.setJMenuBar(menuBar);
-
-        JButton colorButton = new JButton("Choose Color");
-        colorButton.setPreferredSize(new Dimension(50, 20)); // Set preferred size
-        colorButton.setMargin(new Insets(5, 5, 5, 5));
-        colorButton.addActionListener(new ActionListener() {
+        JMenu helpMenu = helpActions.createMenu();
+        JMenuItem colourButton = new JMenuItem("Choose Toolbar Colour");
+        colourButton.setPreferredSize(new Dimension(50, 20)); // Set preferred size
+        colourButton.setMargin(new Insets(5, 5, 5, 5));
+        colourButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Color selectedColor = JColorChooser.showDialog(frame, "Choose Color", imagePanel.getBackground());
-                if (selectedColor != null) {
-                    imagePanel.setBackground(selectedColor);
-                    imagePanel.repaint();
+                Color selectedColour = JColorChooser.showDialog(frame, "Choose Toolbar Colour", imagePanel.getBackground());
+                if (selectedColour != null) {
+                    toolBar.setBackground(selectedColour);
                 }
             }
         });
-        menuBar.setOpaque(true);
+        helpMenu.add(colourButton);
+        menuBar.add(helpMenu);
 
-        menuBar.setBackground(Color.YELLOW);
-
+        frame.setJMenuBar(menuBar);
         frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
-        // frame.add((colorButton),BorderLayout.NORTH);
         frame.pack();
         frame.setSize(700, 700);
         frame.setLocationRelativeTo(null);

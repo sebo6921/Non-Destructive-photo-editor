@@ -5,57 +5,131 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawingArea implements ImageOperation {
-    private List<Shape> shapes;
-    private Shape currentShape;
-    private Paint paint;
+public class DrawingArea implements ImageOperation, java.io.Serializable {
+    /** Current fill shape option (or default) */
+    private boolean fillShape = false;
 
-    public DrawingArea(Paint paint) {
-        this.paint = paint;
-        shapes = new ArrayList<>();
-    }
+    /** Current selected colour (or default) */
+    private Color selectedColour = Color.BLACK;
+
+    /** Current selected shape (or default) */
+    private String currentShape = null;
+
+    private int startX, startY, endX, endY;
+    private List<Point> points = new ArrayList<>();
+    
+    private boolean isDrawing = false;
+
+    public DrawingArea() {}
 
     public void startDrawing(int x, int y) {
-        currentShape = new Rectangle(x, y, 0, 0); // Example: Start with a rectangle
+        startX = x;
+        startY = y;
+        endX = x;
+        endY = y;
+        isDrawing = true;
+        if ("Free".equals(currentShape)) {
+            points.clear();
+            points.add(new Point(x, y));
+        }
+    }
+
+    public void stopDrawing() {
+        isDrawing = false;
+        currentShape = null;
     }
 
     public void draw(int x, int y) {
-        if (currentShape instanceof Rectangle) {
-            Rectangle rect = (Rectangle) currentShape;
-            rect.setSize(x - rect.x, y - rect.y);
+        endX = x;
+        endY = y;
+        if ("Free".equals(currentShape) && isDrawing) {
+            points.add(new Point(x, y));
         }
-        // Add similar logic for other shapes
+    }
+
+    public void completeDrawing(int x, int y) {
+        endX = x;
+        endY = y;
+        isDrawing = false;
+        if ("Free".equals(currentShape)) {
+            points.add(new Point(x, y));
+        }
     }
 
     public void endDrawing(int x, int y) {
         if (currentShape != null) {
-            shapes.add(currentShape);
             currentShape = null;
         }
     }
 
     public void paint(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setPaint(paint);
-        for (Shape shape : shapes) {
-            g2.draw(shape);
+        if (!isDrawing) {
+            return;
         }
-        if (currentShape != null) {
-            g2.draw(currentShape);
-        }
+
+        Graphics2D g2d = (Graphics2D) g;
+        shapes(g2d);
     }
 
     @Override
     public BufferedImage apply(BufferedImage input) {
-        Graphics2D g2 = input.createGraphics();
-        g2.setPaint(paint);
-        for (Shape shape : shapes) {
-            g2.draw(shape);
+        BufferedImage output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
+        
+        Graphics2D g2d = output.createGraphics();
+        shapes(g2d);
+
+        g2d.dispose();
+        return output;
+    }
+
+    public void shapes(Graphics g2d){
+        g2d.setColor(selectedColour);
+
+        int width = Math.abs(endX - startX);
+        int height = Math.abs(endY - startY);
+        int topLeftX = Math.min(startX, endX);
+        int topLeftY = Math.min(startY, endY);
+
+        switch (currentShape) {
+            case "Rectangle":
+                if (fillShape) {
+                    g2d.fillRect(topLeftX, topLeftY, width, height);
+                } else {
+                    g2d.drawRect(topLeftX, topLeftY, width, height);
+                }
+                break;
+            case "Ellipse":
+                if (fillShape) {
+                    g2d.fillOval(topLeftX, topLeftY, width, height);
+                } else {
+                    g2d.drawOval(topLeftX, topLeftY, width, height);
+                }
+                break;
+            case "Line":
+                g2d.drawLine(startX, startY, endX, endY);
+                break;
+            case "Free":
+                if (points.size() > 1) {
+                    Point prev = points.get(0);
+                    for (int i = 1; i < points.size(); i++) {
+                        Point current = points.get(i);
+                        g2d.drawLine(prev.x, prev.y, current.x, current.y);
+                        prev = current;
+                    }
+                }
+                break;
         }
-        if (currentShape != null) {
-            g2.draw(currentShape);
-        }
-        g2.dispose();
-        return input;
+    }
+
+    public void setFillShape(boolean ifFill) {
+        fillShape = ifFill;
+    }
+
+    public void setSelectedColour(Color color) {
+        selectedColour = color;
+    }
+
+    public void setShape(String shape) {
+        currentShape = shape;
     }
 }

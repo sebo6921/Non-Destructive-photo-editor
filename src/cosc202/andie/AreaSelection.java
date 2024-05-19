@@ -7,7 +7,7 @@
 
 // //import cosc202.andie.ImagePanel;
 
-// public class AreaSelection extends Selection {
+// public class AreaSelection extends Selection{
 
 //     public AreaSelection() {};
 

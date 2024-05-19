@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 
+import cosc202.andie.ImagePanel.Mode;
+
 /**
  * <p>
  * Actions provided by the Help menu.
@@ -24,19 +26,16 @@ public class DrawingActions {
     /** A resource bundle to change the language */
     ResourceBundle bundle;
 
-    /** Current fill shape option (or default) */
-    private boolean fillShape = false;
-
-    /** Current selected colour (or default) */
-    private Color selectedColour = Color.BLACK;
-
-    /** Current selected shape (or default) */
-    private String selectedShape = "Rectangle";
-
     private static JFrame frame;
 
-    public DrawingActions(ResourceBundle bundle) {
+    private DrawingArea drawingArea;
+    
+    private ImagePanel imagePanel;
+
+    public DrawingActions(ResourceBundle bundle, DrawingArea drawingArea, ImagePanel imagePanel) {
+        this.drawingArea = drawingArea;
         this.bundle = bundle;
+        this.imagePanel = imagePanel;
     }
 
     public JMenu createMenu() {
@@ -45,17 +44,17 @@ public class DrawingActions {
         JMenuItem popUpMenu = new JMenuItem(bundle.getString("DrawingToolbar"));
         popUpMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                imagePanel.setMode(Mode.DRAWING);
                 JToolBar drawingToolbar = new JToolBar();
-                Toolbar.createDrawingToolbar(drawingToolbar, bundle);
+                Toolbar.createDrawingToolbar(drawingToolbar, bundle, drawingArea);
                 JButton exitButton = new JButton(bundle.getString("DrawingExit"));
                 exitButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        // Remove the drawing toolbar from the frame's content pane
+                        drawingArea.stopDrawing();
                         frame.getContentPane().remove(drawingToolbar);
-
-                        // Repaint the frame
                         frame.revalidate();
                         frame.repaint();
+                        imagePanel.setMode(Mode.SELECTION);
                     }
                 });
                 drawingToolbar.add(exitButton);
@@ -70,17 +69,5 @@ public class DrawingActions {
 
     public static void setFrame(JFrame frame) {
         DrawingActions.frame = frame;
-    }
-
-    public void setFillShape(boolean ifFill) {
-        fillShape = ifFill;
-    }
-
-    public void setSelectedColour(Color color) {
-        selectedColour = color;
-    }
-
-    public void setShape(String shape) {
-        selectedShape = shape;
     }
 }

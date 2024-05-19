@@ -1,13 +1,13 @@
 package cosc202.andie;
 
 import java.util.*;
-import java.awt.event.*;
+import java.awt.*;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.KeyStroke;
+
+import cosc202.andie.ImagePanel.Mode;
+
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 /**
  * <p>
@@ -39,13 +39,16 @@ public class ViewActions {
     /** A resource bundle to change the language */
     ResourceBundle bundle;
 
+    private ImagePanel imagePanel;
+
     /**
      * <p>
      * Create a set of View menu actions.
      * </p>
      */
-    public ViewActions(ResourceBundle bundle) {
+    public ViewActions(ResourceBundle bundle, ImagePanel imagePanel) {
         this.bundle = bundle;
+        this.imagePanel = imagePanel;
         actions = new ArrayList<Action>();
         actions.add(new ZoomInAction(bundle.getString("ZoomIn"), null, bundle.getString("ZoomInDesc"),
                 Integer.valueOf(KeyEvent.VK_1)));
@@ -224,17 +227,17 @@ public class ViewActions {
 
         }
         public void actionPerformed(ActionEvent e) {
-            
+            imagePanel.setMode(Mode.CROPPING);
             int choice = JOptionPane.showConfirmDialog(null, bundle.getString("CropMSG"), bundle.getString("Crop"), JOptionPane.OK_CANCEL_OPTION);
 
             if (choice == JOptionPane.CANCEL_OPTION) {
+                imagePanel.setMode(Mode.SELECTION);
                 return;
-            }  else if (choice == JOptionPane.OK_OPTION) {
-                target.getImage().apply(new CropImage(null, null));
-            }
+            } 
 
             target.repaint();
             target.getParent().revalidate();
         }
+        
     }
 }
