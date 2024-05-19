@@ -33,72 +33,54 @@ public class DrawingActions {
     /** Current selected shape (or default) */
     private String selectedShape = "Rectangle";
 
-    /**
-     * <p>
-     * Create a set of Help menu actions.
-     * </p>
-     */
+    private static JFrame frame;
+
     public DrawingActions(ResourceBundle bundle) {
         this.bundle = bundle;
     }
 
-    public DrawingActions() {
-    }
-
-    /**
-     * <p>
-     * Create a menu containing the list of Help actions.
-     * </p>
-     *
-     * @return The help menu UI element.
-     */
     public JMenu createMenu() {
         JMenu drawingMenu = new JMenu(bundle.getString("DrawingMenu"));
 
-        
-
-        JMenuItem colourMenu = new JMenuItem(bundle.getString("ColourMenu"));
-        colourMenu.addActionListener(new ActionListener() {
+        JMenuItem popUpMenu = new JMenuItem(bundle.getString("DrawingToolbar"));
+        popUpMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JColorChooser.showDialog((Component) e.getSource(), "Select a Colour", Color.BLACK);
+                JToolBar drawingToolbar = new JToolBar();
+                Toolbar.createDrawingToolbar(drawingToolbar, bundle);
+                JButton exitButton = new JButton(bundle.getString("DrawingExit"));
+                exitButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        // Remove the drawing toolbar from the frame's content pane
+                        frame.getContentPane().remove(drawingToolbar);
+
+                        // Repaint the frame
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                });
+                drawingToolbar.add(exitButton);
+                frame.getContentPane().add(drawingToolbar, BorderLayout.SOUTH);
+                frame.revalidate();
+                frame.repaint();
             }
         });
-
-        JMenu shapeSubMenu = new JMenu(bundle.getString("ShapeMenu"));
-
-        JCheckBox fillOrOutline = new JCheckBox(bundle.getString("FillOrOutline"), false);
-        fillOrOutline.addActionListener(e -> fillShape = fillOrOutline.isSelected());
-        fillOrOutline.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        JMenuItem rectangle = new JMenuItem(bundle.getString("Rectangle"));
-        rectangle.addActionListener(e -> {
-            selectedShape = "Rectangle";
-            //imagePanel.setCurrentMode(Mode.DRAWING);
-        });
-
-        JMenuItem ellipse = new JMenuItem(bundle.getString("Ellipse"));
-        ellipse.addActionListener(e -> {
-            selectedShape = "Ellipse";
-            //imagePanel.setCurrentMode(Mode.DRAWING);
-        });
-        JMenuItem line = new JMenuItem(bundle.getString("Line"));
-        line.addActionListener(e -> {
-            selectedShape = "Line";
-            //imagePanel.setCurrentMode(Mode.DRAWING);
-        });
-
-        shapeSubMenu.add(rectangle);
-        shapeSubMenu.add(ellipse);
-        shapeSubMenu.add(line);
-        shapeSubMenu.add(fillOrOutline);
-        drawingMenu.add(colourMenu);
-        drawingMenu.add(shapeSubMenu);
-
+        drawingMenu.add(popUpMenu);
         return drawingMenu;
     }
 
-    public void setFillShape(boolean ifFill){
+    public static void setFrame(JFrame frame) {
+        DrawingActions.frame = frame;
+    }
+
+    public void setFillShape(boolean ifFill) {
         fillShape = ifFill;
     }
 
+    public void setSelectedColour(Color color) {
+        selectedColour = color;
+    }
+
+    public void setShape(String shape) {
+        selectedShape = shape;
+    }
 }

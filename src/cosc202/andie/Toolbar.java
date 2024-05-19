@@ -9,10 +9,11 @@ import java.nio.file.*;
 
 import javax.swing.*;
 
-
 public class Toolbar {
 
         private ResourceBundle bundle;
+
+        private static JFrame frame;
 
         public static JToolBar createToolbar(ResourceBundle bundle) {
                 JToolBar toolBar = new JToolBar();
@@ -23,6 +24,7 @@ public class Toolbar {
                 EditActions editActions = new EditActions(bundle);
                 ViewActions viewActions = new ViewActions(bundle);
                 HelpActions helpActions = new HelpActions(bundle);
+                DrawingActions drawingActions = new DrawingActions(bundle);
 
                 // Add Open to toolbar
                 ImageIcon openIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/open.png")).toString());
@@ -89,27 +91,48 @@ public class Toolbar {
                                 null, zoomOutIcon, bundle.getString("ZoomOutDesc"), null));
                 toolBar.add(zoomOutButton);
 
+                // Add a button for crop mode
+                ImageIcon cropIcon = new ImageIcon(
+                                (Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+                Image scaledCropImage = cropIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                cropIcon = new ImageIcon(scaledCropImage);
+
+                JButton cropButton = new JButton(viewActions.new CropAction(
+                                null, cropIcon, bundle.getString("CropDesc"), null));
+                toolBar.add(cropButton);
+
+                // Add a button for drawing
+                ImageIcon drawingIcon = new ImageIcon(
+                                (Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+                Image scaledDrawingImage = drawingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+                drawingIcon = new ImageIcon(scaledDrawingImage);
+
+                JButton drawingButton = new JButton(drawingIcon);
+                drawingButton.setToolTipText(bundle.getString("DrawingToolbar"));
+                drawingButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                JToolBar drawingToolbar = new JToolBar();
+                                Toolbar.createDrawingToolbar(drawingToolbar, bundle);
+                                JButton exitButton = new JButton(bundle.getString("DrawingExit"));
+                                exitButton.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent e) {
+                                        // Remove the drawing toolbar from the frame's content pane
+                                        frame.getContentPane().remove(drawingToolbar);
                 
-
-                // Add a button for selection mode
-                JButton selectionModeButton = new JButton("Selection Mode");
-                selectionModeButton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                //imagePanel.setCurrentMode(Mode.SELECTION);
-                        }
+                                        // Repaint the frame
+                                        frame.revalidate();
+                                        frame.repaint();
+                                    }
+                                });
+                                drawingToolbar.add(exitButton);
+                                frame.getContentPane().add(drawingToolbar, BorderLayout.SOUTH);
+                                frame.revalidate();
+                                frame.repaint();
+                            }
                 });
-                toolBar.add(selectionModeButton);
+                toolBar.add(drawingButton);
 
-                // Add a button for drawing mode
-                JButton drawingModeButton = new JButton("Drawing Mode");
-                drawingModeButton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                //imagePanel.setCurrentMode(Mode.DRAWING);
-                        }
-                });
-                toolBar.add(drawingModeButton);
+                toolBar.add(Box.createHorizontalGlue());
 
                 // // Add HelpGuide to toolbar
                 ImageIcon helpGuideIcon = new ImageIcon(
@@ -125,36 +148,71 @@ public class Toolbar {
         }
 
         public static JToolBar createDrawingToolbar(JToolBar toolbar, ResourceBundle bundle) {
-                toolbar.setPreferredSize(new Dimension(350, 35));
-                
-                JButton exitButton = new JButton(bundle.getString("DrawingExit"));
-                exitButton.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            // Handle exit drawing mode action
-                            // You can implement the logic to exit drawing mode here
-                        }
-                    });
+                DrawingActions drawingActions = new DrawingActions(bundle);
 
                 JButton colourMenu = new JButton(bundle.getString("ColourMenu"));
                 colourMenu.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                        JColorChooser.showDialog((Component) e.getSource(), "Select a Colour", Color.BLACK);
-                }
+                        public void actionPerformed(ActionEvent e) {
+                                Color selectedColor = JColorChooser.showDialog((Component) e.getSource(), "Select a Colour", Color.BLACK);
+                                if (selectedColor != null) {
+                                        drawingActions.setSelectedColour(selectedColor);
+                                }
+                        }
                 });
-                toolbar.add(colourMenu);
 
-                DrawingActions drawingActions = new DrawingActions(bundle);
                 JCheckBox fillOrOutline = new JCheckBox(bundle.getString("FillOrOutline"));
                 fillOrOutline.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                                 drawingActions.setFillShape(fillOrOutline.isSelected());
                         }
                 });
+
+                ButtonGroup buttonGroup = new ButtonGroup();
+
+                JRadioButton freeDrawButton = new JRadioButton(bundle.getString("FreeDraw"));
+                freeDrawButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e){
+                                drawingActions.setShape("Free");
+                        }       
+                });
+                buttonGroup.add(freeDrawButton);
+
+                JRadioButton rectangleButton = new JRadioButton(bundle.getString("Rectangle"));
+                rectangleButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e){
+                                drawingActions.setShape("Rectangle");
+                        }       
+                });
+                buttonGroup.add(rectangleButton);
+
+                JRadioButton ellipseButton = new JRadioButton(bundle.getString("Ellipse"));
+                ellipseButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e){
+                                drawingActions.setShape("Ellipse");
+                        }       
+                });
+                buttonGroup.add(ellipseButton);
+
+                JRadioButton lineButton = new JRadioButton(bundle.getString("Line"));
+                lineButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e){
+                                drawingActions.setShape("Line");
+                        }       
+                });
+                buttonGroup.add(lineButton);
+
+                toolbar.add(colourMenu);
                 toolbar.add(fillOrOutline);
+                toolbar.add(freeDrawButton);
+                toolbar.add(rectangleButton);
+                toolbar.add(ellipseButton);
+                toolbar.add(lineButton);
+                toolbar.add(Box.createHorizontalGlue());
 
-
-                
-                
                 return toolbar;
+        }
+
+        public static void setFrame(JFrame frame){
+                Toolbar.frame = frame;
         }
 }

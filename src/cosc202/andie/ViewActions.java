@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.KeyStroke;
+
 /**
  * <p>
  * Actions provided by the View menu.
@@ -52,6 +53,8 @@ public class ViewActions {
                 Integer.valueOf(KeyEvent.VK_2)));
         actions.add(new ZoomFullAction(bundle.getString("ZoomFull"), null, bundle.getString("ZoomFullDesc"),
                 Integer.valueOf(KeyEvent.VK_0)));
+        actions.add(new CropAction(bundle.getString("Crop"), null, bundle.getString("CropDesc"),
+                Integer.valueOf(KeyEvent.VK_C)));
     }
 
     /**
@@ -209,6 +212,28 @@ public class ViewActions {
         public void actionPerformed(ActionEvent e) {
             target.setZoom(100);
             target.revalidate();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class CropAction extends ImageAction {
+        
+        CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
+            super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+
+        }
+        public void actionPerformed(ActionEvent e) {
+            
+            int choice = JOptionPane.showConfirmDialog(null, bundle.getString("CropMSG"), bundle.getString("Crop"), JOptionPane.OK_CANCEL_OPTION);
+
+            if (choice == JOptionPane.CANCEL_OPTION) {
+                return;
+            }  else if (choice == JOptionPane.OK_OPTION) {
+                target.getImage().apply(new CropImage(null, null));
+            }
+
+            target.repaint();
             target.getParent().revalidate();
         }
     }

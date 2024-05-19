@@ -73,9 +73,8 @@ public class Andie {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
-        DrawingActions drawingActions = new DrawingActions(bundle);
         Paint paint = Color.BLACK;
-        DrawingArea drawingArea = new DrawingArea(paint, drawingActions);
+        DrawingArea drawingArea = new DrawingArea(paint);
         ImagePanel imagePanel = new ImagePanel(drawingArea);
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
@@ -113,35 +112,10 @@ public class Andie {
         menuBar.add(transformationActions.createMenu());
 
         // Drawing Menu and Toolbar that can create Rectangles, Ellipses, Lines etc
-        JMenu drawingMenu = new JMenu(bundle.getString("DrawingMenu"));
-        JMenuItem popUpMenu = new JMenuItem(bundle.getString("DrawingToolbar"));
-        popUpMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Add drawing toolbar buttons to the existing toolbar
-                // JToolBar toolbar = Toolbar.createDrawingToolbar(bundle);
-                // frame.add(toolbar, BorderLayout.SOUTH);
-                // Toolbar.createDrawingToolbar(toolBar, bundle);
-                JToolBar drawingToolbar = new JToolBar();
-                Toolbar.createDrawingToolbar(drawingToolbar, bundle);
-                JButton exitButton = new JButton(bundle.getString("DrawingExit"));
-                exitButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        // Remove the drawing toolbar from the frame's content pane
-                        frame.getContentPane().remove(drawingToolbar);
-                        
-                        // Repaint the frame
-                        frame.revalidate();
-                        frame.repaint();
-                    }
-                });
-                drawingToolbar.add(exitButton);
-                frame.getContentPane().add(drawingToolbar, BorderLayout.SOUTH);
-                frame.revalidate();
-                frame.repaint();
-            }
-        });
-        drawingMenu.add(popUpMenu);
-        menuBar.add(drawingMenu);
+        DrawingActions drawingActions = new DrawingActions(bundle);
+        DrawingActions.setFrame(frame);
+        Toolbar.setFrame(frame); 
+        menuBar.add(drawingActions.createMenu());
 
         // Actions that help with usability
         HelpActions helpActions = new HelpActions(bundle);
