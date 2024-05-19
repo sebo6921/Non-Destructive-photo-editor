@@ -25,7 +25,7 @@ import javax.swing.*;
  * @author Steven Mills
  * @version 1.0
  */
-public class ImagePanel extends JPanel {
+public class ImagePanel extends JPanel implements MouseListener, MouseMotionListener {
 
     // public enum Mode {
     //     SELECTION, DRAWING
@@ -52,6 +52,8 @@ public class ImagePanel extends JPanel {
      */
     private double scale;
 
+    private DrawingArea drawingArea;
+
     // private Mode currentMode = Mode.SELECTION;
 
     // private Selection tempSelection = new AreaSelection();
@@ -72,12 +74,13 @@ public class ImagePanel extends JPanel {
      * Newly created ImagePanels have a default zoom level of 100%
      * </p>
      */
-    public ImagePanel() {
+    public ImagePanel(DrawingArea drawingArea) {
+        this.drawingArea = drawingArea;
         image = new EditableImage();
         scale = 1.0;
 
-        // addMouseListener(this);
-        // addMouseMotionListener(this);
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     /**
@@ -223,7 +226,6 @@ public class ImagePanel extends JPanel {
     public void setBackgroundImage(Image image) {
         this.backgroundImage = image;
         revalidate();
-
         repaint();
     }
 
@@ -256,6 +258,45 @@ public class ImagePanel extends JPanel {
             g2.drawImage(image.getCurrentImage(), null, 0, 0);
             g2.dispose();
         }
+
+        if (drawingArea != null){
+            drawingArea.paint(g);
+        }
     }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (drawingArea != null) {
+            drawingArea.startDrawing(e.getX(), e.getY());
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (drawingArea != null) {
+            drawingArea.startDrawing(e.getX(), e.getY());
+            repaint();
+        }
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (drawingArea != null) {
+            drawingArea.draw(e.getX(), e.getY());
+            repaint();
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void mouseMoved(MouseEvent e) {}
 
 }

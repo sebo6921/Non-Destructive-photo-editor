@@ -89,7 +89,7 @@ public class Toolbar {
                                 null, zoomOutIcon, bundle.getString("ZoomOutDesc"), null));
                 toolBar.add(zoomOutButton);
 
-                ImagePanel imagePanel = new ImagePanel();
+                
 
                 // Add a button for selection mode
                 JButton selectionModeButton = new JButton("Selection Mode");
@@ -122,5 +122,39 @@ public class Toolbar {
                 toolBar.add(helpGuideButton);
 
                 return toolBar;
+        }
+
+        public static JToolBar createDrawingToolbar(JToolBar toolbar, ResourceBundle bundle) {
+                toolbar.setPreferredSize(new Dimension(350, 35));
+                
+                JButton exitButton = new JButton(bundle.getString("DrawingExit"));
+                exitButton.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                            // Handle exit drawing mode action
+                            // You can implement the logic to exit drawing mode here
+                        }
+                    });
+
+                JButton colourMenu = new JButton(bundle.getString("ColourMenu"));
+                colourMenu.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                        JColorChooser.showDialog((Component) e.getSource(), "Select a Colour", Color.BLACK);
+                }
+                });
+                toolbar.add(colourMenu);
+
+                DrawingActions drawingActions = new DrawingActions(bundle);
+                JCheckBox fillOrOutline = new JCheckBox(bundle.getString("FillOrOutline"));
+                fillOrOutline.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                drawingActions.setFillShape(fillOrOutline.isSelected());
+                        }
+                });
+                toolbar.add(fillOrOutline);
+
+
+                
+                
+                return toolbar;
         }
 }

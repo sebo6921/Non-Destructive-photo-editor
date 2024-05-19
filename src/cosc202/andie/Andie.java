@@ -66,15 +66,17 @@ public class Andie {
         // Set up the main GUI frame
         JFrame frame = new JFrame("ANDIE");
         JToolBar toolBar = Toolbar.createToolbar(bundle);
-        //toolBar.setBackground(Color.BLUE);
-
+        // toolBar.setBackground(Color.BLUE);
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // The main content area is an ImagePanel
-        ImagePanel imagePanel = new ImagePanel();
+        DrawingActions drawingActions = new DrawingActions(bundle);
+        Paint paint = Color.BLACK;
+        DrawingArea drawingArea = new DrawingArea(paint, drawingActions);
+        ImagePanel imagePanel = new ImagePanel(drawingArea);
         ImageAction.setTarget(imagePanel);
         JScrollPane scrollPane = new JScrollPane(imagePanel);
         frame.add(scrollPane, BorderLayout.CENTER);
@@ -110,9 +112,36 @@ public class Andie {
         TransformationActions transformationActions = new TransformationActions(bundle);
         menuBar.add(transformationActions.createMenu());
 
-        // Drawing Actions that can create Rectangles, Ellipses, Lines
-        DrawingActions drawingActions = new DrawingActions(bundle);
-        menuBar.add(drawingActions.createMenu());
+        // Drawing Menu and Toolbar that can create Rectangles, Ellipses, Lines etc
+        JMenu drawingMenu = new JMenu(bundle.getString("DrawingMenu"));
+        JMenuItem popUpMenu = new JMenuItem(bundle.getString("DrawingToolbar"));
+        popUpMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Add drawing toolbar buttons to the existing toolbar
+                // JToolBar toolbar = Toolbar.createDrawingToolbar(bundle);
+                // frame.add(toolbar, BorderLayout.SOUTH);
+                // Toolbar.createDrawingToolbar(toolBar, bundle);
+                JToolBar drawingToolbar = new JToolBar();
+                Toolbar.createDrawingToolbar(drawingToolbar, bundle);
+                JButton exitButton = new JButton(bundle.getString("DrawingExit"));
+                exitButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        // Remove the drawing toolbar from the frame's content pane
+                        frame.getContentPane().remove(drawingToolbar);
+                        
+                        // Repaint the frame
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                });
+                drawingToolbar.add(exitButton);
+                frame.getContentPane().add(drawingToolbar, BorderLayout.SOUTH);
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+        drawingMenu.add(popUpMenu);
+        menuBar.add(drawingMenu);
 
         // Actions that help with usability
         HelpActions helpActions = new HelpActions(bundle);
@@ -120,26 +149,25 @@ public class Andie {
 
         frame.setJMenuBar(menuBar);
 
-
-    JButton colorButton = new JButton("Choose Color");
-    colorButton.setPreferredSize(new Dimension(50, 20)); // Set preferred size
-    colorButton.setMargin(new Insets(5, 5, 5, 5));
-    colorButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Color selectedColor = JColorChooser.showDialog(frame, "Choose Color", imagePanel.getBackground());
-            if (selectedColor != null) {
-                imagePanel.setBackground(selectedColor);
-                imagePanel.repaint();
+        JButton colorButton = new JButton("Choose Color");
+        colorButton.setPreferredSize(new Dimension(50, 20)); // Set preferred size
+        colorButton.setMargin(new Insets(5, 5, 5, 5));
+        colorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Color selectedColor = JColorChooser.showDialog(frame, "Choose Color", imagePanel.getBackground());
+                if (selectedColor != null) {
+                    imagePanel.setBackground(selectedColor);
+                    imagePanel.repaint();
+                }
             }
-        }
-    });
-    menuBar.setOpaque(true);
+        });
+        menuBar.setOpaque(true);
 
-    menuBar.setBackground(Color.YELLOW);
+        menuBar.setBackground(Color.YELLOW);
 
         frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
-        //frame.add((colorButton),BorderLayout.NORTH);
+        // frame.add((colorButton),BorderLayout.NORTH);
         frame.pack();
         frame.setSize(700, 700);
         frame.setLocationRelativeTo(null);
