@@ -362,6 +362,7 @@ class EditableImage {
         return current;
     }
 
+
     /**
      * <p>
      * Reapply the current list of operations to the original.

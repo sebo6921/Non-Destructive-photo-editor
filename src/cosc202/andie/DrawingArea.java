@@ -7,16 +7,19 @@ import java.util.List;
 
 public class DrawingArea implements ImageOperation, java.io.Serializable {
     /** Current fill shape option (or default) */
-    private boolean fillShape = false;
+    protected boolean fillShape = false;
 
     /** Current selected colour (or default) */
-    private Color selectedColour = Color.BLACK;
+    protected Color selectedColour = Color.BLACK;
 
     /** Current selected shape (or default) */
-    private String currentShape = null;
+    protected String currentShape = null;
 
-    private int startX, startY, endX, endY;
-    private List<Point> points = new ArrayList<>();
+    /** Current selected stroke width (or default) */
+    protected int strokeWidth = 1;
+
+    protected int startX, startY, endX, endY;
+    protected List<Point> points = new ArrayList<>();
     
     private boolean isDrawing = false;
 
@@ -82,8 +85,13 @@ public class DrawingArea implements ImageOperation, java.io.Serializable {
         return output;
     }
 
-    public void shapes(Graphics g2d){
+    public void shapes(Graphics2D g2d){
+        if (currentShape == null){
+            return;
+        }
+
         g2d.setColor(selectedColour);
+        g2d.setStroke(new BasicStroke(strokeWidth));
 
         int width = Math.abs(endX - startX);
         int height = Math.abs(endY - startY);
@@ -131,5 +139,9 @@ public class DrawingArea implements ImageOperation, java.io.Serializable {
 
     public void setShape(String shape) {
         currentShape = shape;
+    }
+
+    public void setStrokeWidth(int strokeWidth){
+        this.strokeWidth = strokeWidth;
     }
 }

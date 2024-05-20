@@ -117,18 +117,18 @@ public class Toolbar {
                                 Toolbar.createDrawingToolbar(drawingToolbar, bundle, drawingArea);
                                 JButton exitButton = new JButton(bundle.getString("DrawingExit"));
                                 exitButton.addActionListener(new ActionListener() {
-                                    public void actionPerformed(ActionEvent e) {
-                                        frame.getContentPane().remove(drawingToolbar);
-                                        frame.revalidate();
-                                        frame.repaint();
-                                        imagePanel.setMode(Mode.SELECTION);
-                                    }
+                                        public void actionPerformed(ActionEvent e) {
+                                                frame.getContentPane().remove(drawingToolbar);
+                                                frame.revalidate();
+                                                frame.repaint();
+                                                imagePanel.setMode(Mode.SELECTION);
+                                        }
                                 });
                                 drawingToolbar.add(exitButton);
                                 frame.getContentPane().add(drawingToolbar, BorderLayout.SOUTH);
                                 frame.revalidate();
                                 frame.repaint();
-                            }
+                        }
                 });
                 toolBar.add(drawingButton);
 
@@ -152,7 +152,8 @@ public class Toolbar {
                 JButton colourMenu = new JButton(bundle.getString("ColourMenu"));
                 colourMenu.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
-                                Color selectedColor = JColorChooser.showDialog((Component) e.getSource(), "Select a Colour", Color.BLACK);
+                                Color selectedColor = JColorChooser.showDialog((Component) e.getSource(),
+                                                "Select a Colour", Color.BLACK);
                                 if (selectedColor != null) {
                                         drawingArea.setSelectedColour(selectedColor);
                                 }
@@ -170,37 +171,62 @@ public class Toolbar {
 
                 JRadioButton freeDrawButton = new JRadioButton(bundle.getString("FreeDraw"));
                 freeDrawButton.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e){
+                        public void actionPerformed(ActionEvent e) {
                                 drawingArea.setShape("Free");
-                        }       
+                        }
                 });
                 buttonGroup.add(freeDrawButton);
 
                 JRadioButton rectangleButton = new JRadioButton(bundle.getString("Rectangle"));
                 rectangleButton.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e){
+                        public void actionPerformed(ActionEvent e) {
                                 drawingArea.setShape("Rectangle");
-                        }       
+                        }
                 });
                 buttonGroup.add(rectangleButton);
 
                 JRadioButton ellipseButton = new JRadioButton(bundle.getString("Ellipse"));
                 ellipseButton.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e){
+                        public void actionPerformed(ActionEvent e) {
                                 drawingArea.setShape("Ellipse");
-                        }       
+                        }
                 });
                 buttonGroup.add(ellipseButton);
 
                 JRadioButton lineButton = new JRadioButton(bundle.getString("Line"));
                 lineButton.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e){
+                        public void actionPerformed(ActionEvent e) {
                                 drawingArea.setShape("Line");
-                        }       
+                        }
                 });
                 buttonGroup.add(lineButton);
 
+                JButton strokeWidth = new JButton("Stroke Width");
+                strokeWidth.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                                SpinnerNumberModel strokeModel = new SpinnerNumberModel(1, 1, 10, 1);
+                                JSpinner strokeWidthSpinner = new JSpinner(strokeModel);
+                                JLabel message1 = new JLabel(bundle.getString("MedianFilterMSG1"));
+                                JLabel message2 = new JLabel(bundle.getString("MedianFilterMSG2"));
+                                JPanel panel = new JPanel();
+                                panel.setPreferredSize(new Dimension(300, 70));
+                                panel.add(message1);
+                                panel.add(message2);
+                                panel.add(strokeWidthSpinner);
+
+                                int option = JOptionPane.showOptionDialog(null, panel,
+                                                bundle.getString("MedianFilterRadius"),
+                                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
+                                                null);
+
+                                if (option == JOptionPane.OK_OPTION) {
+                                        drawingArea.setStrokeWidth(strokeModel.getNumber().intValue());
+                                }
+                        }
+                });
+
                 toolbar.add(colourMenu);
+                toolbar.add(strokeWidth);
                 toolbar.add(fillOrOutline);
                 toolbar.add(freeDrawButton);
                 toolbar.add(rectangleButton);
@@ -211,7 +237,7 @@ public class Toolbar {
                 return toolbar;
         }
 
-        public static void setFrame(JFrame frame){
+        public static void setFrame(JFrame frame) {
                 Toolbar.frame = frame;
         }
 }

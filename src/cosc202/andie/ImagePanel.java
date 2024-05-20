@@ -6,6 +6,11 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
+import cosc202.andie.DrawingShapes.EllipseOperation;
+import cosc202.andie.DrawingShapes.FreehandOperation;
+import cosc202.andie.DrawingShapes.LineOperation;
+import cosc202.andie.DrawingShapes.RectangleOperation;
+
 /**
  * <p>
  * UI display element for {@link EditableImage}s.
@@ -33,6 +38,7 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
 
     private Mode mode = Mode.SELECTION;
     private int cropStartX, cropStartY, cropEndX, cropEndY;
+    private int drawStartX, drawStartY, drawEndX, drawEndY;
     private Image backgroundImage;
 
     /**
@@ -196,13 +202,15 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
             drawingArea.startDrawing(e.getX(), e.getY());
         } else if (mode == Mode.DRAWING) {
             drawingArea.startDrawing(e.getX(), e.getY());
+            drawStartX = e.getX();
+            drawStartY = e.getY();
         } else if (mode == Mode.CROPPING) {
             cropStartX = e.getX();
             cropStartY = e.getY();
             drawingArea.startDrawing(e.getX(), e.getY());
             drawingArea.setShape("Rectangle");
             drawingArea.setFillShape(true);
-            drawingArea.setSelectedColour(new Color(255, 255, 255, 150));
+            drawingArea.setSelectedColour(new Color(255, 255, 255, 200));
         }
         setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 
@@ -216,8 +224,18 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
             drawingArea.setSelectedColour(Color.BLACK);
             drawingArea.completeDrawing(e.getX(), e.getY());
         } else if (mode == Mode.DRAWING) {
+            drawEndX = e.getX();
+            drawEndY = e.getY();
             drawingArea.completeDrawing(e.getX(), e.getY());
-            getImage().apply(drawingArea);
+            if (drawingArea.currentShape == "Rectangle") {
+                getImage().apply(new RectangleOperation(drawStartX, drawStartY, drawEndX, drawEndY, drawingArea.selectedColour, drawingArea.fillShape, drawingArea.strokeWidth));
+            } else if (drawingArea.currentShape == "Line") {
+                getImage().apply(new LineOperation(drawStartX, drawStartY, drawEndX, drawEndY, drawingArea.selectedColour, drawingArea.strokeWidth));
+            } else if (drawingArea.currentShape == "Ellipse") {
+                getImage().apply(new EllipseOperation(drawStartX, drawStartY, drawEndX, drawEndY, drawingArea.selectedColour, drawingArea.fillShape, drawingArea.strokeWidth));
+            } else if (drawingArea.currentShape == "Free") {
+                getImage().apply(new FreehandOperation(drawingArea.points, drawingArea.selectedColour, drawingArea.strokeWidth));
+            }
         } else if (mode == Mode.CROPPING) {
             cropEndX = e.getX();
             cropEndY = e.getY();
@@ -230,7 +248,7 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         }
         setCursor(Cursor.getDefaultCursor());
         repaint();
-
+        revalidate();
     }
 
     @Override
