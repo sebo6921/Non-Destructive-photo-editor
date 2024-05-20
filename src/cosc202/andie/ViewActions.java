@@ -39,6 +39,7 @@ public class ViewActions {
     /** A resource bundle to change the language */
     ResourceBundle bundle;
 
+    /** ImagePanel that ViewActions is applied to */
     private ImagePanel imagePanel;
 
     /**
@@ -219,25 +220,45 @@ public class ViewActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to crop the image.
+     * </p>
+     */
     public class CropAction extends ImageAction {
-        
+
+        /**
+         * <p>
+         * Create a new crop action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         CropAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
             putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
 
         }
+
+        /**
+         * 
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             imagePanel.setMode(Mode.CROPPING);
-            int choice = JOptionPane.showConfirmDialog(null, bundle.getString("CropMSG"), bundle.getString("Crop"), JOptionPane.OK_CANCEL_OPTION);
+            int choice = JOptionPane.showConfirmDialog(null, bundle.getString("CropMSG"), bundle.getString("Crop"),
+                    JOptionPane.OK_CANCEL_OPTION);
 
             if (choice == JOptionPane.CANCEL_OPTION) {
                 imagePanel.setMode(Mode.SELECTION);
                 return;
-            } 
+            }
 
             target.repaint();
             target.getParent().revalidate();
         }
-        
     }
 }

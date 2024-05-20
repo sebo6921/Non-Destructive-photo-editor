@@ -11,12 +11,37 @@ import javax.swing.*;
 
 import cosc202.andie.ImagePanel.Mode;
 
+/**
+ * <p>
+ * Toolbar class that creates and manages the application's toolbar.
+ * </p>
+ * 
+ * <p>
+ * The toolbar provides quick access to various actions like file operations,
+ * editing, viewing, help, and drawing tools.
+ * </p>
+ * 
+ * @author Jessica Fan
+ * @version 1.0
+ */
 public class Toolbar {
 
+        /** A resource bundle to change the language */
         private ResourceBundle bundle;
 
+        /** JFrame that the toolbar is applied to */
         private static JFrame frame;
 
+        /**
+         * <p>
+         * Creates the main toolbar with various action buttons.
+         * </p>
+         * 
+         * @param bundle      the resource bundle for localization
+         * @param drawingArea the drawing area for drawing actions
+         * @param imagePanel  the image panel for image related actions
+         * @return a JToolBar with the main toolbar buttons
+         */
         public static JToolBar createToolbar(ResourceBundle bundle, DrawingArea drawingArea, ImagePanel imagePanel) {
                 JToolBar toolBar = new JToolBar();
                 toolBar.setPreferredSize(new Dimension(350, 35));
@@ -44,15 +69,6 @@ public class Toolbar {
                 JButton saveButton = new JButton(fileActions.new FileSaveAction(
                                 null, saveIcon, bundle.getString("SaveDesc"), null));
                 toolBar.add(saveButton);
-
-                // // Add SaveAs to toolbar
-                ImageIcon saveAsIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
-                Image scaledSaveAsImage = saveAsIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-                saveAsIcon = new ImageIcon(scaledSaveAsImage);
-
-                JButton saveAsButton = new JButton(fileActions.new FileSaveAsAction(
-                                null, saveAsIcon, bundle.getString("SaveAsDesc"), null));
-                toolBar.add(saveAsButton);
 
                 // // Add Undo to toolbar
                 ImageIcon undoIcon = new ImageIcon((Path.of("src/cosc202/andie/toolbarImages/undo.png")).toString());
@@ -94,7 +110,7 @@ public class Toolbar {
 
                 // Add a button for crop mode
                 ImageIcon cropIcon = new ImageIcon(
-                                (Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+                                (Path.of("src/cosc202/andie/toolbarImages/crop.png")).toString());
                 Image scaledCropImage = cropIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 cropIcon = new ImageIcon(scaledCropImage);
 
@@ -104,7 +120,7 @@ public class Toolbar {
 
                 // Add a button for drawing
                 ImageIcon drawingIcon = new ImageIcon(
-                                (Path.of("src/cosc202/andie/toolbarImages/bee.png")).toString());
+                                (Path.of("src/cosc202/andie/toolbarImages/drawing.png")).toString());
                 Image scaledDrawingImage = drawingIcon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
                 drawingIcon = new ImageIcon(scaledDrawingImage);
 
@@ -147,6 +163,16 @@ public class Toolbar {
                 return toolBar;
         }
 
+        /**
+         * <p>
+         * Creates the drawing toolbar with various drawing tools.
+         * </p>
+         * 
+         * @param toolbar     the toolbar to which drawing tools will be added
+         * @param bundle      the resource bundle for localization
+         * @param drawingArea the drawing area where drawing actions are performed
+         * @return a JToolBar with the drawing toolbar buttons
+         */
         public static JToolBar createDrawingToolbar(JToolBar toolbar, ResourceBundle bundle, DrawingArea drawingArea) {
 
                 JButton colourMenu = new JButton(bundle.getString("ColourMenu"));
@@ -201,13 +227,13 @@ public class Toolbar {
                 });
                 buttonGroup.add(lineButton);
 
-                JButton strokeWidth = new JButton("Stroke Width");
+                JButton strokeWidth = new JButton(bundle.getString("StrokeWidth"));
                 strokeWidth.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                                 SpinnerNumberModel strokeModel = new SpinnerNumberModel(1, 1, 10, 1);
                                 JSpinner strokeWidthSpinner = new JSpinner(strokeModel);
-                                JLabel message1 = new JLabel(bundle.getString("MedianFilterMSG1"));
-                                JLabel message2 = new JLabel(bundle.getString("MedianFilterMSG2"));
+                                JLabel message1 = new JLabel(bundle.getString("StrokeWidthMSG1"));
+                                JLabel message2 = new JLabel(bundle.getString("StrokeWidthMSG2"));
                                 JPanel panel = new JPanel();
                                 panel.setPreferredSize(new Dimension(300, 70));
                                 panel.add(message1);
@@ -215,7 +241,7 @@ public class Toolbar {
                                 panel.add(strokeWidthSpinner);
 
                                 int option = JOptionPane.showOptionDialog(null, panel,
-                                                bundle.getString("MedianFilterRadius"),
+                                                bundle.getString("StrokeWidth"),
                                                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null,
                                                 null);
 

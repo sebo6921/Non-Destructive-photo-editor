@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.KeyStroke;
+
 /**
  * <p>
  * Actions provided by the Help menu.
@@ -169,7 +170,7 @@ public class HelpActions {
             if (mnemonic != null) {
                 putValue(MNEMONIC_KEY, mnemonic);
             }
-            
+
         }
 
         /**

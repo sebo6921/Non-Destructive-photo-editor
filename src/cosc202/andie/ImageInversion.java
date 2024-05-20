@@ -37,7 +37,7 @@ public class ImageInversion implements ImageOperation, java.io.Serializable {
      * (255 - current rgb value).
      * </p>
      * 
-     * @param input  the image being inverted
+     * @param input the image being inverted
      * @return the inverted image
      */
     public BufferedImage apply(BufferedImage input) {

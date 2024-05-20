@@ -6,7 +6,7 @@ import java.awt.image.*;
  * <p>
  * ImageOperation to cycle the colour channels of the image.
  * </p>
- * testing this is working
+ * 
  * <p>
  * This takes the current values of the rgb colour channels and
  * rotates them between each other.
@@ -18,7 +18,7 @@ import java.awt.image.*;
 public class ColourChannelCycling implements ImageOperation, java.io.Serializable {
 
     /** Int variable that keeps track of the variation index */
-    private static int currentVariationIndex = 0;
+    private static int currentVariationIndex = 1;
 
     /**
      * <p>
@@ -39,7 +39,7 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
      * the corresponding rgb value for the current cycle.
      * </p>
      * 
-     * @param input  the image having colour channel cycling applied to it
+     * @param input the image having colour channel cycling applied to it
      * @return the colour channel cycled image
      */
     public BufferedImage apply(BufferedImage input) {
@@ -57,26 +57,26 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 int tempB = b;
 
                 if (currentVariationIndex == 0) {
-                    r = tempR;
-                    g = tempB;
-                    b = tempG;
+                    r = tempB;
+                    g = tempG;
+                    b = tempR;
                 } else if (currentVariationIndex == 1) {
-                    r = tempG;
-                    g = tempR;
-                    b = tempB;
-                } else if (currentVariationIndex == 2) {
                     r = tempG;
                     g = tempB;
                     b = tempR;
+                } else if (currentVariationIndex == 2) {
+                    r = tempR;
+                    g = tempB;
+                    b = tempG;
                 } else if (currentVariationIndex == 3) {
                     r = tempB;
                     g = tempR;
                     b = tempG;
                 } else if (currentVariationIndex == 4) {
-                    r = tempB;
-                    g = tempG;
-                    b = tempR;
-                } else if (currentVariationIndex == 5) {
+                    r = tempG;
+                    g = tempR;
+                    b = tempB;
+                } else {
                     r = tempR;
                     g = tempG;
                     b = tempB;

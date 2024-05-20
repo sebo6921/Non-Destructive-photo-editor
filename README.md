@@ -29,6 +29,35 @@ ANDIE was tested thoroughly by running the program through different devices and
 
 **Other Error Avoidance/Prevention** - Jessica Fan, Kruti Mistry
 
+**Extended filters**
+
+**Filters with negative results** - Jessica Fan
+
+**Emboss and edge detection filters**
+
+**Brightness adjustment**
+
+**Contrast adjustment**
+
+**Block averaging**
+
+**Random scattering**
+
+**Toolbar for common operations** - Jessica Fan
+
+**Keyboard shortcuts**
+
+**Mouse selection of rectangular regions** - Jessica Fan
+
+**Crop to selection** 
+
+**Drawing functions – rectangle, ellipse, line** - Jessica Fan
+
+**Macros for record and replay of operations**
+
+**Show us something. . .: ANDIE Help Guide, Change Toolbar Colour, Freehand Drawing** 
+
+
 ## ANDIE Build Instructions
 Run ANDIE through Gradle.
 

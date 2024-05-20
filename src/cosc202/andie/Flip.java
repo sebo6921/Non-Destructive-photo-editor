@@ -14,6 +14,9 @@ import java.awt.image.*;
  * it to the current image to resize it
  * </p>
  * 
+ * @author Diego Olivera
+ * @version 1.0
+ * 
  */
 public class Flip implements ImageOperation, java.io.Serializable {
 
@@ -81,7 +84,7 @@ public class Flip implements ImageOperation, java.io.Serializable {
                 flipped.setRGB(x, y, input.getRGB(newWidth - 1 - x, y));
             }
         }
-        
+
         return flipped;
     }
 

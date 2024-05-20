@@ -50,9 +50,10 @@ public class ConvertToGrey implements ImageOperation, java.io.Serializable {
         for (int y = 0; y < input.getHeight(); ++y) {
             for (int x = 0; x < input.getWidth(); ++x) {
                 int argb = input.getRGB(x, y);
-                /* >> sets shifted-in bits to match the sign (high order) bit
-                * >>> sets shifted-in bits to zero always
-                */
+                /*
+                 * >> sets shifted-in bits to match the sign (high order) bit
+                 * >>> sets shifted-in bits to zero always
+                 */
                 int a = (argb & 0xFF000000) >>> 24;
                 int r = (argb & 0x00FF0000) >> 16;
                 int g = (argb & 0x0000FF00) >> 8;

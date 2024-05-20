@@ -15,6 +15,9 @@ import java.awt.RenderingHints;
  * it to the current image to resize it
  * </p>
  * 
+ * @author Diego Olivera
+ * @version 1.0
+ * 
  */
 public class Resize implements ImageOperation, java.io.Serializable {
 
@@ -23,14 +26,24 @@ public class Resize implements ImageOperation, java.io.Serializable {
      */
     private int size;
 
-    // Constructor that takes a size parameter and sets the size attribute
-    // accordingly
+    /**
+     * <p>
+     * Constructor that takes a size parameter and sets the size attribute
+     * accordingly
+     * </p>
+     * 
+     * @param size Sets the size of the filter
+     */
     Resize(int size) {
         this.size = size;
     }
 
-    // Default constructor that initializes the size attribute with a default value
-    // of 100
+    /**
+     * <p>
+     * Default constructor that initializes the size attribute with a default value
+     * of 100
+     * </p>
+     */
     Resize() {
         this(100);
     }

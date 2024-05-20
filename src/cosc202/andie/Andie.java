@@ -60,7 +60,7 @@ public class Andie {
      * @throws Exception if something goes wrong.
      */
     private static void createAndShowGUI() throws Exception {
-
+        // Language Bundle
         bundle = ResourceBundle.getBundle("cosc202.andie.MessageBundle");
 
         // Set up the main GUI frame
@@ -68,8 +68,7 @@ public class Andie {
         DrawingArea drawingArea = new DrawingArea();
         ImagePanel imagePanel = new ImagePanel(drawingArea);
         JToolBar toolBar = Toolbar.createToolbar(bundle, drawingArea, imagePanel);
-        
-        
+        toolBar.setBackground(Color.WHITE);
 
         Image image = ImageIO.read(Andie.class.getClassLoader().getResource("icon.png"));
         frame.setIconImage(image);
@@ -113,7 +112,7 @@ public class Andie {
         // Drawing Menu and Toolbar that can create Rectangles, Ellipses, Lines etc
         DrawingActions drawingActions = new DrawingActions(bundle, drawingArea, imagePanel);
         DrawingActions.setFrame(frame);
-        Toolbar.setFrame(frame); 
+        Toolbar.setFrame(frame);
         menuBar.add(drawingActions.createMenu());
 
         menuBar.add(Box.createHorizontalGlue());
@@ -127,7 +126,8 @@ public class Andie {
         colourButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Color selectedColour = JColorChooser.showDialog(frame, "Choose Toolbar Colour", imagePanel.getBackground());
+                Color selectedColour = JColorChooser.showDialog(frame, "Choose Toolbar Colour",
+                        imagePanel.getBackground());
                 if (selectedColour != null) {
                     toolBar.setBackground(selectedColour);
                 }

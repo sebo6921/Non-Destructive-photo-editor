@@ -9,17 +9,49 @@ import javax.swing.*;
 
 import cosc202.andie.ImageOperation;
 
+/**
+ * <p>
+ * ImageOperation to freehand draw onto the image.
+ * </p>
+ * 
+ * <p>
+ * This takes the mouseListener object and uses the x and y coordinates
+ * from the mouse to freehand draw onto an image
+ * </p>
+ * 
+ * @author Jessica Fan
+ * @version 1.0
+ */
 public class FreehandOperation implements ImageOperation {
     private List<Point> points;
     private Color color;
     private int strokeWidth;
 
+    /**
+     * <p>
+     * Create a new FreehandOperation operation
+     * </p
+     */
     public FreehandOperation(List<Point> points, Color color, int strokeWidth) {
         this.points = points;
         this.color = color;
         this.strokeWidth = strokeWidth;
     }
 
+    /**
+     * <p>
+     * Insert the freehand drawing onto the image.
+     * </p>
+     * 
+     * <p>
+     * The freehand drawing process takes the input coordinates
+     * from the mouse and draws an ellipse to match how the
+     * mouse is pressed and released
+     * </p>
+     * 
+     * @param input the image having the freehand shape applied to it
+     * @return the image with the applied freehand shape
+     */
     @Override
     public BufferedImage apply(BufferedImage input) {
         BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(), input.getType());

@@ -5,6 +5,19 @@ import java.awt.Dimension;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * <p>
+ * Actions provided by the Transformations menu.
+ * </p>
+ * 
+ * <p>
+ * The user will expect to find actions that can be used to
+ * transform the image in this menu
+ * </p>
+ * 
+ * @author Diego Olivera
+ * @version 1.0
+ */
 public class TransformationActions {
 
     /** A list of actions for the Transformations menu. */
@@ -92,10 +105,14 @@ public class TransformationActions {
          */
         ResizeAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-                        putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
 
         }
 
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
 
             // Determine the size - ask the user.
@@ -141,16 +158,15 @@ public class TransformationActions {
          * <p>
          * Create a new rotate clockwise action.
          * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         Rotate90ClockwiseAction() {
             super(bundle.getString("RotateNintyDegreesName"), null, bundle.getString("RotateNintyDegreesDesc"), null);
         }
 
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the change in rotation
             target.getImage().apply(new Rotate(90));
@@ -172,17 +188,16 @@ public class TransformationActions {
          * <p>
          * Create a new rotate anti-clockwise action.
          * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         Rotate90AntiClockwiseAction() {
             super(bundle.getString("RotateNintyDegreesAntiName"), null, bundle.getString("RotateNintyDegreesAntiDesc"),
                     null);
         }
 
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the change in rotation
             target.getImage().apply(new Rotate(-90));
@@ -204,16 +219,15 @@ public class TransformationActions {
          * <p>
          * Create a new rotate 180 degrees action.
          * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         Rotate180Action() {
             super(bundle.getString("Rotate180"), null, bundle.getString("RotateDesc180"), null);
         }
 
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the change in rotation
             target.getImage().apply(new Rotate(180));
@@ -235,16 +249,15 @@ public class TransformationActions {
          * <p>
          * Create a new flip horizontally action.
          * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FlipHorizontallyAction() {
             super(bundle.getString("FlipHorizontally"), null, bundle.getString("FlipHorizontallyDesc"), null);
         }
 
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the change in direction
             target.getImage().apply(new Flip(90));
@@ -266,16 +279,15 @@ public class TransformationActions {
          * <p>
          * Create a new flip vertically action.
          * </p>
-         * 
-         * @param name     The name of the action (ignored if null).
-         * @param icon     An icon to use to represent the action (ignored if null).
-         * @param desc     A brief description of the action (ignored if null).
-         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
         FlipVerticallyAction() {
             super(bundle.getString("FlipVertically"), null, bundle.getString("FlipVerticallyDesc"), null);
         }
 
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
         public void actionPerformed(ActionEvent e) {
             // Create and apply the change in direction
             target.getImage().apply(new Flip(180));

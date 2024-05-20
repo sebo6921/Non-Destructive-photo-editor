@@ -152,12 +152,26 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         }
     }
 
+    /**
+     * <p>
+     * Sets the background image
+     * </p>
+     * 
+     * @param image The image to be set as background
+     */
     public void setBackgroundImage(Image image) {
         this.backgroundImage = image;
         revalidate();
         repaint();
     }
 
+    /**
+     * <p>
+     * Sets the background colour
+     * </p>
+     * 
+     * @param image The colour to be set as background
+     */
     public void setBackgroundColor(Color color) {
         int width = getWidth();
         int height = getHeight();
@@ -193,6 +207,17 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
 
     }
 
+    /**
+     * <p>
+     * Handles mouse press events.
+     * Depending on the current mode, this method initiates different actions:
+     * - In SELECTION mode, it starts drawing a selection rectangle.
+     * - In DRAWING mode, it starts drawing a shape.
+     * - In CROPPING mode, it starts drawing a cropping rectangle.
+     * </p>
+     * 
+     * @param e the mouse event
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         if (mode == Mode.SELECTION) {
@@ -216,6 +241,19 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
 
     }
 
+    /**
+     * <p>
+     * Handles mouse release events.
+     * Depending on the current mode, this method completes different actions:
+     * - In SELECTION mode, it completes the selection rectangle.
+     * - In DRAWING mode, it completes the shape drawing and applies the
+     * corresponding operation.
+     * - In CROPPING mode, it completes the cropping rectangle and applies the crop
+     * operation.
+     * </p>
+     * 
+     * @param e the mouse event
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         if (mode == Mode.SELECTION) {
@@ -228,13 +266,17 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
             drawEndY = e.getY();
             drawingArea.completeDrawing(e.getX(), e.getY());
             if (drawingArea.currentShape == "Rectangle") {
-                getImage().apply(new RectangleOperation(drawStartX, drawStartY, drawEndX, drawEndY, drawingArea.selectedColour, drawingArea.fillShape, drawingArea.strokeWidth));
+                getImage().apply(new RectangleOperation(drawStartX, drawStartY, drawEndX, drawEndY,
+                        drawingArea.selectedColour, drawingArea.fillShape, drawingArea.strokeWidth));
             } else if (drawingArea.currentShape == "Line") {
-                getImage().apply(new LineOperation(drawStartX, drawStartY, drawEndX, drawEndY, drawingArea.selectedColour, drawingArea.strokeWidth));
+                getImage().apply(new LineOperation(drawStartX, drawStartY, drawEndX, drawEndY,
+                        drawingArea.selectedColour, drawingArea.strokeWidth));
             } else if (drawingArea.currentShape == "Ellipse") {
-                getImage().apply(new EllipseOperation(drawStartX, drawStartY, drawEndX, drawEndY, drawingArea.selectedColour, drawingArea.fillShape, drawingArea.strokeWidth));
+                getImage().apply(new EllipseOperation(drawStartX, drawStartY, drawEndX, drawEndY,
+                        drawingArea.selectedColour, drawingArea.fillShape, drawingArea.strokeWidth));
             } else if (drawingArea.currentShape == "Free") {
-                getImage().apply(new FreehandOperation(drawingArea.points, drawingArea.selectedColour, drawingArea.strokeWidth));
+                getImage().apply(
+                        new FreehandOperation(drawingArea.points, drawingArea.selectedColour, drawingArea.strokeWidth));
             }
         } else if (mode == Mode.CROPPING) {
             cropEndX = e.getX();
@@ -251,28 +293,76 @@ public class ImagePanel extends JPanel implements MouseListener, MouseMotionList
         revalidate();
     }
 
+    /**
+     * <p>
+     * Handles mouse drag events.
+     * Draws on the drawing area based on the current mouse position.
+     * </p>
+     * 
+     * @param e the mouse event
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         drawingArea.draw(e.getX(), e.getY());
         repaint();
     }
 
+    /**
+     * <p>
+     * Handles mouse click events.
+     * This method is currently not used.
+     * </p>
+     * 
+     * @param e the mouse event
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
     }
 
+    /**
+     * <p>
+     * Handles mouse enter events.
+     * This method is currently not used.
+     * </p>
+     * 
+     * @param e the mouse event
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    /**
+     * <p>
+     * Handles mouse exit events.
+     * This method is currently not used.
+     * </p>
+     * 
+     * @param e the mouse event
+     */
     @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+     * <p>
+     * Handles mouse move events.
+     * This method is currently not used.
+     * </p>
+     * 
+     * @param e the mouse event
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
     }
 
+    /**
+     * <p>
+     * Sets the current mode of operation.
+     * This method updates the mode to the specified value.
+     * </p>
+     * 
+     * @param mode the new mode of operation
+     */
     public void setMode(Mode mode) {
         this.mode = mode;
     }

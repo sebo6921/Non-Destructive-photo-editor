@@ -67,9 +67,9 @@ class EditableImage {
         return this.current;
     }
 
-    /** 
+    /**
      * @return Width of current image
-    */
+     */
     public int getWidth() {
         return current.getWidth();
     }
@@ -77,7 +77,7 @@ class EditableImage {
     /**
      * @return Height of current image
      */
-    public int getHeight() { 
+    public int getHeight() {
         return current.getHeight();
     }
 
@@ -180,7 +180,9 @@ class EditableImage {
      */
     public void open(String filePath) throws Exception {
         if (imageModified) {
-            int choice = JOptionPane.showConfirmDialog(null, "You have unsaved changes. Do you want to discard them and open a new image?", "Confirm", JOptionPane.YES_NO_OPTION);
+            int choice = JOptionPane.showConfirmDialog(null,
+                    "You have unsaved changes. Do you want to discard them and open a new image?", "Confirm",
+                    JOptionPane.YES_NO_OPTION);
             if (choice != JOptionPane.YES_OPTION) {
                 return; // User chose not to discard changes, so return without opening a new image
             }
@@ -319,7 +321,6 @@ class EditableImage {
         ops.add(op);
     }
 
-    
     public void applyTemp(ImageOperation op) {
         if (current == null) {
             return;
@@ -361,7 +362,6 @@ class EditableImage {
     public BufferedImage getCurrentImage() {
         return current;
     }
-
 
     /**
      * <p>

@@ -12,11 +12,13 @@ import java.util.*;
  * </p>
  * <p>
  * A Mean filter blurs an image by replacing each pixel by the average of the
- * pixels in a surrounding neighbourhood, and can be implemented by a convoloution.
+ * pixels in a surrounding neighbourhood, and can be implemented by a
+ * convoloution.
  * </p>
  * 
- * <p> 
- * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+ * <p>
+ * <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA
+ * 4.0</a>
  * </p>
  * 
  * @see java.awt.image.ConvolveOp
@@ -24,15 +26,17 @@ import java.util.*;
  * @version 1.0
  */
 public class MeanFilter implements ImageOperation, java.io.Serializable {
-    
+
     /**
-     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a 5x5 filter, and so forth.
+     * The size of filter to apply. A radius of 1 is a 3x3 filter, a radius of 2 a
+     * 5x5 filter, and so forth.
      */
     private int radius;
 
-   /**
+    /**
      * <p>
-     * The coordinates of the corners of the selected area. If there is no selected area, these will be equal to -1.
+     * The coordinates of the corners of the selected area. If there is no selected
+     * area, these will be equal to -1.
      * </p>
      */
     private int x1, x2, y1, y2 = -1;
@@ -51,16 +55,15 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * @param radius The radius of the newly constructed MeanFilter
      */
     MeanFilter(int radius) {
-        this.radius = radius;    
+        this.radius = radius;
     }
 
-
     MeanFilter(int radius, Point p1, Point p2) {
-        this.radius = radius;   
+        this.radius = radius;
         this.x1 = (int) p1.getX();
         this.x2 = (int) p2.getX();
         this.y1 = (int) p1.getY();
-        this.y2 = (int) p2.getY(); 
+        this.y2 = (int) p2.getY();
     }
 
     /**
@@ -85,7 +88,7 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      * 
      * <p>
      * As with many filters, the Mean filter is implemented via convolution.
-     * The size of the convolution kernel is specified by the {@link radius}.  
+     * The size of the convolution kernel is specified by the {@link radius}.
      * Larger radii lead to stronger blurring.
      * </p>
      * 
@@ -94,16 +97,18 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
      */
     public BufferedImage apply(BufferedImage input) {
         BufferedImage output = null;
-        try{
-            int size = (2*radius+1) * (2*radius+1);
-            float [] array = new float[size];
-            Arrays.fill(array, 1.0f/size);
+        try {
+            int size = (2 * radius + 1) * (2 * radius + 1);
+            float[] array = new float[size];
+            Arrays.fill(array, 1.0f / size);
 
-            Kernel kernel = new Kernel(2*radius+1, 2*radius+1, array);
+            Kernel kernel = new Kernel(2 * radius + 1, 2 * radius + 1, array);
             AndieConvolveOp convOp = new AndieConvolveOp(kernel);
             output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-            if (x1 != -1 && x2 != -1 && y1 != -1 && y2 != -1) convOp.filter(input, output, x1, y1, x2, y2);
-            else convOp.filter(input, output);
+            if (x1 != -1 && x2 != -1 && y1 != -1 && y2 != -1)
+                convOp.filter(input, output, x1, y1, x2, y2);
+            else
+                convOp.filter(input, output);
 
         } catch (NullPointerException ex) {
             // Handle null pointer exception
@@ -114,6 +119,5 @@ public class MeanFilter implements ImageOperation, java.io.Serializable {
         }
         return output;
     }
-
 
 }

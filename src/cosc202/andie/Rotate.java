@@ -14,14 +14,29 @@ import java.awt.image.*;
  * rotates the current image
  * </p>
  * 
+ * @author Diego Olivera
+ * @version 1.0
+ * 
  */
 public class Rotate implements ImageOperation, java.io.Serializable {
 
     private int angle;
 
+    /**
+     * <p>
+     * Constructor that rotates the image by the default angle
+     * </p>
+     */
+
     public Rotate() {
         this.angle = 1;
     }
+
+        /**
+     * <p>
+     * Constructor that rotates the image by a given angle value
+     * </p>
+     */
 
     public Rotate(int angle) {
         this.angle = angle;
