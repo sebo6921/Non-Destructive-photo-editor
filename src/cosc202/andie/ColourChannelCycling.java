@@ -18,7 +18,7 @@ import java.awt.image.*;
 public class ColourChannelCycling implements ImageOperation, java.io.Serializable {
 
     /** Int variable that keeps track of the variation index */
-    private static int currentVariationIndex = 1;
+    private static int currentVariationIndex = 0;
 
     /**
      * <p>
@@ -69,13 +69,13 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                     g = tempB;
                     b = tempG;
                 } else if (currentVariationIndex == 3) {
-                    r = tempB;
-                    g = tempR;
-                    b = tempG;
-                } else if (currentVariationIndex == 4) {
                     r = tempG;
                     g = tempR;
                     b = tempB;
+                } else if (currentVariationIndex == 4) {
+                    r = tempB;
+                    g = tempR;
+                    b = tempG;
                 } else {
                     r = tempR;
                     g = tempG;
@@ -86,8 +86,8 @@ public class ColourChannelCycling implements ImageOperation, java.io.Serializabl
                 input.setRGB(x, y, argb);
             }
         }
-        currentVariationIndex = (currentVariationIndex + 1) % 6; // Update to the next variation index
 
+        currentVariationIndex = (currentVariationIndex + 1) % 6;
         return input;
     }
 }

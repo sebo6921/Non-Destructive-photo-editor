@@ -3,32 +3,46 @@ Guía de ANDIE
 Archivo:
 Abrir - Importar un archivo de imagen seleccionado.
 Guardar - Guardar los cambios realizados en la imagen seleccionada.
-Guardar Como - Guardar la imagen con un nuevo nombre y ubicación.
-Exportar - Exportar la imagen actual a cualquier directorio en su computadora.
+Guardar como - Guardar la imagen con un nuevo nombre y ubicación.
+Exportar - Exportar la imagen actual a cualquier directorio en tu computadora.
 Salir - Salir de la aplicación ANDIE.
 
-Editar:
-Deshacer - Revertir la operación más reciente.
+Edición:
+Deshacer - Deshacer la operación más reciente.
 Rehacer - Rehacer la operación previamente deshecha.
 
 Ver:
 Acercar - Ampliar la vista de la imagen.
 Alejar - Reducir la vista de la imagen.
-Zoom Completo - Ver la imagen completa dentro de la ventana de la aplicación.
+Ver completo - Ver la imagen completa dentro de la ventana de la aplicación.
+Recortar imagen - Recortar el área seleccionada de la imagen.
 
 Filtro:
-Filtro de Media - Aplicar un filtro que reemplace el valor de cada píxel con el valor promedio de sus píxeles vecinos.
-Filtro Gaussiano - Aplicar un filtro que difumina la imagen usando una función gaussiana.
-Desenfoque Suave - Aplicar un efecto de desenfoque suave a la imagen.
-Mejorar Imagen - Mejorar los bordes y detalles de la imagen.
-Filtro Mediano - Aplicar un filtro que reemplace el valor de cada píxel con el valor mediano de sus píxeles vecinos.
+Filtro medio - Aplicar un filtro que reemplaza cada valor de píxel con el valor promedio de sus píxeles vecinos.
+Filtro gaussiano - Aplicar un filtro que desenfoca la imagen usando una función gaussiana.
+Desenfoque suave - Aplicar un efecto de desenfoque suave a la imagen.
+Afilado de imagen - Mejorar los bordes y detalles de la imagen.
+Filtro mediano - Aplicar un filtro que reemplaza cada valor de píxel con el valor mediano de sus píxeles vecinos.
+Filtros en relieve - Aplicar filtros que crean un efecto en relieve en la imagen.
+Filtros Sobel - Aplicar filtros que detectan bordes en la imagen usando el operador Sobel.
+Promedio de bloque - Aplicar un filtro que promedia los valores de píxeles en bloques de la imagen.
+Dispersión aleatoria - Aplicar un filtro que dispersa aleatoriamente los valores de píxeles en la imagen.
 
 Color:
-Escala de Grises - Convertir la imagen a escala de grises, eliminando la información de color.
-Invertir Imagen - Invertir los colores de la imagen.
-Ciclo de Canal de Color - Ciclar a través de diferentes canales de color de la imagen.
+Escala de grises - Convertir la imagen a escala de grises, eliminando la información de color.
+Invertir imagen - Invertir los colores de la imagen.
+Ciclismo de canales de color - Recorrer diferentes canales de color de la imagen.
+Brillo y contraste - Ajustar el brillo y el contraste de la imagen.
 
 Transformación:
-Cambiar Tamaño - Ajustar las dimensiones de la imagen.
-Rotar - Rotar la imagen en sentido horario o antihorario.
+Cambiar tamaño - Ajustar las dimensiones de la imagen.
+Rotar - Girar la imagen en sentido horario o antihorario.
 Voltear - Voltear la imagen horizontal o verticalmente.
+
+Dibujo:
+Comenzar a dibujar - Se abre la barra de herramientas para dibujar formas o a mano alzada en el lienzo de la imagen.
+
+Configuración:
+Guía de ANDIE - Acceder a la guía del usuario para ANDIE.
+Cambiar idioma - Cambiar el idioma de la aplicación.
+Elegir color de la barra de herramientas - Personalizar el esquema de color de la barra de herramientas.

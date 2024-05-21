@@ -120,13 +120,13 @@ public class Andie {
         // Actions that help with usability
         HelpActions helpActions = new HelpActions(bundle);
         JMenu helpMenu = helpActions.createMenu();
-        JMenuItem colourButton = new JMenuItem("Choose Toolbar Colour");
+        JMenuItem colourButton = new JMenuItem(bundle.getString("ToolbarColour"));
         colourButton.setPreferredSize(new Dimension(50, 20)); // Set preferred size
         colourButton.setMargin(new Insets(5, 5, 5, 5));
         colourButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Color selectedColour = JColorChooser.showDialog(frame, "Choose Toolbar Colour",
+                Color selectedColour = JColorChooser.showDialog(frame, bundle.getString("ToolbarColour"),
                         imagePanel.getBackground());
                 if (selectedColour != null) {
                     toolBar.setBackground(selectedColour);
@@ -139,7 +139,7 @@ public class Andie {
         frame.setJMenuBar(menuBar);
         frame.add(toolBar, BorderLayout.NORTH); // Adding the toolbar to the top of the frame
         frame.pack();
-        frame.setSize(700, 700);
+        frame.setSize(800, 700);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 

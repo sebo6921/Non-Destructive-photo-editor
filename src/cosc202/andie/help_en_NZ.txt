@@ -15,6 +15,7 @@ View:
 Zoom In - Enlarge the view of the image.
 Zoom Out - Reduce the view of the image.
 Zoom Full - View the entire image within the application window.
+Crop Image - Crop the selected area of the image.
 
 Filter:
 Mean Filter - Apply a filter that replaces each pixel value with the average value of its neighbouring pixels.
@@ -22,13 +23,26 @@ Gaussian Filter - Apply a filter that blurs the image using a Gaussian function.
 Soft Blur - Apply a gentle blurring effect to the image.
 Sharpen Image - Enhance the edges and details in the image.
 Median Filter - Apply a filter that replaces each pixel value with the median value of its neighbouring pixels.
+Emboss Filters - Apply filters that create an embossed effect on the image.
+Sobel Filters - Apply filters that detect edges in the image using the Sobel operator.
+Block Averaging - Apply a filter that averages pixel values in blocks of the image.
+Random Scattering - Apply a filter that randomly scatters pixel values in the image.
 
 Colour:
 Greyscale - Convert the image to greyscale, removing colour information.
 Invert Image - Invert the colours of the image.
 Colour Channel Cycling - Cycle through different colour channels of the image.
+Brightness and Contrast - Adjust the brightness and contrast of the image.
 
 Transformation:
 Resize - Adjust the dimensions of the image.
 Rotate - Rotate the image clockwise or counterclockwise.
 Flip - Flip the image horizontally or vertically.
+
+Drawing:
+Start Drawing - Toolbar pops up to draw shapes or freehand on the image canvas.
+
+Settings:
+ANDIE Guide - Access the user guide for ANDIE.
+Change Language - Change the language of the application.
+Choose Toolbar Colour - Customize the colour scheme of the toolbar.

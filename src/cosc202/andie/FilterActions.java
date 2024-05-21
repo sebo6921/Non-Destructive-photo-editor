@@ -60,7 +60,7 @@ public class FilterActions {
         actions.add(new SharpenImageAction(bundle.getString("SharpenImage"), null, bundle.getString("SharpenImageDesc"),
                 Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"),
-                Integer.valueOf(KeyEvent.VK_D)));
+                Integer.valueOf(KeyEvent.VK_E)));
         // actions.add(new EmbossFiltersAction(bundle.getString("EmbossFilters"), null,
         // bundle.getString("EmbossFilterDesc"),
         // Integer.valueOf(KeyEvent.VK_E)));
@@ -291,7 +291,7 @@ public class FilterActions {
          */
         MedianFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
 
         }
 
