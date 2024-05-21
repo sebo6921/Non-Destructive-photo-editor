@@ -655,7 +655,22 @@ public class FilterActions {
             super(bundle.getString("SobelVer"), null, "SobelVer", null);
         }
 
-<<<<<<< HEAD
+        /**
+         * Callback for when the Sobel filter action is triggered.
+         *
+         * This method is called whenever the SobelFilterAction is triggered.
+         * It applies the Sobel filter to the image.
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) { 
+            target.getImage().apply(new SobelHorizontal());
+            target.repaint();
+            target.getParent().revalidate();
+
+        }
+    }
+
     /**
      * <p>
      * Action to average pixels into blocks and apply to an image
@@ -687,31 +702,6 @@ public class FilterActions {
         * @param e The event triggering this callback.
         */
         public void actionPerformed(ActionEvent e){
-=======
-        /**
-         * Callback for when the Sobel filter action is triggered.
-         *
-         * This method is called whenever the SobelFilterAction is triggered.
-         * It applies the Sobel filter to the image.
-         *
-         * @param e The event triggering this callback.
-         */
-        public void actionPerformed(ActionEvent e) { 
-            target.getImage().apply(new SobelVertical());
-            target.repaint();
-            target.getParent().revalidate();
-
-        }
-    }
-
-    public class BlockAveragingAction extends ImageAction {
-
-        BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
-            super(name, icon, desc, mnemonic);
-        }
-
-        public void actionPerformed(ActionEvent e) {
->>>>>>> f432bd79742bcbbedc7c1e7c50efbc4c38294725
 
             int blockSize = 1;
 
