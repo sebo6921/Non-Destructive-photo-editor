@@ -637,13 +637,36 @@ public class FilterActions {
     // }
 
 
-
+    /**
+     * <p>
+     * Action to average pixels into blocks and apply to an image
+     * </p>
+     */
     public class BlockAveragingAction extends ImageAction{
 
+        /**
+        * <p>
+         * Create a new median-filter action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name, icon, desc, mnemonic);
         }
 
+
+        /**
+        * Callback for when the BlockAveraging filter action is triggered.
+        *
+        * This method is called whenever the BlockAveragingAction is triggered.
+        * It applies the BlockAveraging filter to the image.
+        *
+        * @param e The event triggering this callback.
+        */
         public void actionPerformed(ActionEvent e){
 
             int blockSize = 1;
@@ -676,13 +699,37 @@ public class FilterActions {
         }
     }
 
+
+    /**
+     * <p>
+     * Action to scatter pixels within an image within a given radius
+     * </p>
+     */
     public class RandomScatteringAction extends ImageAction{
         
+        /**
+        * <p>
+         * Create a new RandomScattering action.
+         * </p>
+         * 
+         * @param name     The name of the action (ignored if null).
+         * @param icon     An icon to use to represent the action (ignored if null).
+         * @param desc     A brief description of the action (ignored if null).
+         * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
+         */
         RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name, icon, desc, mnemonic);
         }
         
         
+        /**
+        * Callback for when the RandomScattering filter action is triggered.
+        *
+        * This method is called whenever the RandomScatteringAction is triggered.
+        * It applies the RandomScattering filter to the image.
+        *
+        * @param e The event triggering this callback.
+        */
         public void actionPerformed(ActionEvent e){
             int radius = 1;
 
