@@ -31,7 +31,7 @@ public class SobelHorizontal implements ImageOperation, java.io.Serializable {
      * Construct a new SobelHorizontal instance
      * </p>
      */
-    SobelHorizontal() {
+    public SobelHorizontal() {
     }
 
     /**

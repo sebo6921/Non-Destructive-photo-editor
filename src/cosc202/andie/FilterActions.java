@@ -18,7 +18,8 @@ import cosc202.andie.EmbossFilters.EmbossFilter5;
 import cosc202.andie.EmbossFilters.EmbossFilter6;
 import cosc202.andie.EmbossFilters.EmbossFilter7;
 import cosc202.andie.EmbossFilters.EmbossFilter8;
-
+import cosc202.andie.SobelFilters.SobelHorizontal;
+import cosc202.andie.SobelFilters.SobelVertical;
 
 //import cosc202.andie.FilterActions.SobelFiltersAction;
 
@@ -71,12 +72,7 @@ public class FilterActions {
                 Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"),
                 Integer.valueOf(KeyEvent.VK_E)));
-        // Integer.valueOf(KeyEvent.VK_E)));
-        // actions.add(new SobelFilterAction(bundle.getString("SobelFilters"), null,
-        // bundle.getString("SobelFiltersDesc"),
-        // Integer.valueOf(KeyEvent.VK_S)));
-
-        actions.add(new BlockAveragingAction(bundle.getString("BlockAvg"), null, bundle.getString("BlockAvgDesc"), 
+        actions.add(new BlockAveragingAction(bundle.getString("BlockAvg"), null, bundle.getString("BlockAvgDesc"),
                 Integer.valueOf(KeyEvent.VK_A)));
     }
 
@@ -95,13 +91,13 @@ public class FilterActions {
         }
 
         JMenu embossFiltersMenu = new JMenu(bundle.getString("EmbossMenu"));
-        
+
         JMenuItem embossFilter1 = new JMenuItem(bundle.getString("Emboss1"));
         embossFilter1.addActionListener(new Emboss1Action());
 
         JMenuItem embossFilter2 = new JMenuItem(bundle.getString("Emboss2"));
         embossFilter2.addActionListener(new Emboss2Action());
-        
+
         JMenuItem embossFilter3 = new JMenuItem(bundle.getString("Emboss3"));
         embossFilter3.addActionListener(new Emboss3Action());
 
@@ -110,13 +106,13 @@ public class FilterActions {
 
         JMenuItem embossFilter5 = new JMenuItem(bundle.getString("Emboss5"));
         embossFilter5.addActionListener(new Emboss5Action());
-        
+
         JMenuItem embossFilter6 = new JMenuItem(bundle.getString("Emboss6"));
         embossFilter6.addActionListener(new Emboss6Action());
 
         JMenuItem embossFilter7 = new JMenuItem(bundle.getString("Emboss7"));
         embossFilter7.addActionListener(new Emboss7Action());
-        
+
         JMenuItem embossFilter8 = new JMenuItem(bundle.getString("Emboss8"));
         embossFilter8.addActionListener(new Emboss8Action());
 
@@ -130,6 +126,18 @@ public class FilterActions {
         embossFiltersMenu.add(embossFilter8);
 
         fileMenu.add(embossFiltersMenu);
+
+        JMenu sobelFiltersMenu = new JMenu(bundle.getString("SobelMenu"));
+        JMenuItem sobelHorizontal = new JMenuItem(bundle.getString("SobelHor"));
+        sobelHorizontal.addActionListener(new SobelHorizontalAction());
+
+        JMenuItem sobelVertical = new JMenuItem(bundle.getString("SobelVer"));
+        sobelVertical.addActionListener(new SobelVerticalAction());
+
+        sobelFiltersMenu.add(sobelHorizontal);
+        sobelFiltersMenu.add(sobelVertical);
+
+        fileMenu.add(sobelFiltersMenu);
 
         return fileMenu;
     }
@@ -391,7 +399,7 @@ public class FilterActions {
      * </p>
      */
     public class Emboss1Action extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new emboss 1 action.
@@ -418,7 +426,7 @@ public class FilterActions {
      * </p>
      */
     public class Emboss2Action extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new emboss 2 action.
@@ -445,7 +453,7 @@ public class FilterActions {
      * </p>
      */
     public class Emboss3Action extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new emboss 3 action.
@@ -472,7 +480,7 @@ public class FilterActions {
      * </p>
      */
     public class Emboss4Action extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new emboss 4 action.
@@ -499,7 +507,7 @@ public class FilterActions {
      * </p>
      */
     public class Emboss5Action extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new emboss 5 action.
@@ -526,7 +534,7 @@ public class FilterActions {
      * </p>
      */
     public class Emboss6Action extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new emboss 2 action.
@@ -553,7 +561,7 @@ public class FilterActions {
      * </p>
      */
     public class Emboss7Action extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new emboss 7 action.
@@ -580,7 +588,7 @@ public class FilterActions {
      * </p>
      */
     public class Emboss8Action extends ImageAction {
-        
+
         /**
          * <p>
          * Create a new emboss 8 action.
@@ -601,47 +609,72 @@ public class FilterActions {
         }
     }
 
-    // public class SobelFilterAction extends ImageAction {
-    // /**
-    // * Action to apply Sobel filter to an image.
-    // *
-    // * @param name The name of the action (ignored if null).
-    // * @param icon An icon to use to represent the action (ignored if null).
-    // * @param desc A brief description of the action (ignored if null).
-    // * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
-    // */
-    // SobelFilterAction(String name, ImageIcon icon, String desc, Integer mnemonic)
-    // {
-    // super(name, icon, desc, mnemonic);
-    // }
+    /**
+     * <p>
+     * Action to use Sobel Horizontional
+     * </p>
+     */
+    public class SobelHorizontalAction extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a sobel horizontal action.
+         * </p>
+         */
+        SobelHorizontalAction() {
+            super(bundle.getString("SobelHor"), null, "SobelHor", null);
+        }
 
-    // /**
-    // * Callback for when the Sobel filter action is triggered.
-    // *
-    // * This method is called whenever the SobelFilterAction is triggered.
-    // * It applies the Sobel filter to the image.
-    // *
-    // * @param e The event triggering this callback.
-    // */
-    // public void actionPerformed(ActionEvent e) {
-    // //SobelFilters sobelFilters = new SobelFilters();
-    // //sobelFilters.applySobel(target.getImage());
-    // //target.getImage().apply(new SobelFilters());
-    // target.repaint();
-    // target.getParent().revalidate();
+        /**
+         * Callback for when the Sobel filter action is triggered.
+         *
+         * This method is called whenever the SobelFilterAction is triggered.
+         * It applies the Sobel filter to the image.
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) { 
+            target.getImage().apply(new SobelHorizontal());
+            target.repaint();
+            target.getParent().revalidate();
 
-    // }
-    // }
+        }
+    }
 
+    public class SobelVerticalAction extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a sobel vertical action.
+         * </p>
+         */
+        SobelVerticalAction() {
+            super(bundle.getString("SobelVer"), null, "SobelVer", null);
+        }
 
+        /**
+         * Callback for when the Sobel filter action is triggered.
+         *
+         * This method is called whenever the SobelFilterAction is triggered.
+         * It applies the Sobel filter to the image.
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) { 
+            target.getImage().apply(new SobelVertical());
+            target.repaint();
+            target.getParent().revalidate();
 
-    public class BlockAveragingAction extends ImageAction{
+        }
+    }
 
-        BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+    public class BlockAveragingAction extends ImageAction {
+
+        BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
         }
 
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
 
             int blockSize = 1;
 
@@ -655,17 +688,17 @@ public class FilterActions {
             panel.add(message1);
             panel.add(message2);
             panel.add(blockSizeSpinner);
-            
+
             int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("BlockAvgSize"),
-               JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-            
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;
             } else if (option == JOptionPane.OK_OPTION) {
-            blockSize = blockAvgModel.getNumber().intValue();
+                blockSize = blockAvgModel.getNumber().intValue();
             }
-            
+
             // Create and apply the filter
             target.getImage().apply(new BlockAveraging(blockSize));
             target.repaint();
