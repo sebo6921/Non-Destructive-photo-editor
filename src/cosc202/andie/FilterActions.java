@@ -67,6 +67,9 @@ public class FilterActions {
         // actions.add(new SobelFilterAction(bundle.getString("SobelFilters"), null,
         // bundle.getString("SobelFiltersDesc"),
         // Integer.valueOf(KeyEvent.VK_S)));
+
+        actions.add(new BlockAveragingAction(bundle.getString("BlockAvg"), null, bundle.getString("BlockAvgDesc"), 
+                Integer.valueOf(KeyEvent.VK_A)));
     }
 
     /**
@@ -368,4 +371,44 @@ public class FilterActions {
 
     // }
     // }
+
+
+
+    public class BlockAveragingAction extends ImageAction{
+
+        BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+            super(name, icon, desc, mnemonic);
+        }
+
+        public void actionPerformed(ActionEvent e){
+
+            int blockSize = 1;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel blockAvgModel = new SpinnerNumberModel(1, 1, 20, 1);
+            JSpinner blockSizeSpinner = new JSpinner(blockAvgModel);
+            JLabel message1 = new JLabel(bundle.getString("BlockAvgMSG1"));
+            JLabel message2 = new JLabel(bundle.getString("BlockAvgMSG2"));
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(300, 70));
+            panel.add(message1);
+            panel.add(message2);
+            panel.add(blockSizeSpinner);
+            
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("BlockAvgSize"),
+               JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+            blockSize = blockAvgModel.getNumber().intValue();
+            }
+            
+            // Create and apply the filter
+            target.getImage().apply(new BlockAveraging(blockSize));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
 }
