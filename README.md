@@ -43,7 +43,7 @@ To test the user interface of the ANDIE program, individuals were invited to tes
 
 **Block averaging** - Diego Olivera
 
-**Random scattering**
+**Random scattering** - Diego Olivera
 
 **Toolbar for common operations** - Jessica Fan
 

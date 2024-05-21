@@ -32,7 +32,7 @@ public class AndieConvolveOp implements BufferedImageOp {
      * 
      * @param kernel The given {@code kernel}.
      */
-    AndieConvolveOp(Kernel kernel) {
+    public AndieConvolveOp(Kernel kernel) {
         this(kernel, false);
     }
 

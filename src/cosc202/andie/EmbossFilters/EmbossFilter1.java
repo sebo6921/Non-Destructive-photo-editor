@@ -1,6 +1,10 @@
 package cosc202.andie.EmbossFilters;
 
 import java.awt.image.BufferedImage;
+
+import cosc202.andie.AndieConvolveOp;
+import cosc202.andie.ImageOperation;
+
 import java.awt.Point;
 import java.awt.image.*;
 
@@ -8,7 +12,7 @@ import java.awt.image.*;
 public class EmbossFilter1 implements ImageOperation, java.io.Serializable {
     private int x1, x2, y1, y2 = -1;
 
-    EmbossFilter1() {
+    public EmbossFilter1() {
     }
 
     EmbossFilter1(Point p1, Point p2) {

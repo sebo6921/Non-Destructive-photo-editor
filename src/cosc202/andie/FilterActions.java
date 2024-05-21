@@ -10,6 +10,16 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.KeyStroke;
 
+import cosc202.andie.EmbossFilters.EmbossFilter1;
+import cosc202.andie.EmbossFilters.EmbossFilter2;
+import cosc202.andie.EmbossFilters.EmbossFilter3;
+import cosc202.andie.EmbossFilters.EmbossFilter4;
+import cosc202.andie.EmbossFilters.EmbossFilter5;
+import cosc202.andie.EmbossFilters.EmbossFilter6;
+import cosc202.andie.EmbossFilters.EmbossFilter7;
+import cosc202.andie.EmbossFilters.EmbossFilter8;
+
+
 //import cosc202.andie.FilterActions.SobelFiltersAction;
 
 import java.awt.*;
@@ -61,8 +71,6 @@ public class FilterActions {
                 Integer.valueOf(KeyEvent.VK_H)));
         actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"),
                 Integer.valueOf(KeyEvent.VK_E)));
-        // actions.add(new EmbossFiltersAction(bundle.getString("EmbossFilters"), null,
-        // bundle.getString("EmbossFilterDesc"),
         // Integer.valueOf(KeyEvent.VK_E)));
         // actions.add(new SobelFilterAction(bundle.getString("SobelFilters"), null,
         // bundle.getString("SobelFiltersDesc"),
@@ -82,6 +90,26 @@ public class FilterActions {
         for (Action action : actions) {
             fileMenu.add(new JMenuItem(action));
         }
+
+        JMenu embossFiltersMenu = new JMenu(bundle.getString("EmbossMenu"));
+        
+        JMenuItem embossFilter1 = new JMenuItem(bundle.getString("Emboss1"));
+        JMenuItem embossFilter2 = new JMenuItem(bundle.getString("Emboss2"));
+        JMenuItem embossFilter3 = new JMenuItem(bundle.getString("Emboss3"));
+        JMenuItem embossFilter4 = new JMenuItem(bundle.getString("Emboss4"));
+        JMenuItem embossFilter5 = new JMenuItem(bundle.getString("Emboss5"));
+        JMenuItem embossFilter6 = new JMenuItem(bundle.getString("Emboss6"));
+        JMenuItem embossFilter7 = new JMenuItem(bundle.getString("Emboss7"));
+        JMenuItem embossFilter8 = new JMenuItem(bundle.getString("Emboss8"));
+
+        embossFiltersMenu.add(embossFilter1);
+        embossFiltersMenu.add(embossFilter2);
+        embossFiltersMenu.add(embossFilter3);
+        embossFiltersMenu.add(embossFilter4);
+        embossFiltersMenu.add(embossFilter5);
+        embossFiltersMenu.add(embossFilter6);
+        embossFiltersMenu.add(embossFilter7);
+        embossFiltersMenu.add(embossFilter8);
 
         return fileMenu;
     }
@@ -332,6 +360,40 @@ public class FilterActions {
 
             // Create and apply the filter
             target.getImage().apply(new MedianFilter(radius));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class Emboss1Action extends ImageAction {
+        Emboss1Action() {
+            super(bundle.getString("Emboss1"), null, "EmbossFilterDesc", null);
+        }
+
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the change in rotation
+            target.getImage().apply(new EmbossFilter1());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class Emboss2Action extends ImageAction {
+        Emboss2Action() {
+            super(bundle.getString("Emboss2"), null, "EmbossFilterDesc", null);
+        }
+
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            // Create and apply the change in rotation
+            target.getImage().apply(new EmbossFilter2());
             target.repaint();
             target.getParent().revalidate();
         }
