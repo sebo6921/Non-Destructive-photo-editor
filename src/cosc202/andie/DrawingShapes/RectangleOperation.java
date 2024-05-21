@@ -63,8 +63,8 @@ public class RectangleOperation implements ImageOperation, java.io.Serializable 
         Graphics2D g2d = output.createGraphics();
         g2d.setStroke(new BasicStroke(strokeWidth));
 
-        int width = Math.abs(x2 - x1); 
-        int height = Math.abs(y2 - y1); 
+        int width = Math.abs(x2 - x1);
+        int height = Math.abs(y2 - y1);
 
         g2d.drawImage(input, 0, 0, null);
         g2d.setColor(color);

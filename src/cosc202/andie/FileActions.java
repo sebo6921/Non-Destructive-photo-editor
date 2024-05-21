@@ -121,11 +121,11 @@ public class FileActions {
                     target.getImage().open(imageFilepath);
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, bundle.getString("ErrorOpening") + ex.getMessage(),
+                    JOptionPane.showMessageDialog(null, bundle.getString("ErrorOpening") + ": " + ex.getMessage(),
                             bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ex.getMessage(),
+                    JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ": " + ex.getMessage(),
                             bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -184,13 +184,9 @@ public class FileActions {
         public void actionPerformed(ActionEvent e) {
             try {
                 target.getImage().save();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, bundle.getString("ErrorSaving") + ex.getMessage(),
-                        bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
             } catch (Exception ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ex.getMessage(),
+                JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ": " + ex.getMessage(),
                         bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -245,11 +241,11 @@ public class FileActions {
                             JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, bundle.getString("ErrorSaving") + ex.getMessage(),
+                    JOptionPane.showMessageDialog(null, bundle.getString("ErrorSaving") + ": " + ex.getMessage(),
                             bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ex.getMessage(),
+                    JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ": " + ex.getMessage(),
                             bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -304,11 +300,12 @@ public class FileActions {
                             JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, bundle.getString("ExportError") + ex.getMessage(),
+                    JOptionPane.showMessageDialog(null, bundle.getString("ExportError") + ": " + ex.getMessage(),
                             bundle.getString("ExportErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, bundle.getString("ExportUnexpectedError") + ex.getMessage(),
+                    JOptionPane.showMessageDialog(null,
+                            bundle.getString("ExportUnexpectedError") + ": " + ex.getMessage(),
                             bundle.getString("ExportUnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
                 }
             }

@@ -15,6 +15,7 @@ import cosc202.andie.ImageOperation;
  * </p>
  * 
  * @author Kruti Mistry
+ * @version 1.0
  */
 public class SobelVertical implements ImageOperation, java.io.Serializable {
     /**
@@ -45,11 +46,7 @@ public class SobelVertical implements ImageOperation, java.io.Serializable {
 
         // Make a filter from the array
         Kernel kernel = new Kernel(3, 3, array);
-        System.out.println("Before convolve");
-
         BufferedImage output = Convolve.convolve(input, kernel);
-
-        System.out.println("After convolve");
 
         return output;
     }

@@ -15,6 +15,7 @@ import java.awt.image.*;
  * </p>
  * 
  * @author Kruti Mistry.
+ * @version 1.0
  */
 public class Convolve {
 

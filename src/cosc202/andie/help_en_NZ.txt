@@ -41,6 +41,8 @@ Flip - Flip the image horizontally or vertically.
 
 Drawing:
 Start Drawing - Toolbar pops up to draw shapes or freehand on the image canvas.
+Select Colour - Customise the colour of the brush.
+Stroke Width - Customise the width of the brush.
 
 Settings:
 ANDIE Guide - Access the user guide for ANDIE.

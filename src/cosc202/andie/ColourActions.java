@@ -55,7 +55,7 @@ public class ColourActions {
         actions.add(new ColourChannelCyclingAction(bundle.getString("ColourChannelCycling"), null,
                 bundle.getString("ColourChannelCyclingDesc"), Integer.valueOf(KeyEvent.VK_C)));
         actions.add(new BrightnessAndContrastAction(bundle.getString("Brightness&Contrast"), null,
-                bundle.getString("Brightness&ContrastDesc"), Integer.valueOf(KeyEvent.VK_B)));
+                bundle.getString("Brightness&ContrastDesc"), Integer.valueOf(KeyEvent.VK_N)));
     }
 
     /**
@@ -227,7 +227,7 @@ public class ColourActions {
          */
         BrightnessAndContrastAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
-            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
 
         }
 

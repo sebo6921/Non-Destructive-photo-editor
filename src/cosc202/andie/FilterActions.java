@@ -73,9 +73,9 @@ public class FilterActions {
         actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"),
                 Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new BlockAveragingAction(bundle.getString("BlockAvg"), null, bundle.getString("BlockAvgDesc"),
-                Integer.valueOf(KeyEvent.VK_A)));
-
-        actions.add(new RandomScatteringAction(bundle.getString("RandomScattering"), null, bundle.getString("RandomScatteringDesc"),
+                Integer.valueOf(KeyEvent.VK_H)));
+        actions.add(new RandomScatteringAction(bundle.getString("RandomScattering"), null,
+                bundle.getString("RandomScatteringDesc"),
                 Integer.valueOf(KeyEvent.VK_R)));
     }
 
@@ -540,7 +540,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Create a new emboss 2 action.
+         * Create a new emboss 6 action.
          * </p>
          */
         Emboss6Action() {
@@ -618,7 +618,7 @@ public class FilterActions {
      * </p>
      */
     public class SobelHorizontalAction extends ImageAction {
-        
+
         /**
          * <p>
          * Create a sobel horizontal action.
@@ -636,7 +636,7 @@ public class FilterActions {
          *
          * @param e The event triggering this callback.
          */
-        public void actionPerformed(ActionEvent e) { 
+        public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new SobelHorizontal());
             target.repaint();
             target.getParent().revalidate();
@@ -645,7 +645,7 @@ public class FilterActions {
     }
 
     public class SobelVerticalAction extends ImageAction {
-        
+
         /**
          * <p>
          * Create a sobel vertical action.
@@ -663,7 +663,7 @@ public class FilterActions {
          *
          * @param e The event triggering this callback.
          */
-        public void actionPerformed(ActionEvent e) { 
+        public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new SobelHorizontal());
             target.repaint();
             target.getParent().revalidate();
@@ -676,10 +676,10 @@ public class FilterActions {
      * Action to average pixels into blocks and apply to an image
      * </p>
      */
-    public class BlockAveragingAction extends ImageAction{
+    public class BlockAveragingAction extends ImageAction {
 
         /**
-        * <p>
+         * <p>
          * Create a new median-filter action.
          * </p>
          * 
@@ -688,20 +688,20 @@ public class FilterActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+        BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_DOWN_MASK));
         }
 
-
         /**
-        * Callback for when the BlockAveraging filter action is triggered.
-        *
-        * This method is called whenever the BlockAveragingAction is triggered.
-        * It applies the BlockAveraging filter to the image.
-        *
-        * @param e The event triggering this callback.
-        */
-        public void actionPerformed(ActionEvent e){
+         * Callback for when the BlockAveraging filter action is triggered.
+         *
+         * This method is called whenever the BlockAveragingAction is triggered.
+         * It applies the BlockAveraging filter to the image.
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
 
             int blockSize = 1;
 
@@ -733,16 +733,15 @@ public class FilterActions {
         }
     }
 
-
     /**
      * <p>
      * Action to scatter pixels within an image within a given radius
      * </p>
      */
-    public class RandomScatteringAction extends ImageAction{
-        
+    public class RandomScatteringAction extends ImageAction {
+
         /**
-        * <p>
+         * <p>
          * Create a new RandomScattering action.
          * </p>
          * 
@@ -751,20 +750,20 @@ public class FilterActions {
          * @param desc     A brief description of the action (ignored if null).
          * @param mnemonic A mnemonic key to use as a shortcut (ignored if null).
          */
-        RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+        RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic) {
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
         }
-        
-        
+
         /**
-        * Callback for when the RandomScattering filter action is triggered.
-        *
-        * This method is called whenever the RandomScatteringAction is triggered.
-        * It applies the RandomScattering filter to the image.
-        *
-        * @param e The event triggering this callback.
-        */
-        public void actionPerformed(ActionEvent e){
+         * Callback for when the RandomScattering filter action is triggered.
+         *
+         * This method is called whenever the RandomScatteringAction is triggered.
+         * It applies the RandomScattering filter to the image.
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
             int radius = 1;
 
             // Pop-up dialog box to ask for the radius value.
@@ -780,7 +779,7 @@ public class FilterActions {
 
             int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("RandomScatteringRadius"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-            
+
             // Check the return value from the dialog box.
             if (option == JOptionPane.CANCEL_OPTION) {
                 return;

@@ -1,6 +1,5 @@
 package cosc202.andie.EmbossFilters;
 
-
 import java.awt.image.BufferedImage;
 
 import cosc202.andie.Convolve;
@@ -8,7 +7,7 @@ import cosc202.andie.ImageOperation;
 
 import java.awt.image.*;
 
-/*
+/**
  * <p>
  * A filter that apply emboss to image.
  * </p>
@@ -17,9 +16,18 @@ import java.awt.image.*;
  * The emboss filter applies a convolution operation to the image.
  * </p>
  * 
- * @author Kruti Mistry
+ * @author Kruti Mistr
+ * @version 1.0
+ * 
  */
 public class EmbossFilter2 implements ImageOperation, java.io.Serializable {
+    
+    /**
+     * <p>
+     * Creates a new emboss filter operation
+     * </p
+     */
+
     public EmbossFilter2() {
     }
 
@@ -58,6 +66,3 @@ public class EmbossFilter2 implements ImageOperation, java.io.Serializable {
     }
 
 }
-
-
-
