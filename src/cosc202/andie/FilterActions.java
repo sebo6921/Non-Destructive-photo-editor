@@ -97,7 +97,11 @@ public class FilterActions {
         JMenu embossFiltersMenu = new JMenu(bundle.getString("EmbossMenu"));
         
         JMenuItem embossFilter1 = new JMenuItem(bundle.getString("Emboss1"));
+        embossFilter1.addActionListener(new Emboss1Action());
+
         JMenuItem embossFilter2 = new JMenuItem(bundle.getString("Emboss2"));
+        embossFilter2.addActionListener(new Emboss2Action());
+        
         JMenuItem embossFilter3 = new JMenuItem(bundle.getString("Emboss3"));
         JMenuItem embossFilter4 = new JMenuItem(bundle.getString("Emboss4"));
         JMenuItem embossFilter5 = new JMenuItem(bundle.getString("Emboss5"));
@@ -113,6 +117,8 @@ public class FilterActions {
         embossFiltersMenu.add(embossFilter6);
         embossFiltersMenu.add(embossFilter7);
         embossFiltersMenu.add(embossFilter8);
+
+        fileMenu.add(embossFiltersMenu);
 
         return fileMenu;
     }
@@ -369,6 +375,12 @@ public class FilterActions {
     }
 
     public class Emboss1Action extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a new emboss 1 action.
+         * </p>
+         */
         Emboss1Action() {
             super(bundle.getString("Emboss1"), null, "EmbossFilterDesc", null);
         }
@@ -378,7 +390,6 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // Create and apply the change in rotation
             target.getImage().apply(new EmbossFilter1());
             target.repaint();
             target.getParent().revalidate();
@@ -386,6 +397,12 @@ public class FilterActions {
     }
 
     public class Emboss2Action extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a new emboss 2 action.
+         * </p>
+         */
         Emboss2Action() {
             super(bundle.getString("Emboss2"), null, "EmbossFilterDesc", null);
         }
@@ -395,7 +412,6 @@ public class FilterActions {
          * @param e The event triggering this callback.
          */
         public void actionPerformed(ActionEvent e) {
-            // Create and apply the change in rotation
             target.getImage().apply(new EmbossFilter2());
             target.repaint();
             target.getParent().revalidate();
