@@ -1,81 +1,57 @@
 package cosc202.andie.SobelFilters;
 
-
-
 import java.awt.image.*;
-import java.awt.Point;
 
-import cosc202.andie.AndieConvolveOp;
+import cosc202.andie.Convolve;
 import cosc202.andie.ImageOperation;
 
 /**
  * <p>
- * ImageOperation to apply vertical Sobel effect to images.
+ * A filter that apply emboss to image.
  * </p>
  * 
  * <p>
- * This class provides a method to apply the vertical Sobel filter to an input image using a specified kernel.
+ * The emboss filter applies a convolution operation to the image.
  * </p>
+ * 
+ * @author Kruti Mistry
  */
 public class SobelVertical implements ImageOperation, java.io.Serializable {
     /**
      * <p>
-     * The coordinates of the corners of the selected area. If there is no selected
-     * area, these will be equal to -1.
-     * </p>
-     */
-    private int x1, x2, y1, y2 = -1;
-
-    /**
-     * <p>
-     * Construct a new SobelVertical instance
-     * </p>
-     */
-    public SobelVertical() {
-    }
-
-    /**
-     * <p>
-     * Construct a new SobelVertical filter with given points
-     * </p>
-     */
-    SobelVertical(Point p1, Point p2) {
-        this.x1 = (int) p1.getX();
-        this.x2 = (int) p2.getX();
-        this.y1 = (int) p1.getY();
-        this.y2 = (int) p2.getY();
-    }
-
-    /**
-     * <p>
-     * Apply a vertical Sobel filter to an image
+     * Applies the Emboss filter to an input BufferedImage.
      * </p>
      * 
      * <p>
-     * The Sobel filter is implemented via convolution. There is no size
-     * to the filter as it is applied to the whole image.
+     * A convolution is applied to the image using a special kernel. Every pixels
+     * final colour value is influenced by the
+     * neighbouring pixels colour values. The amount a which the neighbours effect
+     * the color is specified in a kernel.
      * </p>
      * 
-     * @param input The image to apply the Sobel filter to.
-     * @return The resulting image.
-     * @throws Exception Raised if an unexpected {@code Exception} occurs.
+     * <p>
+     * This emboss goes from top left to bottom right.
+     * </p>
+     * 
+     * @param input The image to apply the filter to.
+     * 
+     * @return Returns the an image with the Emboss filter applied.
      */
+
     public BufferedImage apply(BufferedImage input) {
-        BufferedImage output = null;
-        try {
-            float[] array = { -0.5f, -1f, -0.5f, 0f, 0f, 0f, 0.5f, 1f, 0.5f };
+        float[] array = { -0.5f, -1.0f, -0.5f,
+            0, 0, 0,
+            +0.5f, +1.0f, +0.5f };
 
-            Kernel kernel = new Kernel(3, 3, array);
-            AndieConvolveOp convOp = new AndieConvolveOp(kernel);
-            output = new BufferedImage(input.getColorModel(), input.copyData(null), input.isAlphaPremultiplied(), null);
-            if (x1 != -1 && x2 != -1 && y1 != -1 && y2 != -1)
-                convOp.filter(input, output, x1, y1, x2, y2);
-            else
-                convOp.filter(input, output);
-        } catch (java.awt.image.RasterFormatException ex) {
-            // Handle raster format exception
-            ex.printStackTrace();
-        }
+        // Make a filter from the array
+        Kernel kernel = new Kernel(3, 3, array);
+        System.out.println("Before convolve");
+
+        BufferedImage output = Convolve.convolve(input, kernel);
+
+        System.out.println("After convolve");
+
         return output;
     }
+
 }
