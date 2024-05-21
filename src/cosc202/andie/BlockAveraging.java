@@ -22,7 +22,6 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable{
                 
                 //calculate average colour for block
                 int avgRed = 0, avgGreen = 0, avgBlue = 0;
-
                 int pixelCount = 0;
 
                 for(int blockY = y; blockY < y + blockSize && blockY < input.getHeight(); blockY++){
@@ -39,7 +38,6 @@ public class BlockAveraging implements ImageOperation, java.io.Serializable{
                 avgBlue /= pixelCount;
 
                 //replace pixels with average color
-
                 for(int blockY = y; blockY < y + blockSize && blockY < input.getHeight(); blockY++){
                     for(int blockX = x; blockX < x + blockSize && blockX < input.getWidth(); blockX++){
                         output.setRGB(blockX, blockY, new Color(avgRed, avgGreen, avgBlue).getRGB());
