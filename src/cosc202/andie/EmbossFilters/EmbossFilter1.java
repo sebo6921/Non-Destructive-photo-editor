@@ -1,6 +1,10 @@
 package cosc202.andie.EmbossFilters;
 
 import java.awt.image.BufferedImage;
+
+import cosc202.andie.AndieConvolveOp;
+import cosc202.andie.ImageOperation;
+
 import java.awt.Point;
 import java.awt.image.*;
 
