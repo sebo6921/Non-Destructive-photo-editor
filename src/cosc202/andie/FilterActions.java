@@ -78,6 +78,9 @@ public class FilterActions {
 
         actions.add(new BlockAveragingAction(bundle.getString("BlockAvg"), null, bundle.getString("BlockAvgDesc"), 
                 Integer.valueOf(KeyEvent.VK_A)));
+
+        actions.add(new RandomScatteringAction(bundle.getString("RandomScattering"), null, bundle.getString("RandomScatteringDesc"),
+                Integer.valueOf(KeyEvent.VK_R)));
     }
 
     /**
@@ -668,6 +671,44 @@ public class FilterActions {
             
             // Create and apply the filter
             target.getImage().apply(new BlockAveraging(blockSize));
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    public class RandomScatteringAction extends ImageAction{
+        
+        RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic){
+            super(name, icon, desc, mnemonic);
+        }
+        
+        
+        public void actionPerformed(ActionEvent e){
+            int radius = 1;
+
+            // Pop-up dialog box to ask for the radius value.
+            SpinnerNumberModel radiusModel = new SpinnerNumberModel(1, 1, 20, 1);
+            JSpinner radiusSpinner = new JSpinner(radiusModel);
+            JLabel message1 = new JLabel(bundle.getString("RandomScatteringMSG1"));
+            JLabel message2 = new JLabel(bundle.getString("RandomScatteringMSG2"));
+            JPanel panel = new JPanel();
+            panel.setPreferredSize(new Dimension(300, 70));
+            panel.add(message1);
+            panel.add(message2);
+            panel.add(radiusSpinner);
+
+            int option = JOptionPane.showOptionDialog(null, panel, bundle.getString("RandomScatteringRadius"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            
+            // Check the return value from the dialog box.
+            if (option == JOptionPane.CANCEL_OPTION) {
+                return;
+            } else if (option == JOptionPane.OK_OPTION) {
+                radius = radiusModel.getNumber().intValue();
+            }
+
+            // Create and apply the filter
+            target.getImage().apply(new RandomScattering(radius));
             target.repaint();
             target.getParent().revalidate();
         }
