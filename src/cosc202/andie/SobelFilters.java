@@ -1,150 +1,99 @@
-// package cosc202.andie;
+package cosc202.andie;
 
-// import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImage;
+import java.awt.Color;
 
-// public class SobelFilters {
-//     private static final double[][] SOBEL_HORIZONTAL_KERNEL = {
-//             { -0.5, 0, 0.5 },
-//             { -1, 0, 1 },
-//             { -0.5, 0, 0.5 }
-//     };
+public class SobelFilters {
 
-//     private static final double[][] SOBEL_VERTICAL_KERNEL = {
-//             { -0.5, -1, -0.5 },
-//             { 0, 0, 0 },
-//             { 0.5, 1, 0.5 }
-//     };
+    private static final double[][] SOBEL_HORIZONTAL_KERNEL = {
+            { -0.5, 0, 0.5 },
+            { -1, 0, 1 },
+            { -0.5, 0, 0.5 }
+    };
 
-//     public static double[][] getSobelHorizontalKernel() {
-//         return SOBEL_HORIZONTAL_KERNEL;
-//     }
+    private static final double[][] SOBEL_VERTICAL_KERNEL = {
+            { -0.5, -1, -0.5 },
+            { 0, 0, 0 },
+            { 0.5, 1, 0.5 }
+    };
 
-//     public static double[][] getSobelVerticalKernel() {
-//         return SOBEL_VERTICAL_KERNEL;
-//     }
+    public static double[][] getSobelHorizontalKernel() {
+        return SOBEL_HORIZONTAL_KERNEL;
+    }
 
-//     /**
-//      * Apply Sobel filters to the given image.
-//      *
-//      * @param image The image to which Sobel filters will be applied.
-//      */
-//     public void applySobel(BufferedImage image) {
-//         // Apply horizontal Sobel filter
-//         BufferedImage horizontalFiltered = applyKernel(image, SOBEL_HORIZONTAL_KERNEL);
+    public static double[][] getSobelVerticalKernel() {
+        return SOBEL_VERTICAL_KERNEL;
+    }
 
-//         // Apply vertical Sobel filter
-//         BufferedImage verticalFiltered = applyKernel(image, SOBEL_VERTICAL_KERNEL);
+    /**
+     * Apply Sobel filters to the given image.
+     *
+     * @param image The image to which Sobel filters will be applied.
+     * @return The resulting image after applying the Sobel filters.
+     */
+    public BufferedImage applySobel(BufferedImage image) {
+        // Apply horizontal Sobel filter
+        BufferedImage horizontalFiltered = applyKernel(image, SOBEL_HORIZONTAL_KERNEL);
 
-//         // Combine the results
-//         BufferedImage result = combineImages(horizontalFiltered, verticalFiltered);
+        // Apply vertical Sobel filter
+        BufferedImage verticalFiltered = applyKernel(image, SOBEL_VERTICAL_KERNEL);
 
-//         // Update the original image with the result
-//         image.getGraphics().drawImage(result, 0, 0, null);
+        // Combine the results
+        return combineImages(horizontalFiltered, verticalFiltered);
+    }
 
-        
-//     }
+    private BufferedImage applyKernel(BufferedImage image, double[][] kernel) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        BufferedImage output = new BufferedImage(width, height, image.getType());
 
-//     /**
-//      * Apply a given kernel to the image.
-//      *
-//      * @param image  The image to which the kernel will be applied.
-//      * @param kernel The kernel matrix to be applied to the image.
-//      * @return The filtered image.
-//      */
-//     private BufferedImage applyKernel(BufferedImage image, double[][] kernel) {
-//         int width = image.getWidth();
-//         int height = image.getHeight();
-//         BufferedImage filteredImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int y = 1; y < height - 1; y++) {
+            for (int x = 1; x < width - 1; x++) {
+                double sumR = 0, sumG = 0, sumB = 0;
 
-//         for (int y = 1; y < height - 1; y++) {
-//             for (int x = 1; x < width - 1; x++) {
-//                 int pixel = applyKernelToPoint(image, x, y, kernel);
-//                 filteredImage.setRGB(x, y, pixel);
-//             }
-//         }
+                for (int ky = -1; ky <= 1; ky++) {
+                    for (int kx = -1; kx <= 1; kx++) {
+                        int pixel = image.getRGB(x + kx, y + ky);
+                        Color color = new Color(pixel);
+                        double weight = kernel[ky + 1][kx + 1];
 
-//         return filteredImage;
-//     }
+                        sumR += weight * color.getRed();
+                        sumG += weight * color.getGreen();
+                        sumB += weight * color.getBlue();
+                    }
+                }
 
-//     /**
-//      * Apply the given kernel to a single point in the image.
-//      *
-//      * @param image  The image.
-//      * @param x      The x-coordinate of the point.
-//      * @param y      The y-coordinate of the point.
-//      * @param kernel The kernel matrix.
-//      * @return The filtered pixel value.
-//      */
-//     private int applyKernelToPoint(BufferedImage image, int x, int y, double[][] kernel) {
-//         int sumX = 0;
-//         int sumY = 0;
+                int r = Math.min(Math.max((int) sumR, 0), 255);
+                int g = Math.min(Math.max((int) sumG, 0), 255);
+                int b = Math.min(Math.max((int) sumB, 0), 255);
 
-//         // Apply the kernel
-//         for (int j = -1; j <= 1; j++) {
-//             for (int i = -1; i <= 1; i++) {
-//                 int pixel = image.getRGB(x + i, y + j);
-//                 int grayValue = getGrayValue(pixel);
-//                 sumX += grayValue * kernel[j + 1][i + 1];
-//                 sumY += grayValue * kernel[i + 1][j + 1];
-//             }
-//         }
+                Color newColor = new Color(r, g, b);
+                output.setRGB(x, y, newColor.getRGB());
+            }
+        }
 
-//         // Combine the X and Y gradients
-//         int gradient = Math.min(255, Math.max(0, (int) Math.sqrt(sumX * sumX + sumY * sumY)));
+        return output;
+    }
 
-//         // Create the new pixel value
-//         return (gradient << 16) | (gradient << 8) | gradient;
-//     }
+    private BufferedImage combineImages(BufferedImage img1, BufferedImage img2) {
+        int width = img1.getWidth();
+        int height = img1.getHeight();
+        BufferedImage output = new BufferedImage(width, height, img1.getType());
 
-//     /**
-//      * Combine the results of horizontal and vertical Sobel filters.
-//      *
-//      * @param horizontalFiltered Image filtered using horizontal Sobel filter.
-//      * @param verticalFiltered   Image filtered using vertical Sobel filter.
-//      * @return Combined image.
-//      */
-//     private BufferedImage combineImages(BufferedImage horizontalFiltered, BufferedImage verticalFiltered) {
-//         int width = horizontalFiltered.getWidth();
-//         int height = horizontalFiltered.getHeight();
-//         BufferedImage combinedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Color color1 = new Color(img1.getRGB(x, y));
+                Color color2 = new Color(img2.getRGB(x, y));
 
-//         for (int y = 0; y < height; y++) {
-//             for (int x = 0; x < width; x++) {
-//                 int horizontalPixel = horizontalFiltered.getRGB(x, y);
-//                 int verticalPixel = verticalFiltered.getRGB(x, y);
-//                 int combinedPixel = combinePixels(horizontalPixel, verticalPixel);
-//                 combinedImage.setRGB(x, y, combinedPixel);
-//             }
-//         }
+                int r = Math.min(color1.getRed() + color2.getRed(), 255);
+                int g = Math.min(color1.getGreen() + color2.getGreen(), 255);
+                int b = Math.min(color1.getBlue() + color2.getBlue(), 255);
 
-//         return combinedImage;
-//     }
+                Color newColor = new Color(r, g, b);
+                output.setRGB(x, y, newColor.getRGB());
+            }
+        }
 
-//     /**
-//      * Combine the results of horizontal and vertical Sobel filters to get the final pixel value.
-//      *
-//      * @param horizontalPixel Pixel value from horizontal Sobel filter.
-//      * @param verticalPixel   Pixel value from vertical Sobel filter.
-//      * @return Combined pixel value.
-//      */
-//     private int combinePixels(int horizontalPixel, int verticalPixel) {
-//         int horizontalGray = getGrayValue(horizontalPixel);
-//         int verticalGray = getGrayValue(verticalPixel);
-//         int combinedGray = (int) Math.sqrt(horizontalGray * horizontalGray + verticalGray * verticalGray);
-//         return (combinedGray << 16) | (combinedGray << 8) | combinedGray;
-//     }
-
-//     /**
-//      * Get the gray value of a pixel.
-//      *
-//      * @param pixel The pixel value.
-//      * @return The gray value.
-//      */
-//     private int getGrayValue(int pixel) {
-//         int red = (pixel >> 16) & 0xFF;
-//         int green = (pixel >> 8) & 0xFF;
-//         int blue = pixel & 0xFF;
-//         return (red + green + blue) / 3;
-//     }
-// }
-
+        return output;
+    }
+}
