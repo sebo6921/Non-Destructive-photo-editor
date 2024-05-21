@@ -106,11 +106,22 @@ public class FilterActions {
         embossFilter2.addActionListener(new Emboss2Action());
         
         JMenuItem embossFilter3 = new JMenuItem(bundle.getString("Emboss3"));
+        embossFilter3.addActionListener(new Emboss3Action());
+
         JMenuItem embossFilter4 = new JMenuItem(bundle.getString("Emboss4"));
+        embossFilter4.addActionListener(new Emboss4Action());
+
         JMenuItem embossFilter5 = new JMenuItem(bundle.getString("Emboss5"));
+        embossFilter5.addActionListener(new Emboss5Action());
+        
         JMenuItem embossFilter6 = new JMenuItem(bundle.getString("Emboss6"));
+        embossFilter6.addActionListener(new Emboss6Action());
+
         JMenuItem embossFilter7 = new JMenuItem(bundle.getString("Emboss7"));
+        embossFilter7.addActionListener(new Emboss7Action());
+        
         JMenuItem embossFilter8 = new JMenuItem(bundle.getString("Emboss8"));
+        embossFilter8.addActionListener(new Emboss8Action());
 
         embossFiltersMenu.add(embossFilter1);
         embossFiltersMenu.add(embossFilter2);
@@ -377,6 +388,11 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to emboss an image
+     * </p>
+     */
     public class Emboss1Action extends ImageAction {
         
         /**
@@ -399,6 +415,11 @@ public class FilterActions {
         }
     }
 
+    /**
+     * <p>
+     * Action to emboss an image
+     * </p>
+     */
     public class Emboss2Action extends ImageAction {
         
         /**
@@ -416,6 +437,168 @@ public class FilterActions {
          */
         public void actionPerformed(ActionEvent e) {
             target.getImage().apply(new EmbossFilter2());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to emboss an image
+     * </p>
+     */
+    public class Emboss3Action extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a new emboss 3 action.
+         * </p>
+         */
+        Emboss3Action() {
+            super(bundle.getString("Emboss3"), null, "EmbossFilterDesc", null);
+        }
+
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new EmbossFilter3());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to emboss an image
+     * </p>
+     */
+    public class Emboss4Action extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a new emboss 4 action.
+         * </p>
+         */
+        Emboss4Action() {
+            super(bundle.getString("Emboss4"), null, "EmbossFilterDesc", null);
+        }
+
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new EmbossFilter4());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to emboss an image
+     * </p>
+     */
+    public class Emboss5Action extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a new emboss 5 action.
+         * </p>
+         */
+        Emboss5Action() {
+            super(bundle.getString("Emboss5"), null, "EmbossFilterDesc", null);
+        }
+
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new EmbossFilter5());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to emboss an image
+     * </p>
+     */
+    public class Emboss6Action extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a new emboss 2 action.
+         * </p>
+         */
+        Emboss6Action() {
+            super(bundle.getString("Emboss6"), null, "EmbossFilterDesc", null);
+        }
+
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new EmbossFilter6());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to emboss an image
+     * </p>
+     */
+    public class Emboss7Action extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a new emboss 7 action.
+         * </p>
+         */
+        Emboss7Action() {
+            super(bundle.getString("Emboss7"), null, "EmbossFilterDesc", null);
+        }
+
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new EmbossFilter7());
+            target.repaint();
+            target.getParent().revalidate();
+        }
+    }
+
+    /**
+     * <p>
+     * Action to emboss an image
+     * </p>
+     */
+    public class Emboss8Action extends ImageAction {
+        
+        /**
+         * <p>
+         * Create a new emboss 8 action.
+         * </p>
+         */
+        Emboss8Action() {
+            super(bundle.getString("Emboss8"), null, "EmbossFilterDesc", null);
+        }
+
+        /**
+         *
+         * @param e The event triggering this callback.
+         */
+        public void actionPerformed(ActionEvent e) {
+            target.getImage().apply(new EmbossFilter8());
             target.repaint();
             target.getParent().revalidate();
         }

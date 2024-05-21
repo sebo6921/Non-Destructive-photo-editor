@@ -10,7 +10,7 @@ import cosc202.andie.ImageOperation;
 public class EmbossFilter7 implements ImageOperation, java.io.Serializable {
     private int x1, x2, y1, y2 = -1;
 
-    EmbossFilter7() {
+    public EmbossFilter7() {
     }
 
     EmbossFilter7(Point p1, Point p2) {
