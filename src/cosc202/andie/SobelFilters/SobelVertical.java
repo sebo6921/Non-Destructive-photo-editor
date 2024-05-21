@@ -1,23 +1,23 @@
 package cosc202.andie.SobelFilters;
 
 
+
 import java.awt.image.*;
+import java.awt.Point;
 
 import cosc202.andie.AndieConvolveOp;
 import cosc202.andie.ImageOperation;
 
-import java.awt.Point;
-
 /**
  * <p>
- * ImageOperation to apply horizontal Sobel effect to images.
+ * ImageOperation to apply vertical Sobel effect to images.
  * </p>
  * 
  * <p>
- * This class provides a method to apply the horizontal Sobel filter to an input image using a specified kernel.
+ * This class provides a method to apply the vertical Sobel filter to an input image using a specified kernel.
  * </p>
  */
-public class SobelHorizontal implements ImageOperation, java.io.Serializable {
+public class SobelVertical implements ImageOperation, java.io.Serializable {
     /**
      * <p>
      * The coordinates of the corners of the selected area. If there is no selected
@@ -28,18 +28,18 @@ public class SobelHorizontal implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Construct a new SobelHorizontal instance
+     * Construct a new SobelVertical instance
      * </p>
      */
-    SobelHorizontal() {
+    SobelVertical() {
     }
 
     /**
      * <p>
-     * Construct a new SobelHorizontal filter with given points
+     * Construct a new SobelVertical filter with given points
      * </p>
      */
-    SobelHorizontal(Point p1, Point p2) {
+    SobelVertical(Point p1, Point p2) {
         this.x1 = (int) p1.getX();
         this.x2 = (int) p2.getX();
         this.y1 = (int) p1.getY();
@@ -48,7 +48,7 @@ public class SobelHorizontal implements ImageOperation, java.io.Serializable {
 
     /**
      * <p>
-     * Apply a horizontal Sobel filter to an image
+     * Apply a vertical Sobel filter to an image
      * </p>
      * 
      * <p>
@@ -63,7 +63,7 @@ public class SobelHorizontal implements ImageOperation, java.io.Serializable {
     public BufferedImage apply(BufferedImage input) {
         BufferedImage output = null;
         try {
-            float[] array = { -0.5f, 0f, 0.5f, -1f, 0f, 1f, -0.5f, 0f, 0.5f };
+            float[] array = { -0.5f, -1f, -0.5f, 0f, 0f, 0f, 0.5f, 1f, 0.5f };
 
             Kernel kernel = new Kernel(3, 3, array);
             AndieConvolveOp convOp = new AndieConvolveOp(kernel);
