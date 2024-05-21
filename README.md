@@ -4,6 +4,8 @@ ANDIE is an image processing and editing program, a bit like Photoshop. As ANDIE
 # How ANDIE Was Tested
 ANDIE was tested thoroughly by running the program through different devices and operating systems to ensure optimal performance and compatibility. Throughout the development process, each ANDIE feature was tested to identify and address any potential issues. It was also run to test usability to gather feedback and address user concerns that may be face as a result of using the program.
 
+To test the user interface of the ANDIE program, individuals were invited to test its features and assess whether their implementation and descriptions met their expectations. Feedback from these participants was collected and utilized to refine and enhance the interface and to ensure the program was user-friendly.
+
 ## Contributions
 **Sharpen Filter** - Sebastian Chkourko
 
@@ -29,52 +31,56 @@ ANDIE was tested thoroughly by running the program through different devices and
 
 **Other Error Avoidance/Prevention** - Jessica Fan, Kruti Mistry
 
-**Extended filters**
+**Extended filters** - Sebastian Chkourko
 
 **Filters with negative results** - Jessica Fan
 
-**Emboss and edge detection filters**
+**Emboss and edge detection filters** - Kruti Mistry
 
-**Brightness adjustment**
+**Brightness adjustment** - Diego Olivera
 
-**Contrast adjustment**
+**Contrast adjustment** -  Diego Olivera
 
-**Block averaging**
+**Block averaging** - Diego Olivera
 
 **Random scattering**
 
 **Toolbar for common operations** - Jessica Fan
 
-**Keyboard shortcuts**
+**Keyboard shortcuts** - Sebastian Chkourko
 
-**Mouse selection of rectangular regions** - Jessica Fan
+**Mouse selection of rectangular regions** - James Maher, Jessica Fan
 
-**Crop to selection** 
+**Crop to selection** Diego Olivera
 
 **Drawing functions – rectangle, ellipse, line** - Jessica Fan
 
-**Macros for record and replay of operations**
+**Macros for record and replay of operations** - Sebastian Chkourko
 
-**Show us something. . .: ANDIE Help Guide, Change Toolbar Colour, Freehand Drawing** 
+**Show us something. . .: ANDIE Help Guide, Change Toolbar Colour, Freehand Drawing** - Sebastian Chkourko, Jessica Fan
 
 
 ## ANDIE Build Instructions
 Run ANDIE through Gradle.
 
 ## ANDIE User Guide 
-**Shortcut Keys** - To use the shortcuts, you must click on the section of the menu where the action falls under before clicking the shortcut key. e.g. Save (S), Click File, then shortcut S.
+**Image Save As, Image Export** - To use "Save As" and "Export," include the image type in the new filename. For example, to save a PNG image with the filename "imageFile," name it "imageFile.png."
 
-**Image Save As, Image Export** - To use Save As and Export, you must put the image type after writing the new filename, e.g. a png type image with the file name imageFile must be named imageFile.png in order to save as or export the image.
+**Mean Filter, Gaussian Blur Filter, Median Filter** - The radius value for these filters must be between 1 and 10. The program enforces these limits using a JSpinner with minimum and maximum bounds.
 
-**Mean Filter, Gaussian Blur Filter, Median Filter** - The number inputted for the radius of the image must be between 1 and 10.
+**Resize** - The resize value for the current image must be between 25 (25% of the current image size) and 300 (300% of the current image size). This is controlled within the program using a JSpinner.
 
-**Resize** - The number inputted for the resize of the current image must be between 25 (a quarter of the current image size) and 300 (3 times the current image size).
+**Colour Channel Cycling** - This feature cycles through different possible re-orderings of RGB channels, such as RGB, GRB, and BRG.
 
-**Colour Channel Cycling** - Cycles through different possibilities of the re-ordering of RGB e.g. RGB, GRB, BRG
+**Drawing Stroke Width** - The number inputted for the stroke width must be between 1 and 10. The program ensures this range using a JSpinner.
 
-**Choose Language** - In the help menu, click the Change Language button. A pop-up with a drop-down menu of the different possible languages is shown. Choose the language you want the ANDIE program to be and restart ANDIE.
+**Choose Language** - To change the language, go to the "Settings" menu and click the "Change Language" button. A pop-up with a drop-down menu of available languages will appear. Choose your preferred language and restart ANDIE.
 
-**All Other Features** - Click the corresponding button for the feature or use the shortcut provided.
+**Crop to Selection and Drawing Functions** - To use these features, press and hold the mouse button, then release it when you want the crop or drawing to end.
+
+**All Other Features** - Click the corresponding button for the desired feature or use the provided shortcut. The program uses input controls, to enforce valid input ranges for all applicable features, ensuring ease of use and preventing errors.
 
 ## Issues and Bugs
 **Median Filter** - The Median Filter operation, while effective, may experience a delay in processing and application, this is particularly noticeable on larger images. This delay can extend up to approximately 10 seconds, depending on the size and complexity of the image. 
+
+**Colour Channel Cycling** - While colour channel cycling does cycle through all RGB variations, the order in which these variations appear may not follow a predictable sequence.
