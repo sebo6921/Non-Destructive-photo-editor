@@ -1,9 +1,8 @@
 package cosc202.andie.EmbossFilters;
 
-import java.awt.image.BufferedImage;
-
 import cosc202.andie.AndieConvolveOp;
 import cosc202.andie.ImageOperation;
+import cosc202.andie.OffsetFilter;
 
 import java.awt.Point;
 import java.awt.image.*;
@@ -33,6 +32,8 @@ public class EmbossFilter1 implements ImageOperation, java.io.Serializable {
                 convOp.filter(input, output, x1, y1, x2, y2);
             else
                 convOp.filter(input, output);
+            OffsetFilter offsetFilter = new OffsetFilter();
+            output = offsetFilter.apply(output);
         } catch (java.awt.image.RasterFormatException ex) {
             ex.printStackTrace();
         }

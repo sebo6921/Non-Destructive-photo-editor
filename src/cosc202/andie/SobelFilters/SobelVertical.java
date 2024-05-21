@@ -31,7 +31,7 @@ public class SobelVertical implements ImageOperation, java.io.Serializable {
      * Construct a new SobelVertical instance
      * </p>
      */
-    SobelVertical() {
+    public SobelVertical() {
     }
 
     /**
