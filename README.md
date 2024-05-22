@@ -87,5 +87,5 @@ This user guide serves as a comprehensive reference, providing insights into eac
 
 **Colour Channel Cycling** - While colour channel cycling does cycle through all RGB variations, the order in which these variations appear may not follow a predictable sequence.
 
-**Crop and Drawing Shapes** - While these operations are effective, they must be executed from the top left to the bottom right to ensure precision.
+**Crop and Drawing Shapes** - Although these operations are effective, they must be executed from the top left to the bottom right to ensure precision. If the user opts to crop while the drawing mode is selected, the drawing mode must be exited and re-entered, as the mode reverts to selection mode after cropping.
 
