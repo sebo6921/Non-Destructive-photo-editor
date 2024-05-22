@@ -32,7 +32,6 @@ import cosc202.andie.DrawingShapes.RectangleOperation;
  */
 public class ImagePanel extends JPanel implements MouseListener, MouseMotionListener {
 
-    /** Mode to change the mouse actions based on the selected Mode */
     public enum Mode {
         SELECTION, DRAWING, CROPPING
     }

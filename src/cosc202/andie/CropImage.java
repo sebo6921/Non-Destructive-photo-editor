@@ -40,7 +40,7 @@ public class CropImage implements ImageOperation, java.io.Serializable {
      * </p>
      * 
      * <p>
-     * The crop process takes the input coordinates from the 
+     * The crop process takes the input coordinates from the
      * mouse and highlights an area to crop to match how the
      * mouse is pressed and released
      * </p>

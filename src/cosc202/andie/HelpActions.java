@@ -15,7 +15,7 @@ import javax.swing.KeyStroke;
 
 /**
  * <p>
- * Actions provided by the Settings menu.
+ * Actions provided by the Help menu.
  * </p>
  * 
  * <p>
@@ -30,7 +30,7 @@ import javax.swing.KeyStroke;
 public class HelpActions {
 
     /**
-     * A list of actions for the Settings menu.
+     * A list of actions for the Help menu.
      */
     protected ArrayList<Action> actions;
 

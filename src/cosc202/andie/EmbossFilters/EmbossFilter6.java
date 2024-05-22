@@ -8,7 +8,7 @@ import cosc202.andie.ImageOperation;
 
 import java.awt.image.*;
 
-/**
+/*
  * <p>
  * A filter that apply emboss to image.
  * </p>
@@ -18,16 +18,8 @@ import java.awt.image.*;
  * </p>
  * 
  * @author Kruti Mistry
- * @version 1.0
  */
 public class EmbossFilter6 implements ImageOperation, java.io.Serializable {
-    
-    /**
-     * <p>
-     * Creates a new emboss filter operation
-     * </p
-     */
-
     public EmbossFilter6() {
     }
 
@@ -51,6 +43,7 @@ public class EmbossFilter6 implements ImageOperation, java.io.Serializable {
      * 
      * @return Returns the an image with the Emboss filter applied.
      */
+
     public BufferedImage apply(BufferedImage input) {
         float[] array = { -1, 0, 0, 0, 0, 0, 0, 0, 1 };
 
