@@ -32,7 +32,7 @@ public class Rotate implements ImageOperation, java.io.Serializable {
         this.angle = 1;
     }
 
-    /**
+        /**
      * <p>
      * Constructor that rotates the image by a given angle value
      * </p>
@@ -130,7 +130,7 @@ public class Rotate implements ImageOperation, java.io.Serializable {
         int newWidth = input.getWidth();
         int newHeight = input.getHeight();
 
-        // flips the image
+        //flips the image
         BufferedImage flipped = new BufferedImage(newWidth, newHeight, input.getType());
         for (int y = 0; y < newHeight; y++) {
             for (int x = 0; x < newWidth; x++) {
@@ -138,7 +138,7 @@ public class Rotate implements ImageOperation, java.io.Serializable {
             }
         }
 
-        // transposes the image
+        //transposes the image
         BufferedImage transposed = new BufferedImage(newHeight, newWidth, input.getType());
         for (int y = 0; y < newWidth; y++) {
             for (int x = 0; x < newHeight; x++) {

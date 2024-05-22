@@ -41,8 +41,6 @@ Voltear - Voltear la imagen horizontal o verticalmente.
 
 Dibujo:
 Comenzar a dibujar - Se abre la barra de herramientas para dibujar formas o a mano alzada en el lienzo de la imagen.
-Seleccionar Color - Personaliza el color del pincel.
-Ancho del Trazo - Personaliza el ancho del pincel.
 
 Configuración:
 Guía de ANDIE - Acceder a la guía del usuario para ANDIE.

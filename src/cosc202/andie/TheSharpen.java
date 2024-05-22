@@ -55,6 +55,7 @@ public class TheSharpen implements ImageOperation, java.io.Serializable {
      * 
      * @param input The image to apply the Sharpen filter to.
      * @return The resulting (sharpened) image.
+     * @throws Exception Raised if an unexpected {@code Exception} occurs.
      */
     public BufferedImage apply(BufferedImage input) {
         BufferedImage output = null;

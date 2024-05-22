@@ -176,59 +176,55 @@ class EditableImage {
      * </p>
      * 
      * @param filePath The file to open the image from.
+     * @throws Exception If something goes wrong.
      */
-    public void open(String filePath) {
+    public void open(String filePath) throws Exception {
+        if (imageModified) {
+            int choice = JOptionPane.showConfirmDialog(null,
+                    "You have unsaved changes. Do you want to discard them and open a new image?", "Confirm",
+                    JOptionPane.YES_NO_OPTION);
+            if (choice != JOptionPane.YES_OPTION) {
+                return; // User chose not to discard changes, so return without opening a new image
+            }
+        }
+
+        ops.clear();
+        imageFilename = filePath;
+        opsFilename = imageFilename + ".ops";
+        File imageFile = new File(imageFilename);
         try {
-            if (imageModified) {
-                int choice = JOptionPane.showConfirmDialog(null,
-                        "You have unsaved changes. Do you want to discard them and open a new image?", "Confirm",
-                        JOptionPane.YES_NO_OPTION);
-                if (choice != JOptionPane.YES_OPTION) {
-                    return; // User chose not to discard changes, so return without opening a new image
-                }
+            original = ImageIO.read(imageFile);
+            if (original == null) { // this is where the error is happening
+                JOptionPane.showMessageDialog(null, "The file you are trying to open is not a valid image.",
+                        "Invalid Image", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+            current = deepCopy(original);
 
-            ops.clear();
-            imageFilename = filePath;
-            opsFilename = imageFilename + ".ops";
-            File imageFile = new File(imageFilename);
             try {
-                original = ImageIO.read(imageFile);
-                if (original == null) { // this is where the error is happening
-                    JOptionPane.showMessageDialog(null, "The file you are trying to open is not a valid image.",
-                            "Invalid Image", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                current = deepCopy(original);
+                FileInputStream fileIn = new FileInputStream(this.opsFilename);
+                ObjectInputStream objIn = new ObjectInputStream(fileIn);
 
-                try {
-                    FileInputStream fileIn = new FileInputStream(this.opsFilename);
-                    ObjectInputStream objIn = new ObjectInputStream(fileIn);
+                // Silence the Java compiler warning about type casting.
+                // Understanding the cause of the warning is way beyond
+                // the scope of COSC202, but if you're interested, it has
+                // to do with "type erasure" in Java: the compiler cannot
+                // produce code that fails at this point in all cases in
+                // which there is actually a type mismatch for one of the
+                // elements within the Stack, i.e., a non-ImageOperation.
+                @SuppressWarnings("unchecked")
+                Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
+                ops = opsFromFile;
+                redoOps.clear();
+                objIn.close();
+                fileIn.close();
+            } catch (Exception ex) {
+                // Could be no file or something else. Carry on for now.
 
-                    // Silence the Java compiler warning about type casting.
-                    // Understanding the cause of the warning is way beyond
-                    // the scope of COSC202, but if you're interested, it has
-                    // to do with "type erasure" in Java: the compiler cannot
-                    // produce code that fails at this point in all cases in
-                    // which there is actually a type mismatch for one of the
-                    // elements within the Stack, i.e., a non-ImageOperation.
-                    @SuppressWarnings("unchecked")
-                    Stack<ImageOperation> opsFromFile = (Stack<ImageOperation>) objIn.readObject();
-                    ops = opsFromFile;
-                    redoOps.clear();
-                    objIn.close();
-                    fileIn.close();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, bundle.getString("FileNotAccessible"),
-                            bundle.getString("ErrorOpening"), JOptionPane.ERROR_MESSAGE);
-                }
-                this.refresh();
-                imageModified = false; // Reset imageModified flag after opening a new image
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, bundle.getString("FileNotAccessible"),
-                        bundle.getString("ErrorOpening"), JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
+            this.refresh();
+            imageModified = false; // Reset imageModified flag after opening a new image
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, bundle.getString("FileNotAccessible"),
                     bundle.getString("ErrorOpening"), JOptionPane.ERROR_MESSAGE);
         }
@@ -247,31 +243,23 @@ class EditableImage {
      * save
      * the current operations to <code>some/path/to/image.png.ops</code>.
      * </p>
+     * 
+     * @throws Exception If something goes wrong.
      */
-    public void save() {
-        try {
-            if (this.opsFilename == null) {
-                this.opsFilename = this.imageFilename + ".ops";
-            }
-            // Write image file based on file extension
-            String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
-            ImageIO.write(original, extension, new File(imageFilename));
-            // Write operations file
-            FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
-            ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-            objOut.writeObject(this.ops);
-            objOut.close();
-            fileOut.close();
-            imageModified = false; // Reset imageModified flag after saving a new image
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, bundle.getString("ErrorSaving") + ": " + ex.getMessage(),
-                    bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, bundle.getString("UnexpectedError") + ": " + ex.getMessage(),
-                    bundle.getString("UnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
+    public void save() throws Exception {
+        if (this.opsFilename == null) {
+            this.opsFilename = this.imageFilename + ".ops";
         }
+        // Write image file based on file extension
+        String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
+        ImageIO.write(original, extension, new File(imageFilename));
+        // Write operations file
+        FileOutputStream fileOut = new FileOutputStream(this.opsFilename);
+        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+        objOut.writeObject(this.ops);
+        objOut.close();
+        fileOut.close();
+        imageModified = false; // Reset imageModified flag after saving a new image
     }
 
     /**
@@ -288,17 +276,12 @@ class EditableImage {
      * </p>
      * 
      * @param imageFilename The file location to save the image to.
+     * @throws Exception If something goes wrong.
      */
-    public void saveAs(String imageFilename) {
-        try {
-            this.imageFilename = imageFilename;
-            this.opsFilename = imageFilename + ".ops";
-            save();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, bundle.getString("ErrorSaving") + ": " + ex.getMessage(),
-                    bundle.getString("ErrorSavingMSG"), JOptionPane.ERROR_MESSAGE);
-        }
+    public void saveAs(String imageFilename) throws Exception {
+        this.imageFilename = imageFilename;
+        this.opsFilename = imageFilename + ".ops";
+        save();
     }
 
     /**
@@ -311,22 +294,13 @@ class EditableImage {
      * </p>
      * 
      * @param imageFilename The file location to save the image to.
+     * @throws Exception If something goes wrong.
      */
-    public void export(String imageFilename) {
-        try {
-            this.imageFilename = imageFilename;
-            String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
-            BufferedImage currentImage = current;
-            ImageIO.write(currentImage, extension, new File(imageFilename));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, bundle.getString("ExportError") + ": " + ex.getMessage(),
-                    bundle.getString("ExportErrorMSG"), JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, bundle.getString("ExportUnexpectedError") + ": " + ex.getMessage(),
-                    bundle.getString("ExportUnexpectedErrorMSG"), JOptionPane.ERROR_MESSAGE);
-        }
+    public void export(String imageFilename) throws Exception {
+        this.imageFilename = imageFilename;
+        String extension = imageFilename.substring(1 + imageFilename.lastIndexOf(".")).toLowerCase();
+        BufferedImage currentImage = current;
+        ImageIO.write(currentImage, extension, new File(imageFilename));
     }
 
     /**

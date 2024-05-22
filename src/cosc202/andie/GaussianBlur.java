@@ -100,6 +100,7 @@ public class GaussianBlur implements ImageOperation, java.io.Serializable {
      * 
      * @param input The image to apply the Gaussian Blur filter to.
      * @return The resulting blurred image
+     * @throws Exception Raised if an unexpected {@code Exception} occurs.
      */
     public BufferedImage apply(BufferedImage input) {
         BufferedImage output = null;

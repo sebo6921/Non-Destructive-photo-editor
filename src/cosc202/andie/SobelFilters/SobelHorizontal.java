@@ -15,7 +15,6 @@ import cosc202.andie.ImageOperation;
  * </p>
  * 
  * @author Kruti Mistry
- * @version 1.0
  */
 public class SobelHorizontal implements ImageOperation, java.io.Serializable {
     /**
@@ -38,6 +37,7 @@ public class SobelHorizontal implements ImageOperation, java.io.Serializable {
      * 
      * @return Returns the an image with the Emboss filter applied.
      */
+
     public BufferedImage apply(BufferedImage input) {
         float[] array = { -0.5f, 0, +0.5f,
                 -1.0f, 0, +1.0f,
@@ -45,7 +45,11 @@ public class SobelHorizontal implements ImageOperation, java.io.Serializable {
 
         // Make a filter from the array
         Kernel kernel = new Kernel(3, 3, array);
+        System.out.println("Before convolve");
+
         BufferedImage output = Convolve.convolve(input, kernel);
+
+        System.out.println("After convolve");
 
         return output;
     }
