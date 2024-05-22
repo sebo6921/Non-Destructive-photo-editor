@@ -15,12 +15,12 @@ import javax.swing.KeyStroke;
 
 /**
  * <p>
- * Actions provided by the Help menu.
+ * Actions provided by the Setting menu.
  * </p>
  * 
  * <p>
  * The user will expect to find an ANDIE help guide and the ability to change
- * the language
+ * the language, as well as the ability to change the toolbar colour
  * of the ANDIE program.
  * </p>
  * 

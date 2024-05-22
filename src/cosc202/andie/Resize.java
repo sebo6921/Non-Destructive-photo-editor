@@ -71,9 +71,7 @@ public class Resize implements ImageOperation, java.io.Serializable {
         Graphics2D g = output.createGraphics();
         // Set rendering hints for better interpolation quality when scaling images
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        // Draw the scaled instance of the input image onto the output image with smooth
-        // scaling
-        // using Image.SCALE_SMOOTH for better quality
+        // Draw the scaled instance of the input image onto the output image with smooth scaling using Image.SCALE_SMOOTH for better quality
         g.drawImage(input.getScaledInstance((int) newWidth, (int) newHeight, Image.SCALE_SMOOTH), 0, 0, null);
         g.dispose();
 

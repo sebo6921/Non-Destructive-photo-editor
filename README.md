@@ -33,7 +33,7 @@ To test the user interface of the ANDIE program, individuals were invited to tes
 
 **Extended filters** - Sebastian Chkourko
 
-**Filters with negative results** - Jessica Fan
+**Filters with negative results** - Jessica Fan, Kruti Mistry
 
 **Emboss and edge detection filters** - Kruti Mistry
 
@@ -45,13 +45,13 @@ To test the user interface of the ANDIE program, individuals were invited to tes
 
 **Random scattering** - Diego Olivera
 
-**Toolbar for common operations** - Jessica Fan
+**Toolbar for common operations** - Jessica Fan, Kruti Mistry
 
 **Keyboard shortcuts** - Sebastian Chkourko
 
 **Mouse selection of rectangular regions** - James Maher, Jessica Fan
 
-**Crop to selection** Diego Olivera
+**Crop to selection** Diego Olivera, Jessica Fan
 
 **Drawing functions – rectangle, ellipse, line** - Jessica Fan
 
@@ -64,6 +64,10 @@ To test the user interface of the ANDIE program, individuals were invited to tes
 Run ANDIE through Gradle.
 
 ## ANDIE User Guide 
+This user guide serves as a comprehensive reference, providing insights into each feature's usage, restrictions, and feedback mechanisms. By adhering to these guidelines, users can maximize ANDIE's capabilities. 
+
+**All Features** - Click the corresponding button for the desired feature or use the provided shortcut. The program uses input controls, to enforce valid input ranges for all applicable features, ensuring ease of use and preventing errors.
+
 **Image Save As, Image Export** - To use "Save As" and "Export," include the image type in the new filename. For example, to save a PNG image with the filename "imageFile," name it "imageFile.png."
 
 **Mean Filter, Gaussian Blur Filter, Median Filter** - The radius value for these filters must be between 1 and 10. The program enforces these limits using a JSpinner with minimum and maximum bounds.
@@ -78,9 +82,10 @@ Run ANDIE through Gradle.
 
 **Crop to Selection and Drawing Functions** - To use these features, press and hold the mouse button, then release it when you want the crop or drawing to end.
 
-**All Other Features** - Click the corresponding button for the desired feature or use the provided shortcut. The program uses input controls, to enforce valid input ranges for all applicable features, ensuring ease of use and preventing errors.
-
 ## Issues and Bugs
 **Median Filter** - The Median Filter operation, while effective, may experience a delay in processing and application, this is particularly noticeable on larger images. This delay can extend up to approximately 10 seconds, depending on the size and complexity of the image. 
 
 **Colour Channel Cycling** - While colour channel cycling does cycle through all RGB variations, the order in which these variations appear may not follow a predictable sequence.
+
+**Crop and Drawing Shapes** - While these operations are effective, they must be executed from the top left to the bottom right to ensure precision.
+

@@ -15,7 +15,7 @@ Ver:
 Acercar - Ampliar la vista de la imagen.
 Alejar - Reducir la vista de la imagen.
 Ver completo - Ver la imagen completa dentro de la ventana de la aplicación.
-Recortar imagen - Recortar el área seleccionada de la imagen.
+Recortar imagen - Recorta el área seleccionada de la imagen seleccionando desde la esquina superior izquierda hasta la esquina inferior derecha para asegurar precisión.
 
 Filtro:
 Filtro medio - Aplicar un filtro que reemplaza cada valor de píxel con el valor promedio de sus píxeles vecinos.
@@ -41,6 +41,9 @@ Voltear - Voltear la imagen horizontal o verticalmente.
 
 Dibujo:
 Comenzar a dibujar - Se abre la barra de herramientas para dibujar formas o a mano alzada en el lienzo de la imagen.
+Seleccionar Color - Personaliza el color del pincel.
+Ancho del Trazo - Personaliza el ancho del pincel.
+Dibujar la forma - Dibuja la forma desde la esquina superior izquierda hasta la esquina inferior derecha para asegurar precisión.
 
 Configuración:
 Guía de ANDIE - Acceder a la guía del usuario para ANDIE.

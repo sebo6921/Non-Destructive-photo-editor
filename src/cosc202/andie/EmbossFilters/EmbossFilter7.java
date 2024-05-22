@@ -8,7 +8,7 @@ import cosc202.andie.ImageOperation;
 
 import java.awt.image.*;
 
-/*
+/**
  * <p>
  * A filter that apply emboss to image.
  * </p>
@@ -18,8 +18,15 @@ import java.awt.image.*;
  * </p>
  * 
  * @author Kruti Mistry
+ * @version 1.0
  */
 public class EmbossFilter7 implements ImageOperation, java.io.Serializable {
+    
+    /**
+     * <p>
+     * Creates a new emboss filter operation
+     * </p
+     */
     public EmbossFilter7() {
     }
 

@@ -15,7 +15,7 @@ View:
 Zoom In - Enlarge the view of the image.
 Zoom Out - Reduce the view of the image.
 Zoom Full - View the entire image within the application window.
-Crop Image - Crop the selected area of the image.
+Crop Image - Crop the selected area of the image by selecting from top left to bottom right to ensure accuracy.
 
 Filter:
 Mean Filter - Apply a filter that replaces each pixel value with the average value of its neighbouring pixels.
@@ -41,6 +41,9 @@ Flip - Flip the image horizontally or vertically.
 
 Drawing:
 Start Drawing - Toolbar pops up to draw shapes or freehand on the image canvas.
+Select Colour - Customise the colour of the brush.
+Stroke Width - Customise the width of the brush.
+Drawing Shape - Draw the shape from top left to bottom right to ensure accuracy.
 
 Settings:
 ANDIE Guide - Access the user guide for ANDIE.

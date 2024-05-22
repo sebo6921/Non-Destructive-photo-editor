@@ -73,10 +73,9 @@ public class FilterActions {
         actions.add(new MedianFilterAction(bundle.getString("MedianFilter"), null, bundle.getString("MedianFilterDesc"),
                 Integer.valueOf(KeyEvent.VK_E)));
         actions.add(new BlockAveragingAction(bundle.getString("BlockAvg"), null, bundle.getString("BlockAvgDesc"),
-                Integer.valueOf(KeyEvent.VK_A)));
-
+                Integer.valueOf(KeyEvent.VK_T)));
         actions.add(new RandomScatteringAction(bundle.getString("RandomScattering"), null, bundle.getString("RandomScatteringDesc"),
-                Integer.valueOf(KeyEvent.VK_R)));
+                Integer.valueOf(KeyEvent.VK_U)));
     }
 
     /**
@@ -540,7 +539,7 @@ public class FilterActions {
 
         /**
          * <p>
-         * Create a new emboss 2 action.
+         * Create a new emboss 6 action.
          * </p>
          */
         Emboss6Action() {
@@ -690,6 +689,7 @@ public class FilterActions {
          */
         BlockAveragingAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_DOWN_MASK));
         }
 
 
@@ -753,6 +753,7 @@ public class FilterActions {
          */
         RandomScatteringAction(String name, ImageIcon icon, String desc, Integer mnemonic){
             super(name, icon, desc, mnemonic);
+            putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
         }
         
         
