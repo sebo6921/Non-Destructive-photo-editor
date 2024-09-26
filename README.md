@@ -9,9 +9,9 @@ To test the user interface of the ANDIE program, individuals were invited to tes
 ## Contributions
 **Sharpen Filter** - Sebastian Chkourko
 
-**Gaussian Blur Filter** - Jessica Fan
+**Gaussian Blur Filter** - Sebastian Chkourko
 
-**Median Filter** - Kruti Mistry
+**Median Filter** - Sebastian Chkourko
 
 **Image Inversion** - James Maher
 
